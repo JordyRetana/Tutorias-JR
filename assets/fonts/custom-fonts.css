@@ -1,0 +1,101 @@
+/* Fuentes personalizadas para TutoríasPro */
+@font-face {
+    font-family: 'CodePro';
+    src: url('./CodePro-Regular.woff2') format('woff2'),
+         url('./CodePro-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CodePro';
+    src: url('./CodePro-Bold.woff2') format('woff2'),
+         url('./CodePro-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CodePro';
+    src: url('./CodePro-Light.woff2') format('woff2'),
+         url('./CodePro-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'LearnFont';
+    src: url('./LearnFont-Regular.woff2') format('woff2'),
+         url('./LearnFont-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'LearnFont';
+    src: url('./LearnFont-Bold.woff2') format('woff2'),
+         url('./LearnFont-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Icon Font para íconos personalizados */
+@font-face {
+    font-family: 'TutorIcons';
+    src: url('./tutor-icons.woff2') format('woff2'),
+         url('./tutor-icons.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+.icon-tutor:before {
+    font-family: 'TutorIcons';
+    content: "\e900";
+}
+
+.icon-code:before {
+    font-family: 'TutorIcons';
+    content: "\e901";
+}
+
+.icon-mentor:before {
+    font-family: 'TutorIcons';
+    content: "\e902";
+}
+
+.icon-project:before {
+    font-family: 'TutorIcons';
+    content: "\e903";
+}
+
+.icon-certificate:before {
+    font-family: 'TutorIcons';
+    content: "\e904";
+}
+
+/* Clases utilitarias para fuentes */
+.font-code {
+    font-family: 'CodePro', 'Courier New', monospace;
+}
+
+.font-learn {
+    font-family: 'LearnFont', 'Inter', sans-serif;
+}
+
+.font-icons {
+    font-family: 'TutorIcons', 'Font Awesome', sans-serif;
+}
+
+/* Variables CSS para fuentes */
+:root {
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-secondary: 'LearnFont', var(--font-primary);
+    --font-mono: 'CodePro', 'Courier New', monospace;
+    --font-icons: 'TutorIcons', 'Font Awesome';
+}

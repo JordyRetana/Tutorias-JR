@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="es" data-mode="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planes y Paquetes - Tutorías de Programación</title>
+    <meta name="description" content="Planes de tutoría estructurados con descuentos por paquetes. Starter, Progreso e Intensivo para diferentes objetivos.">
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <style>
+        .page-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+        
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-hero .lead {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .plans-comparison {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            padding: 50px;
+            margin: 60px 0;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            overflow-x: auto;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        .comparison-table th {
+            background: var(--gray-50);
+            padding: 24px 20px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .comparison-table th:first-child {
+            text-align: left;
+            background: transparent;
+            width: 200px;
+        }
+        
+        .comparison-table th.plan-header {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
+        
+        .comparison-table th.plan-header.popular {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+        }
+        
+        .plan-badge {
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            padding: 6px 30px;
+            transform: rotate(45deg);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        
+        .comparison-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+            color: var(--text-primary);
+            background: var(--gray-50);
+        }
+        
+        .comparison-table tr:hover td {
+            background: var(--gray-50);
+        }
+        
+        .comparison-table .plan-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .comparison-table .plan-sessions {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .plan-feature-check {
+            color: var(--secondary);
+            font-size: 1.125rem;
+        }
+        
+        .plan-feature-cross {
+            color: #ef4444;
+            font-size: 1.125rem;
+        }
+        
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section:nth-child(even) {
+            background: var(--gray-50);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+        }
+        
+        .plan-recommendation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .recommendation-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .recommendation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+        
+        .recommendation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .recommendation-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .testimonial-item {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+        
+        .testimonial-item::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 3rem;
+            color: var(--primary-light);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .author-plan {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+        
+        .faq-grid {
+            display: grid;
+            gap: 16px;
+            margin-top: 40px;
+        }
+        
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .faq-item:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .faq-question i {
+            color: var(--primary);
+        }
+        
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            padding-left: 36px;
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .plan-highlight {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            padding: 80px 0;
+            margin: 100px 0;
+            border-radius: var(--radius-xl);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plan-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+        }
+        
+        .highlight-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+        
+        .highlight-content h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight-content p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.125rem;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .plans-comparison {
+                padding: 20px;
+            }
+            
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 12px 8px;
+            }
+            
+            .plan-price {
+                font-size: 1.5rem !important;
+            }
+            
+            .page-hero {
+                padding: 100px 0 40px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .testimonial-grid,
+            .plan-recommendation {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .modal {
+            background: rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(5px) !important;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex !important;
+        }
+        
+        .modal-content {
+            background: var(--card-bg) !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-primary) !important;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid var(--border-color) !important;
+            background: transparent !important;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            color: var(--text-primary) !important;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .modal-body {
+            color: var(--text-primary) !important;
+            background: transparent !important;
+            padding: 24px;
+        }
+        
+        .modal-footer {
+            background: var(--gray-50) !important;
+            border-top: 1px solid var(--border-color) !important;
+            padding: 24px;
+        }
+        
+        [data-mode="dark"] .modal-footer {
+            background: var(--gray-800) !important;
+        }
+        
+        .form-group label {
+            color: var(--text-primary) !important;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: var(--card-bg) !important;
+            color: var(--text-primary) !important;
+            border: 1px solid var(--border-color) !important;
+            width: 100%;
+            padding: 12px;
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+            outline: none;
+        }
+        
+        [data-mode="dark"] .form-group input:focus,
+        [data-mode="dark"] .form-group select:focus,
+        [data-mode="dark"] .form-group textarea:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+        }
+        
+        .modal-close {
+            color: var(--text-secondary) !important;
+            background: transparent !important;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            background: var(--gray-100) !important;
+            color: var(--text-primary) !important;
+        }
+        
+        [data-mode="dark"] .modal-close:hover {
+            background: var(--gray-800) !important;
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--gray-500) !important;
+        }
+        
+        [data-mode="dark"] .form-group input::placeholder,
+        [data-mode="dark"] .form-group textarea::placeholder {
+            color: var(--gray-400) !important;
+        }
+    </style>
+</head>
+<body data-page="planes">
+    <div data-include="partials/header.html"></div>
+    
+    <section class="page-hero" id="planes">
+        <div class="container">
+            <h1>📦 Planes y Paquetes</h1>
+            <p class="lead">
+                Elegí el plan que mejor se adapte a tus objetivos. Descuentos por paquetes y seguimiento garantizado.
+            </p>
+            
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+                <a href="#comparacion" class="btn btn-light">
+                    <i class="fas fa-table"></i> Comparar planes
+                </a>
+                <button class="btn btn-outline-light" onclick="openPlanModal('consulta', 'Consulta sobre Planes')">
+                    <i class="fas fa-lightbulb"></i> Recomendación
+                </button>
+                <a href="#preguntas" class="btn btn-outline-light">
+                    <i class="fas fa-question-circle"></i> Preguntas
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="comparacion">
+        <div class="container">
+            <div class="section-header">
+                <h2>Comparación de Planes</h2>
+                <p class="section-subtitle">
+                    Tres opciones diseñadas para diferentes niveles de compromiso y aprendizaje
+                </p>
+            </div>
+            
+            <div class="plans-comparison">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Características</th>
+                            <th class="plan-header">
+                                <div>Starter</div>
+                                <div class="plan-price">₡28,500</div>
+                                <div class="plan-sessions">4 sesiones (5% OFF)</div>
+                            </th>
+                            <th class="plan-header popular">
+                                <div class="plan-badge">POPULAR</div>
+                                <div>Progreso</div>
+                                <div class="plan-price">₡51,300</div>
+                                <div class="plan-sessions">6 sesiones (10% OFF)</div>
+                            </th>
+                            <th class="plan-header">
+                                <div>Intensivo</div>
+                                <div class="plan-price">₡81,600</div>
+                                <div class="plan-sessions">8 sesiones (15% OFF)</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sesiones de 1 hora</td>
+                            <td>4</td>
+                            <td>6</td>
+                            <td>8</td>
+                        </tr>
+                        <tr>
+                            <td>Evaluación inicial</td>
+                            <td><i class="fas fa-check plan-feature-check"></i></td>
+                            <td><i class="fas fa-check plan-feature-check"></i></td>
+                            <td><i class="fas fa-check plan-feature-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Plan personalizado</td>
+                            <td><i class="fas fa-check plan-feature-check"></i></td>
+                            <td><i class="fas fa-check plan-feature-check"></i></td>
+                            <td><i class="fas fa-check plan-feature-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Ejercicios prácticos</td>
+                            <td><i class="fas fa-check plan-feature-check"></i></td>
+                            <td><i class="fas fa-check plan-feature-check"></i></td>
+                            <td><i class="fas fa-check plan-feature-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Proyecto guiado</td>
+                            <td>Mini proyecto</td>
+                            <td>Proyecto mediano</td>
+                            <td>Proyecto completo</td>
+                        </tr>
+                        <tr>
+                            <td>Soporte entre sesiones</td>
+                            <td>Básico</td>
+                            <td><i class="fas fa-check plan-feature-check"></i></td>
+                            <td><i class="fas fa-check plan-feature-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Code review</td>
+                            <td>1 vez</td>
+                            <td>2 veces</td>
+                            <td>4 veces</td>
+                        </tr>
+                        <tr>
+                            <td>Material adicional</td>
+                            <td>Temario básico</td>
+                            <td>Temario completo</td>
+                            <td>Temario + proyectos</td>
+                        </tr>
+                        <tr>
+                            <td>Garantía de aprendizaje</td>
+                            <td><i class="fas fa-check plan-feature-check"></i></td>
+                            <td><i class="fas fa-check plan-feature-check"></i></td>
+                            <td><i class="fas fa-check plan-feature-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Acción</td>
+                            <td>
+                                <button class="btn btn-primary btn-block" onclick="selectPlan('starter', 'Plan Starter')">
+                                    Elegir Starter
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-block" onclick="selectPlan('progreso', 'Plan Progreso')">
+                                    Elegir Progreso
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-block" onclick="selectPlan('intensivo', 'Plan Intensivo')">
+                                    Elegir Intensivo
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="recomendacion" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>¿Qué plan elegir?</h2>
+                <p class="section-subtitle">
+                    Te ayudo a seleccionar el plan ideal según tus objetivos
+                </p>
+            </div>
+            
+            <div class="plan-recommendation">
+                <div class="recommendation-card">
+                    <div class="recommendation-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Plan Starter</h3>
+                    <p>Perfecto para principiantes que quieren empezar con buen pie.</p>
+                    
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> 4 sesiones de 1 hora</li>
+                        <li><i class="fas fa-check"></i> Fundamentos sólidos</li>
+                        <li><i class="fas fa-check"></i> Mini proyecto final</li>
+                        <li><i class="fas fa-check"></i> Material básico incluido</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="selectPlan('starter', 'Plan Starter')">
+                            <i class="fas fa-shopping-cart"></i> Elegir Starter
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="recommendation-card">
+                    <div class="recommendation-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Plan Progreso</h3>
+                    <p>Ideal para quienes quieren avanzar consistentemente.</p>
+                    
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> 6 sesiones de 1 hora</li>
+                        <li><i class="fas fa-check"></i> Proyecto mediano</li>
+                        <li><i class="fas fa-check"></i> Soporte entre sesiones</li>
+                        <li><i class="fas fa-check"></i> 2 code reviews</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="selectPlan('progreso', 'Plan Progreso')">
+                            <i class="fas fa-shopping-cart"></i> Elegir Progreso
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="recommendation-card">
+                    <div class="recommendation-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Plan Intensivo</h3>
+                    <p>Para proyectos específicos o preparación de exámenes.</p>
+                    
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> 8 sesiones de 1 hora</li>
+                        <li><i class="fas fa-check"></i> Proyecto completo</li>
+                        <li><i class="fas fa-check"></i> Soporte prioritario</li>
+                        <li><i class="fas fa-check"></i> 4 code reviews</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="selectPlan('intensivo', 'Plan Intensivo')">
+                            <i class="fas fa-shopping-cart"></i> Elegir Intensivo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Experiencias con los Planes</h2>
+                <p class="section-subtitle">
+                    Lo que dicen estudiantes que han completado diferentes planes
+                </p>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        "El plan Starter fue perfecto para entender las bases. En 4 sesiones pasé de no saber nada a hacer mis primeros programas funcionales."
+                    </div>
+                    <div class="testimonial-author">
+                        <div>
+                            <div>María R.</div>
+                            <div class="author-plan">Plan Starter · Python</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        "Con el plan Progreso logré mejorar mi proyecto web. Las 6 sesiones fueron clave para entender conceptos avanzados y aplicar buenas prácticas."
+                    </div>
+                    <div class="testimonial-author">
+                        <div>
+                            <div>Carlos M.</div>
+                            <div class="author-plan">Plan Progreso · JavaScript</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        "El plan Intensivo me salvó para el examen de la U. En 8 sesiones repasamos TODO el temario y resolvimos ejercicios tipo examen."
+                    </div>
+                    <div class="testimonial-author">
+                        <div>
+                            <div>Ana V.</div>
+                            <div class="author-plan">Plan Intensivo · Java</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="preguntas" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Preguntas Frecuentes</h2>
+                <p class="section-subtitle">
+                    Respuestas a las dudas más comunes sobre nuestros planes
+                </p>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <i class="fas fa-chevron-down"></i>
+                        ¿Puedo cambiar de plan después de empezar?
+                    </div>
+                    <div class="faq-answer">
+                        Sí, podés cambiar a un plan superior en cualquier momento. Solo pagarías la diferencia proporcional. No se realizan cambios a planes inferiores.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <i class="fas fa-chevron-down"></i>
+                        ¿Qué pasa si no uso todas las sesiones?
+                    </div>
+                    <div class="faq-answer">
+                        Las sesiones tienen validez de 3 meses a partir de la primera clase. Si no usás todas, podés pausar y retomar dentro de ese período.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <i class="fas fa-chevron-down"></i>
+                        ¿Puedo hacer sesiones más largas?
+                    </div>
+                    <div class="faq-answer">
+                        Sí, las sesiones pueden ser de 1, 1.5 o 2 horas. El precio se ajusta proporcionalmente y mantenemos los descuentos por paquete.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <i class="fas fa-chevron-down"></i>
+                        ¿Hay descuentos para estudiantes?
+                    </div>
+                    <div class="faq-answer">
+                        Sí, estudiantes con carnet vigente reciben un 10% adicional sobre el precio final del plan. Los descuentos son acumulables.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <i class="fas fa-chevron-down"></i>
+                        ¿Qué pasa si no aprendo con el plan?
+                    </div>
+                    <div class="faq-answer">
+                        Ofrecemos garantía de aprendizaje. Si después de completar un plan no sentís que aprendiste, te devolvemos el 100% de tu inversión.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="plan-highlight">
+        <div class="container">
+            <div class="highlight-content">
+                <h2>¿Listo para empezar tu plan?</h2>
+                <p>
+                    Elegí el plan que mejor se adapte a vos o contactame para diseñar uno 100% personalizado según tus necesidades específicas.
+                </p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px;">
+                    <button class="btn btn-light btn-lg" onclick="openPlanModal('consulta_gratis', 'Consulta')">
+                        <i class="fas fa-calendar-alt"></i> Agendar consulta 
+                    </button>
+                    <a href="https://wa.me/50687138971" class="btn btn-outline-light btn-lg" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+                    </a>
+                </div>
+                
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+                    <small style="color: rgba(255, 255, 255, 0.8); display: block;">
+                        <i class="fas fa-clock"></i> Respuesta en menos de 2 horas • 
+                        <i class="fas fa-shield-alt"></i> 100% confidencial • 
+                        <i class="fas fa-star"></i> Garantía de satisfacción
+                    </small>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div data-include="partials/footer.html"></div>
+    
+    <div class="modal" id="planModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="planModalTitle"><i class="fas fa-box"></i> Solicitar Plan</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p id="planModalDescription" style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Completa el formulario para solicitar el plan seleccionado.
+                </p>
+                
+                <form id="planForm">
+                    <input type="hidden" id="selectedPlanType" name="plan_type" value="">
+                    <input type="hidden" id="selectedPlanName" name="plan_name" value="">
+                    
+                    <input type="hidden" name="_subject" value="Solicitud de Plan - Tutorías JR">
+                    <input type="hidden" name="_format" value="plain">
+                    <input type="text" name="_gotcha" style="display:none">
+                    
+                    <div class="form-group">
+                        <label for="planName">
+                            <i class="fas fa-user"></i> Nombre completo
+                        </label>
+                        <input type="text" id="planName" name="name" placeholder="Tu nombre completo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="planEmail">
+                            <i class="fas fa-envelope"></i> Correo electrónico
+                        </label>
+                        <input type="email" id="planEmail" name="email" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="planPhone">
+                            <i class="fas fa-phone"></i> Teléfono / WhatsApp
+                        </label>
+                        <input type="tel" id="planPhone" name="phone" placeholder="+506 0000 0000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="planSelection">
+                            <i class="fas fa-box"></i> Plan seleccionado
+                        </label>
+                        <select id="planSelection" name="plan" required>
+                            <option value="" disabled selected>Selecciona un plan</option>
+                            <option value="starter">Starter (4 sesiones - ₡28,500)</option>
+                            <option value="progreso">Progreso (6 sesiones - ₡51,300)</option>
+                            <option value="intensivo">Intensivo (8 sesiones - ₡81,600)</option>
+                            <option value="personalizado">Personalizado (consultar precios)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="planLanguage">
+                            <i class="fas fa-code"></i> Lenguaje de programación
+                        </label>
+                        <select id="planLanguage" name="language" required>
+                            <option value="" disabled selected>Selecciona un lenguaje</option>
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="java">Java</option>
+                            <option value="csharp">C# .NET</option>
+                            <option value="web">HTML/CSS/JavaScript</option>
+                            <option value="sql">SQL y Bases de Datos</option>
+                            <option value="otros">Otro (especificar en mensaje)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="planGoal">
+                            <i class="fas fa-bullseye"></i> ¿Cuál es tu objetivo principal?
+                        </label>
+                        <select id="planGoal" name="goal" required>
+                            <option value="" disabled selected>Selecciona tu objetivo</option>
+                            <option value="aprender">Aprender programación desde cero</option>
+                            <option value="mejorar">Mejorar habilidades existentes</option>
+                            <option value="proyecto">Completar un proyecto específico</option>
+                            <option value="examen">Prepararme para un examen</option>
+                            <option value="empleo">Conseguir trabajo como programador</option>
+                            <option value="freelance">Iniciar como freelancer</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="planStudent">
+                            <i class="fas fa-graduation-cap"></i> ¿Sos estudiante?
+                        </label>
+                        <select id="planStudent" name="student" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="no">No, no soy estudiante</option>
+                            <option value="secundaria">Sí, de secundaria/colegio</option>
+                            <option value="universidad">Sí, de universidad</option>
+                            <option value="tecnico">Sí, de carrera técnica</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="planMessage">
+                            <i class="fas fa-comment"></i> ¿Hay algo más que deba saber?
+                        </label>
+                        <textarea id="planMessage" name="message" rows="4" placeholder="Describí tu situación, nivel actual, fechas importantes, proyectos específicos, etc..."></textarea>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Solicitar plan
+                        </button>
+                        <small style="color: var(--text-secondary); text-align: center; display: block; margin-top: 10px;">
+                            <i class="fas fa-lock"></i> Tus datos están seguros y nunca serán compartidos
+                        </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="consultaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-calendar-alt"></i> Consulta </h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Agendá una consulta  de 30 minutos para evaluar tu nivel y diseñar juntos el plan perfecto para vos.
+                </p>
+                
+                <form id="consultaForm">
+                    <input type="hidden" name="form_type" value="consulta_gratuita">
+                    <input type="hidden" name="topic" value="Consulta Gratuita de Planes">
+                    
+                    <input type="hidden" name="_subject" value="Consulta Gratuita de Planes - Tutorías JR">
+                    <input type="hidden" name="_format" value="plain">
+                    <input type="text" name="_gotcha" style="display:none">
+                    
+                    <div class="form-group">
+                        <label for="consultaName">
+                            <i class="fas fa-user"></i> Nombre completo
+                        </label>
+                        <input type="text" id="consultaName" name="name" placeholder="Tu nombre completo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="consultaEmail">
+                            <i class="fas fa-envelope"></i> Correo electrónico
+                        </label>
+                        <input type="email" id="consultaEmail" name="email" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="consultaPhone">
+                            <i class="fas fa-phone"></i> Teléfono / WhatsApp
+                        </label>
+                        <input type="tel" id="consultaPhone" name="phone" placeholder="+506 0000 0000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="consultaAvailability">
+                            <i class="fas fa-clock"></i> ¿Cuándo preferís la consulta?
+                        </label>
+                        <select id="consultaAvailability" name="availability" required>
+                            <option value="" disabled selected>Selecciona disponibilidad</option>
+                            <option value="mañana">Mañanas (7am - 12pm)</option>
+                            <option value="tarde">Tardes (1pm - 6pm)</option>
+                            <option value="noche">Noches (6pm - 10pm)</option>
+                            <option value="fines">Fines de semana</option>
+                            <option value="flexible">Flexible, ajusto a tu horario</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="consultaInterest">
+                            <i class="fas fa-star"></i> ¿Qué plan te interesa más?
+                        </label>
+                        <select id="consultaInterest" name="interest" required>
+                            <option value="" disabled selected>Plan de interés</option>
+                            <option value="starter">Plan Starter (4 sesiones)</option>
+                            <option value="progreso">Plan Progreso (6 sesiones)</option>
+                            <option value="intensivo">Plan Intensivo (8 sesiones)</option>
+                            <option value="no-se">No sé, quiero asesoría</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="consultaMessage">
+                            <i class="fas fa-comment-dots"></i> ¿Qué querés lograr con las tutorías?
+                        </label>
+                        <textarea id="consultaMessage" name="message" rows="4" placeholder="Contame sobre tus objetivos, nivel actual, proyectos en mente, etc..."></textarea>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Solicitar consulta 
+                        </button>
+                        <small style="color: var(--text-secondary); text-align: center; display: block; margin-top: 10px;">
+                            <i class="fas fa-clock"></i> Te enviaré el enlace de Zoom/Meet en menos de 24 horas
+                        </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="whatsapp-float">
+        <a href="https://wa.me/50687138971" class="whatsapp-button" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span>¿Preguntas de planes?</span>
+        </a>
+    </div>
+    
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <div class="toast-container"></div>
+    
+    <script src="assets/js/app.js"></script>
+    
+    <script src="assets/js/formspree-service.js"></script>
+    
+    <script>
+        const PLANS_CONFIG = {
+            starter: {
+                title: "🚀 Plan Starter",
+                description: "Perfecto para empezar con buen pie. 4 sesiones estructuradas para construir fundamentos sólidos de programación."
+            },
+            progreso: {
+                title: "📈 Plan Progreso",
+                description: "El más popular. 6 sesiones para avanzar consistentemente y desarrollar proyectos reales con supervisión experta."
+            },
+            intensivo: {
+                title: "⚡ Plan Intensivo",
+                description: "Para resultados rápidos. 8 sesiones intensivas que te llevarán de principiante a programador funcional en tiempo récord."
+            },
+            consulta: {
+                title: "🤔 Consulta sobre Planes",
+                description: "¿No estás seguro de qué plan elegir? Te ayudo a seleccionar el ideal según tus objetivos y presupuesto."
+            },
+            consulta_gratis: {
+                title: "🎯 Consulta Gratuita",
+                description: "30 minutos para evaluar tu nivel y diseñar juntos el plan perfecto. Sin compromiso, solo aprendizaje."
+            }
+        };
+        
+        function showMessage(message, type = 'info') {
+            console.log(`📢 ${type.toUpperCase()}: ${message}`);
+            
+            if (window.TutoriasJR && typeof window.TutoriasJR.showToast === 'function') {
+                window.TutoriasJR.showToast(message, type);
+                return;
+            }
+            
+            const toastContainer = document.querySelector('.toast-container');
+            if (toastContainer && type !== 'loading') {
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                        <span>${message}</span>
+                    </div>
+                    <button class="toast-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                toastContainer.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.remove();
+                }, 5000);
+                
+                toast.querySelector('.toast-close').addEventListener('click', () => {
+                    toast.remove();
+                });
+                
+                return;
+            }
+            
+            if (type === 'error') {
+                alert('❌ ' + message);
+            } else if (type === 'success') {
+                alert('✅ ' + message);
+            } else {
+                alert('ℹ️ ' + message);
+            }
+        }
+        
+        function openPlanModal(planType, planName) {
+            const planConfig = PLANS_CONFIG[planType] || PLANS_CONFIG.consulta;
+            
+            if (planType === 'consulta_gratis') {
+                openModalSafe('consultaModal');
+                return;
+            }
+            
+            document.getElementById('planModalTitle').innerHTML = 
+                `<i class="fas fa-box"></i> ${planConfig.title}`;
+            document.getElementById('planModalDescription').textContent = planConfig.description;
+            
+            document.getElementById('selectedPlanType').value = planType;
+            document.getElementById('selectedPlanName').value = planName;
+            
+            const planSelect = document.getElementById('planSelection');
+            if (planSelect) {
+                planSelect.value = planType;
+            }
+            
+            document.querySelector('#planForm input[name="_subject"]').value = 
+                `Solicitud de Plan: ${planName} - Tutorías JR`;
+            
+            openModalSafe('planModal');
+        }
+        
+        function selectPlan(planType, planName) {
+            openPlanModal(planType, planName);
+        }
+        
+        function openModalSafe(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }, 10);
+            }
+        }
+        
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+        }
+        
+        function initModalCloseListeners() {
+            document.querySelectorAll('.modal-close').forEach(closeBtn => {
+                closeBtn.addEventListener('click', function() {
+                    const modal = this.closest('.modal');
+                    if (modal) {
+                        closeModal(modal.id);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal(this.id);
+                    }
+                });
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const activeModal = document.querySelector('.modal.active');
+                    if (activeModal) {
+                        closeModal(activeModal.id);
+                    }
+                }
+            });
+            
+            document.querySelectorAll('.modal-content').forEach(content => {
+                content.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+        }
+        
+        function toggleFAQ(element) {
+            const faqItem = element.closest('.faq-item');
+            const isActive = faqItem.classList.contains('active');
+            
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+        
+        async function loadIncludes() {
+            const includes = document.querySelectorAll('[data-include]');
+            
+            for (const element of includes) {
+                try {
+                    const file = element.getAttribute('data-include');
+                    const response = await fetch(file);
+                    
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    
+                    const html = await response.text();
+                    element.innerHTML = html;
+                    element.removeAttribute('data-include');
+                    
+                } catch (error) {
+                    console.error(`Error cargando ${element.getAttribute('data-include')}:`, error);
+                    element.innerHTML = `
+                        <div style="background: #fef2f2; border: 2px dashed #dc2626; padding: 20px; border-radius: 8px; text-align: center;">
+                            <i class="fas fa-exclamation-triangle" style="color: #dc2626; font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p style="color: #7f1d1d; margin: 0;">
+                                Error cargando componente. Por favor recarga la página.
+                            </p>
+                        </div>
+                    `;
+                }
+            }
+            
+            setTimeout(() => {
+                if (window.TutoriasJR && typeof window.TutoriasJR.init === 'function') {
+                    window.TutoriasJR.init();
+                    
+                    initModalCloseListeners();
+                    
+                    initializePlanForms();
+                    
+                    initializeFAQ();
+                    
+                    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                        anchor.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const targetId = this.getAttribute('href');
+                            if (targetId === '#') return;
+                            
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 70;
+                                window.scrollTo({
+                                    top: targetElement.offsetTop - navbarHeight,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        });
+                    });
+                }
+            }, 500);
+        }
+        
+        function initializeFAQ() {
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', function() {
+                    toggleFAQ(this);
+                });
+            });
+        }
+        
+        function initializePlanForms() {
+            console.log('🔄 Inicializando formularios de planes...');
+            
+            if (!window.FormspreeService) {
+                console.error('❌ FormspreeService no disponible');
+                return;
+            }
+            
+            const planForm = document.getElementById('planForm');
+            if (planForm) {
+                console.log('✅ Plan form encontrado');
+                
+                planForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    if (!window.FormspreeService.validateForm(this)) {
+                        showMessage('Por favor completa todos los campos correctamente.', 'error');
+                        return;
+                    }
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    window.FormspreeService.setButtonState(submitBtn, true);
+                    
+                    const formData = new FormData(this);
+                    
+                    formData.append('page', 'planes');
+                    formData.append('plan_type', document.getElementById('selectedPlanType').value);
+                    formData.append('plan_name', document.getElementById('selectedPlanName').value);
+                    
+                    try {
+                        console.log('📤 Enviando formulario de plan...');
+                        const result = await window.FormspreeService.sendForm(formData, 'plan');
+                        
+                        if (result.success) {
+                            showMessage('¡Solicitud enviada! Te contactaré pronto para coordinar el inicio del plan.', 'success');
+                            
+                            this.reset();
+                            
+                            setTimeout(() => {
+                                closeModal('planModal');
+                            }, 2000);
+                        } else {
+                            showMessage(result.message, 'error');
+                        }
+                    } catch (error) {
+                        console.error('❌ Error en el envío:', error);
+                        showMessage('Error al enviar. Intenta de nuevo.', 'error');
+                    } finally {
+                        window.FormspreeService.setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+            
+            const consultaForm = document.getElementById('consultaForm');
+            if (consultaForm) {
+                console.log('✅ Consulta form encontrado');
+                
+                consultaForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    if (!window.FormspreeService.validateForm(this)) {
+                        showMessage('Por favor completa todos los campos correctamente.', 'error');
+                        return;
+                    }
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    window.FormspreeService.setButtonState(submitBtn, true);
+                    
+                    const formData = new FormData(this);
+                    
+                    formData.append('page', 'planes');
+                    formData.append('form_type', 'consulta_gratuita');
+                    
+                    try {
+                        console.log('📤 Enviando formulario de consulta...');
+                        const result = await window.FormspreeService.sendForm(formData, 'consulta_planes');
+                        
+                        if (result.success) {
+                            showMessage('¡Consulta solicitada! Te enviaré el enlace de Zoom/Meet en menos de 24 horas.', 'success');
+                            
+                            this.reset();
+                            
+                            setTimeout(() => {
+                                closeModal('consultaModal');
+                            }, 2000);
+                        } else {
+                            showMessage(result.message, 'error');
+                        }
+                    } catch (error) {
+                        console.error('❌ Error en el envío:', error);
+                        showMessage('Error al enviar. Intenta de nuevo.', 'error');
+                    } finally {
+                        window.FormspreeService.setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+            
+            console.log('✅ Formularios de planes inicializados');
+        }
+        
+        window.openPlanModal = openPlanModal;
+        window.selectPlan = selectPlan;
+        window.toggleFAQ = toggleFAQ;
+        window.showMessage = showMessage;
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadIncludes);
+        } else {
+            loadIncludes();
+        }
+    </script>
+</body>
+</html>

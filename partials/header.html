@@ -1,0 +1,319 @@
+<!-- HEADER CON DROPDOWN MENU -->
+<header class="navbar">
+    <div class="nav-container">
+        <!-- Logo compacto -->
+        <a href="index.html" class="logo">
+            <div class="logo-icon">JR</div>
+            <div class="logo-text">
+                <span class="logo-main">
+                    <span>Tutorías</span>
+                    <span>JR</span>
+                </span>
+                <small class="logo-sub">CR • Programación</small>
+            </div>
+        </a>
+
+        <!-- Navegación principal con dropdowns -->
+        <nav class="nav-main">
+            <!-- Menú principal compacto -->
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link" data-page="inicio">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                
+                <!-- Dropdown: Servicios -->
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Servicios</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="servicios.html#individuales" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            <span>Tutorías 1 a 1</span>
+                        </a>
+                        <a href="servicios.html#grupo" class="dropdown-item">
+                            <i class="fas fa-users"></i>
+                            <span>Clases en grupo</span>
+                        </a>
+                        <a href="servicios.html#proyectos" class="dropdown-item">
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Ayuda con proyectos</span>
+                        </a>
+                        <a href="servicios.html#examenes" class="dropdown-item">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Preparación exámenes</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Dropdown: Lenguajes -->
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        <i class="fas fa-code"></i>
+                        <span>Lenguajes</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-column">
+                            <a href="lenguajes.html#principales" class="dropdown-item">
+                                <i class="fas fa-star"></i>
+                                <span>Principales</span>
+                                <small>Python, JS, Java, C#</small>
+                            </a>
+                            <a href="lenguajes.html#web" class="dropdown-item">
+                                <i class="fas fa-globe"></i>
+                                <span>Web & Frontend</span>
+                                <small>HTML, CSS, React</small>
+                            </a>
+                            <a href="lenguajes.html#backend" class="dropdown-item">
+                                <i class="fas fa-server"></i>
+                                <span>Backend</span>
+                                <small>Node.js, .NET, PHP</small>
+                            </a>
+                            <a href="lenguajes.html#bases-datos" class="dropdown-item">
+                                <i class="fas fa-database"></i>
+                                <span>Bases de Datos</span>
+                                <small>SQL, MongoDB</small>
+                            </a>
+                            <a href="lenguajes.html#otros" class="dropdown-item">
+                                <i class="fas fa-cogs"></i>
+                                <span>Otros</span>
+                                <small>C/C++, Mobile, Go</small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dropdown: Niveles -->
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Niveles</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="niveles.html#principiante" class="dropdown-item">
+                            <div class="level-badge beginner">1</div>
+                            <div>
+                                <span class="dropdown-title">Principiante</span>
+                                <small>Cero a programador</small>
+                            </div>
+                        </a>
+                        <a href="niveles.html#basico" class="dropdown-item">
+                            <div class="level-badge basic">2</div>
+                            <div>
+                                <span class="dropdown-title">Básico</span>
+                                <small>Fundamentos sólidos</small>
+                            </div>
+                        </a>
+                        <a href="niveles.html#intermedio" class="dropdown-item">
+                            <div class="level-badge intermediate">3</div>
+                            <div>
+                                <span class="dropdown-title">Intermedio</span>
+                                <small>Proyectos reales</small>
+                            </div>
+                        </a>
+                        <a href="niveles.html#avanzado" class="dropdown-item">
+                            <div class="level-badge advanced">4</div>
+                            <div>
+                                <span class="dropdown-title">Avanzado</span>
+                                <small>Especialización</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Enlace directo a Lógica -->
+                <a href="logica.html" class="nav-link" data-page="logica">
+                    <i class="fas fa-brain"></i>
+                    <span>Lógica</span>
+                </a>
+                
+                <!-- Enlaces directos -->
+                <a href="precios.html" class="nav-link" data-page="precios">
+                    <i class="fas fa-tag"></i>
+                    <span>Precios</span>
+                </a>
+                
+                <a href="planes.html" class="nav-link" data-page="planes">
+                    <i class="fas fa-cubes"></i>
+                    <span>Planes</span>
+                </a>
+                
+                <!-- Dropdown: Más -->
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        <i class="fas fa-ellipsis-h"></i>
+                        <span>Más</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="recursos.html" class="dropdown-item">
+                            <i class="fas fa-book"></i>
+                            <span>Recursos Gratis</span>
+                        </a>
+                        <a href="faq.html" class="dropdown-item">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Preguntas Frecuentes</span>
+                        </a>
+                        <a href="contacto.html" class="dropdown-item">
+                            <i class="fas fa-phone"></i>
+                            <span>Contacto</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Acciones -->
+        <div class="nav-actions">
+            <!-- Botón de Modo Oscuro/Claro -->
+            <button class="theme-toggle" id="themeToggle" title="Cambiar tema">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <!-- Botón Agendar -->
+            <button class="btn nav-btn-agendar" onclick="TutoriasJR.openBookingModal()" title="Agendar tutoría">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="btn-text">Agendar</span>
+            </button>
+            
+            <!-- Menú móvil -->
+            <button class="mobile-menu-btn" aria-label="Abrir menú" title="Menú">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Menú móvil -->
+<div class="mobile-menu-overlay"></div>
+<nav class="mobile-menu">
+    <div class="mobile-menu-header">
+        <div class="mobile-logo">
+            <div class="logo-icon">JR</div>
+            <div class="logo-text">
+                <span>Tutorías</span>
+                <span class="text-primary">JR</span>
+            </div>
+        </div>
+        <button class="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <div class="mobile-menu-body">
+        <a href="index.html" class="mobile-menu-item">
+            <i class="fas fa-home"></i>
+            <span>Inicio</span>
+        </a>
+        
+        <div class="mobile-menu-accordion">
+            <button class="mobile-menu-accordion-btn">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Servicios</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="mobile-menu-accordion-content">
+                <a href="servicios.html#individuales" class="mobile-submenu-item">
+                    <i class="fas fa-user"></i>
+                    <span>Tutorías 1 a 1</span>
+                </a>
+                <a href="servicios.html#grupo" class="mobile-submenu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Clases en grupo</span>
+                </a>
+                <a href="servicios.html#proyectos" class="mobile-submenu-item">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Ayuda con proyectos</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="mobile-menu-accordion">
+            <button class="mobile-menu-accordion-btn">
+                <i class="fas fa-code"></i>
+                <span>Lenguajes</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="mobile-menu-accordion-content">
+                <a href="lenguajes.html#principales" class="mobile-submenu-item">
+                    <i class="fas fa-star"></i>
+                    <span>Principales</span>
+                </a>
+                <a href="lenguajes.html#web" class="mobile-submenu-item">
+                    <i class="fas fa-globe"></i>
+                    <span>Web & Frontend</span>
+                </a>
+                <a href="lenguajes.html#backend" class="mobile-submenu-item">
+                    <i class="fas fa-server"></i>
+                    <span>Backend</span>
+                </a>
+                <a href="lenguajes.html#bases-datos" class="mobile-submenu-item">
+                    <i class="fas fa-database"></i>
+                    <span>Bases de Datos</span>
+                </a>
+                <a href="lenguajes.html#otros" class="mobile-submenu-item">
+                    <i class="fas fa-cogs"></i>
+                    <span>Otros Lenguajes</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Enlace directo a Lógica en móvil -->
+        <a href="logica.html" class="mobile-menu-item">
+            <i class="fas fa-brain"></i>
+            <span>Lógica</span>
+        </a>
+        
+        <a href="precios.html" class="mobile-menu-item">
+            <i class="fas fa-tag"></i>
+            <span>Precios</span>
+        </a>
+        
+        <a href="planes.html" class="mobile-menu-item">
+            <i class="fas fa-cubes"></i>
+            <span>Planes</span>
+        </a>
+        
+        <a href="recursos.html" class="mobile-menu-item">
+            <i class="fas fa-book"></i>
+            <span>Recursos Gratis</span>
+        </a>
+        
+        <a href="faq.html" class="mobile-menu-item">
+            <i class="fas fa-question-circle"></i>
+            <span>Preguntas Frecuentes</span>
+        </a>
+        
+        <div class="mobile-menu-cta">
+            <button class="btn btn-primary btn-block" onclick="TutoriasJR.openBookingModal()">
+                <i class="fas fa-calendar-alt"></i>
+                Agendar clase gratis
+            </button>
+            <a href="https://wa.me/50687138971" class="btn btn-whatsapp btn-block" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                WhatsApp directo
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Botón flotante WhatsApp -->
+<div class="whatsapp-float">
+    <a href="https://wa.me/50687138971" class="whatsapp-button" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span>¿Necesitás ayuda?</span>
+    </a>
+</div>
+
+<!-- Botón para subir -->
+<button class="back-to-top" id="backToTop">
+    <i class="fas fa-chevron-up"></i>
+</button>
+
+<!-- Contenedor de toasts -->
+<div class="toast-container"></div>

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es" data-mode="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tutorías personalizadas de programación 1 a 1 con Jordy Retana. Aprende Python, JavaScript, Java, C#, Web Dev y más en Costa Rica.">
+    <meta name="keywords" content="tutorías programación, clases programación Costa Rica, aprender a programar, Python, JavaScript, Java, C#, SQL, lógica de programación">
+    <meta name="author" content="Jordy Retana">
+    
+    <title>Tutorías de Programación - Jordy Retana | Costa Rica</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <style>
+        .counter {
+            display: inline-block;
+        }
+        
+        .modal-content {
+            background: var(--card-bg) !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-primary) !important;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid var(--border-color) !important;
+        }
+        
+        .modal-header h3 {
+            color: var(--text-primary) !important;
+        }
+        
+        .modal-body {
+            color: var(--text-primary) !important;
+        }
+        
+        .modal-footer {
+            background: var(--gray-50) !important;
+            border-top: 1px solid var(--border-color) !important;
+        }
+        
+        [data-mode="dark"] .modal-footer {
+            background: var(--gray-800) !important;
+        }
+        
+        .form-group label {
+            color: var(--text-primary) !important;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: var(--card-bg) !important;
+            color: var(--text-primary) !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+        }
+        
+        [data-mode="dark"] .form-group input:focus,
+        [data-mode="dark"] .form-group select:focus,
+        [data-mode="dark"] .form-group textarea:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+        }
+        
+        .modal-close {
+            color: var(--text-secondary) !important;
+        }
+        
+        .modal-close:hover {
+            background: var(--gray-100) !important;
+            color: var(--text-primary) !important;
+        }
+        
+        [data-mode="dark"] .modal-close:hover {
+            background: var(--gray-800) !important;
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--gray-500) !important;
+        }
+        
+        [data-mode="dark"] .form-group input::placeholder,
+        [data-mode="dark"] .form-group textarea::placeholder {
+            color: var(--gray-400) !important;
+        }
+        
+        .form-group input.error,
+        .form-group select.error,
+        .form-group textarea.error {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+        }
+        
+        [data-mode="dark"] .form-group input.error,
+        [data-mode="dark"] .form-group select.error,
+        [data-mode="dark"] .form-group textarea.error {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+        }
+        
+        .error-message {
+            color: #ef4444 !important;
+            font-size: 0.875rem !important;
+            margin-top: 5px !important;
+            display: block !important;
+        }
+    </style>
+</head>
+<body data-page="inicio">
+    
+    <div data-include="partials/header.html"></div>
+    
+    <section class="hero-main">
+        <div class="floating-container">
+            <div class="floating-element">
+                <i class="fab fa-python"></i>
+            </div>
+            <div class="floating-element">
+                <i class="fab fa-js"></i>
+            </div>
+            <div class="floating-element">
+                <i class="fab fa-java"></i>
+            </div>
+            <div class="floating-element">
+                <i class="fas fa-hashtag"></i>
+            </div>
+            <div class="floating-element">
+                <i class="fab fa-html5"></i>
+            </div>
+            <div class="floating-element">
+                <i class="fas fa-database"></i>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badges">
+                    <span class="badge">
+                        <i class="fas fa-user-graduate"></i> Tutorías 1 a 1
+                    </span>
+                    <span class="badge">
+                        <i class="fas fa-code"></i> +10 Lenguajes
+                    </span>
+                    <span class="badge">
+                        <i class="fas fa-chart-line"></i> Nivel Personalizado
+                    </span>
+                    <span class="badge">
+                        <i class="fas fa-clock"></i> Horarios Flexibles
+                    </span>
+                </div>
+                
+                <h1 class="hero-title">
+                    Domina la programación con 
+                    <span class="text-gradient">tutorías expertas</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Aprendé desde cero, mejora tus proyectos o prepárate para exámenes. 
+                    Clases personalizadas 100% prácticas con ejercicios reales y proyectos que podés agregar a tu portafolio.
+                </p>
+                
+                <div class="hero-cta">
+                    <button class="btn btn-primary btn-lg" onclick="openHomeModal('agendar', 'Agendar Tutoría')">
+                        <i class="fas fa-calendar-alt"></i> Agendar clase gratis
+                    </button>
+                    <a href="precios.html" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-dollar-sign"></i> Ver precios
+                    </a>
+                    <a href="lenguajes.html" class="btn btn-outline btn-lg">
+                        <i class="fas fa-globe"></i> Lenguajes
+                    </a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number counter" data-target="50">0</span>
+                        <span class="stat-text">Estudiantes</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number counter" data-target="200">0</span>
+                        <span class="stat-text">Horas de tutoría</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-text">Satisfacción</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-text">Soporte</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="quick-nav">
+        <div class="container">
+            <div class="section-header">
+                <h2>¿Qué necesitás aprender?</h2>
+                <p class="section-subtitle">Elegí tu ruta de aprendizaje personalizada</p>
+            </div>
+            
+            <div class="quick-nav-grid">
+                <a href="servicios.html" class="nav-card">
+                    <div class="nav-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>Tutorías 1 a 1</h3>
+                    <p>Clases personalizadas según tu nivel y objetivos específicos. Aprendé a tu propio ritmo.</p>
+                </a>
+                
+                <a href="lenguajes.html" class="nav-card">
+                    <div class="nav-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Por Lenguaje</h3>
+                    <p>Python, JavaScript, Java, C#, SQL, y 10+ lenguajes más. Elegí el que necesitás dominar.</p>
+                </a>
+                
+                <a href="planes.html" class="nav-card">
+                    <div class="nav-icon">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <h3>Planes</h3>
+                    <p>Paquetes con descuentos por horas y seguimiento personalizado. Ahorrá mientras aprendés.</p>
+                </a>
+                
+                <a href="recursos.html" class="nav-card">
+                    <div class="nav-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Recursos Gratis</h3>
+                    <p>Temarios, ejercicios y proyectos para practicar. Material descargable sin costo.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">¿Listo para transformar tu código?</h2>
+            <p class="cta-subtitle">
+                Contactame hoy mismo. Primera sesión de diagnóstico gratuita para evaluar tu nivel y objetivos.
+            </p>
+            
+            <div class="hero-cta">
+                <a href="https://wa.me/50687138971" class="btn btn-light btn-lg" target="_blank">
+                    <i class="fab fa-whatsapp"></i> WhatsApp directo
+                </a>
+                <button class="btn btn-outline-light btn-lg" onclick="openHomeModal('diagnostico', 'Diagnóstico Gratuito')">
+                    <i class="fas fa-calendar-alt"></i> Agendar diagnóstico
+                </button>
+                <a href="faq.html" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-question-circle"></i> Preguntas frecuentes
+                </a>
+            </div>
+            
+            <div class="mt-5">
+                <small style="opacity: 0.8; display: block;">
+                    <i class="fas fa-shield-alt"></i> 100% confidencial • Sin spam • Respuesta en menos de 2 horas
+                </small>
+                <small style="opacity: 0.6; display: block; margin-top: 5px;">
+                    <i class="fas fa-phone"></i> También podés llamarme al 8713-8971
+                </small>
+            </div>
+        </div>
+    </section>
+    
+    <div data-include="partials/footer.html"></div>
+    
+    <div class="modal" id="homeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="homeModalTitle"><i class="fas fa-calendar-alt"></i> Agendar Tutoría</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p id="homeModalDescription" style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Completa el formulario para coordinar tu primera sesión gratuita de diagnóstico.
+                </p>
+                
+                <form id="homeForm">
+                    <input type="hidden" id="selectedHomeType" name="home_type" value="">
+                    <input type="hidden" id="selectedHomeName" name="home_name" value="">
+                    
+                    <input type="hidden" name="_subject" value="Solicitud de Tutoría - Tutorías JR">
+                    <input type="hidden" name="_format" value="plain">
+                    <input type="text" name="_gotcha" style="display:none">
+                    
+                    <div class="form-group">
+                        <label for="homeName">
+                            <i class="fas fa-user"></i> Nombre completo
+                        </label>
+                        <input type="text" id="homeName" name="name" placeholder="Tu nombre completo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="homeEmail">
+                            <i class="fas fa-envelope"></i> Correo electrónico
+                        </label>
+                        <input type="email" id="homeEmail" name="email" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="homePhone">
+                            <i class="fas fa-phone"></i> Teléfono / WhatsApp
+                        </label>
+                        <input type="tel" id="homePhone" name="phone" placeholder="+506 0000 0000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="homeLevel">
+                            <i class="fas fa-chart-line"></i> Nivel actual
+                        </label>
+                        <select id="homeLevel" name="level" required>
+                            <option value="" disabled selected>Selecciona tu nivel</option>
+                            <option value="principiante">Principiante (sin experiencia)</option>
+                            <option value="basico">Básico (conocimientos iniciales)</option>
+                            <option value="intermedio">Intermedio (proyectos básicos)</option>
+                            <option value="avanzado">Avanzado (experiencia profesional)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="homeLanguage">
+                            <i class="fas fa-code"></i> Lenguaje/tecnología de interés
+                        </label>
+                        <select id="homeLanguage" name="language" required>
+                            <option value="" disabled selected>Selecciona un lenguaje</option>
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="java">Java</option>
+                            <option value="csharp">C# .NET</option>
+                            <option value="htmlcss">HTML/CSS</option>
+                            <option value="sql">SQL / Bases de datos</option>
+                            <option value="react">React</option>
+                            <option value="node">Node.js</option>
+                            <option value="otros">Otro (especificar en mensaje)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="homeMessage">
+                            <i class="fas fa-comment"></i> ¿Qué necesitás aprender?
+                        </label>
+                        <textarea id="homeMessage" name="message" rows="4" placeholder="Describí brevemente tu objetivo o proyecto..."></textarea>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block" id="homeSubmitBtn">
+                            <i class="fas fa-paper-plane"></i> Enviar solicitud
+                        </button>
+                        <small style="color: var(--text-secondary); text-align: center; display: block; margin-top: 10px;">
+                            <i class="fas fa-lock"></i> Tus datos están seguros y nunca serán compartidos
+                        </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="whatsapp-float">
+        <a href="https://wa.me/50687138971" class="whatsapp-button" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span>¿Necesitás ayuda?</span>
+        </a>
+    </div>
+    
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <div class="toast-container"></div>
+    
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/formspree-service.js"></script>
+    
+    <script>
+        const HOME_CONFIG = {
+            agendar: {
+                title: "📅 Agendar Tutoría",
+                description: "Coordinemos tu primera sesión gratuita. Evaluaré tu nivel y crearemos un plan personalizado juntos."
+            },
+            diagnostico: {
+                title: "🎯 Diagnóstico Gratuito",
+                description: "En esta sesión evaluaremos tu nivel actual, objetivos y crearemos un camino personalizado para tu éxito."
+            }
+        };
+        
+        function showMessage(message, type = 'info') {
+            console.log(`📢 ${type.toUpperCase()}: ${message}`);
+            
+            if (window.TutoriasJR && typeof window.TutoriasJR.showToast === 'function') {
+                window.TutoriasJR.showToast(message, type);
+                return;
+            }
+            
+            const toastContainer = document.querySelector('.toast-container');
+            if (toastContainer && type !== 'loading') {
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                        <span>${message}</span>
+                    </div>
+                    <button class="toast-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                toastContainer.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.remove();
+                }, 5000);
+                
+                toast.querySelector('.toast-close').addEventListener('click', () => {
+                    toast.remove();
+                });
+                
+                return;
+            }
+            
+            if (type === 'error') {
+                alert('❌ ' + message);
+            } else if (type === 'success') {
+                alert('✅ ' + message);
+            } else {
+                alert('ℹ️ ' + message);
+            }
+        }
+        
+        function openHomeModal(modalType, modalName) {
+            const modalConfig = HOME_CONFIG[modalType] || HOME_CONFIG.agendar;
+            
+            document.getElementById('homeModalTitle').innerHTML = 
+                `<i class="fas fa-calendar-alt"></i> ${modalConfig.title}`;
+            document.getElementById('homeModalDescription').textContent = modalConfig.description;
+            
+            document.getElementById('selectedHomeType').value = modalType;
+            document.getElementById('selectedHomeName').value = modalName;
+            
+            document.querySelector('#homeForm input[name="_subject"]').value = 
+                `Solicitud: ${modalName} - Tutorías JR`;
+            
+            const modal = document.getElementById('homeModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }, 10);
+            }
+        }
+        
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+        }
+        
+        function initModalCloseListeners() {
+            document.querySelectorAll('.modal-close').forEach(closeBtn => {
+                closeBtn.addEventListener('click', function() {
+                    const modal = this.closest('.modal');
+                    if (modal) {
+                        closeModal(modal.id);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal(this.id);
+                    }
+                });
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const activeModal = document.querySelector('.modal.active');
+                    if (activeModal) {
+                        closeModal(activeModal.id);
+                    }
+                }
+            });
+            
+            document.querySelectorAll('.modal-content').forEach(content => {
+                content.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+        }
+        
+        async function loadIncludes() {
+            const includes = document.querySelectorAll('[data-include]');
+            
+            for (const element of includes) {
+                try {
+                    const file = element.getAttribute('data-include');
+                    const response = await fetch(file);
+                    
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    
+                    const html = await response.text();
+                    element.innerHTML = html;
+                    element.removeAttribute('data-include');
+                    
+                } catch (error) {
+                    console.error(`Error cargando ${element.getAttribute('data-include')}:`, error);
+                    element.innerHTML = `
+                        <div style="background: #fef2f2; border: 2px dashed #dc2626; padding: 20px; border-radius: 8px; text-align: center;">
+                            <i class="fas fa-exclamation-triangle" style="color: #dc2626; font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p style="color: #7f1d1d; margin: 0;">
+                                Error cargando componente. Por favor recarga la página.
+                            </p>
+                        </div>
+                    `;
+                }
+            }
+            
+            setTimeout(() => {
+                if (window.TutoriasJR && typeof window.TutoriasJR.init === 'function') {
+                    window.TutoriasJR.init();
+                    
+                    initCounters();
+                    initModalCloseListeners();
+                    initializeHomeForms();
+                }
+            }, 500);
+        }
+        
+        function initCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                if (isNaN(target)) return;
+                
+                const increment = target / 50;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current);
+                        setTimeout(updateCounter, 30);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateCounter();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                observer.observe(counter);
+            });
+        }
+        
+        function initializeHomeForms() {
+            if (!window.FormspreeService) {
+                console.error('❌ FormspreeService no disponible');
+                return;
+            }
+            
+            const homeForm = document.getElementById('homeForm');
+            if (homeForm) {
+                homeForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    if (!window.FormspreeService.validateForm(this)) {
+                        showMessage('Por favor completa todos los campos correctamente.', 'error');
+                        return;
+                    }
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    window.FormspreeService.setButtonState(submitBtn, true);
+                    
+                    const formData = new FormData(this);
+                    
+                    formData.append('page', 'inicio');
+                    formData.append('form_type', document.getElementById('selectedHomeType').value);
+                    formData.append('form_name', document.getElementById('selectedHomeName').value);
+                    
+                    try {
+                        const result = await window.FormspreeService.sendForm(formData, 'inicio');
+                        
+                        if (result.success) {
+                            showMessage('¡Solicitud enviada! Te contactaré en menos de 2 horas.', 'success');
+                            
+                            this.reset();
+                            
+                            setTimeout(() => {
+                                closeModal('homeModal');
+                            }, 2000);
+                        } else {
+                            showMessage(result.message, 'error');
+                        }
+                    } catch (error) {
+                        console.error('❌ Error en el envío:', error);
+                        showMessage('Error al enviar. Intenta de nuevo.', 'error');
+                    } finally {
+                        window.FormspreeService.setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+        }
+        
+        window.openHomeModal = openHomeModal;
+        window.showMessage = showMessage;
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadIncludes);
+        } else {
+            loadIncludes();
+        }
+    </script>
+</body>
+</html>

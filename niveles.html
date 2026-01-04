@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="es" data-mode="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niveles de Programación - Tutorías JR</title>
+    <meta name="description" content="Descubre tu nivel de programación. Test interactivo para principiantes, intermedios y avanzados. Ruta personalizada de aprendizaje.">
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <style>
+        .page-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+        
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-hero .lead {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .level-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+        }
+        
+        .level-card[data-level="principiante"]::before {
+            background: linear-gradient(to right, #10B981, #059669);
+        }
+        
+        .level-card[data-level="basico"]::before {
+            background: linear-gradient(to right, #3B82F6, #2563EB);
+        }
+        
+        .level-card[data-level="intermedio"]::before {
+            background: linear-gradient(to right, #8B5CF6, #7C3AED);
+        }
+        
+        .level-card[data-level="avanzado"]::before {
+            background: linear-gradient(to right, #EF4444, #DC2626);
+        }
+        
+        .level-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .level-card[data-level="principiante"]:hover {
+            border-color: #10B981;
+        }
+        
+        .level-card[data-level="basico"]:hover {
+            border-color: #3B82F6;
+        }
+        
+        .level-card[data-level="intermedio"]:hover {
+            border-color: #8B5CF6;
+        }
+        
+        .level-card[data-level="avanzado"]:hover {
+            border-color: #EF4444;
+        }
+        
+        .level-badge-large {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 2rem;
+            margin: 0 auto 24px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .level-card:hover .level-badge-large {
+            transform: scale(1.1) rotate(10deg);
+        }
+        
+        .level-badge-large.beginner {
+            background: linear-gradient(135deg, #10B981, #059669);
+        }
+        
+        .level-badge-large.basic {
+            background: linear-gradient(135deg, #3B82F6, #2563EB);
+        }
+        
+        .level-badge-large.intermediate {
+            background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+        }
+        
+        .level-badge-large.advanced {
+            background: linear-gradient(135deg, #EF4444, #DC2626);
+        }
+        
+        .level-card h3 {
+            margin-bottom: 12px;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+        
+        .level-card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            text-align: center;
+            flex-grow: 1;
+        }
+        
+        .level-features {
+            list-style: none;
+            margin: 20px 0;
+            padding: 0;
+        }
+        
+        .level-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .level-features li i {
+            font-size: 0.9rem;
+        }
+        
+        .level-features li i.fa-check-circle {
+            color: var(--secondary);
+        }
+        
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section:nth-child(even) {
+            background: var(--gray-50);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+        }
+        
+        .test-cta {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            padding: 60px 40px;
+            margin: 60px 0;
+            border-radius: var(--radius-xl);
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .test-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+        }
+        
+        .test-cta-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .test-cta h2 {
+            color: white;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .test-cta p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.125rem;
+            line-height: 1.6;
+        }
+        
+        .test-container {
+            display: none;
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            padding: 50px 40px;
+            margin: 60px 0;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .test-container.active {
+            display: block;
+            animation: slideInUp 0.5s ease-out;
+        }
+        
+        .test-progress {
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+        
+        .test-progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+        
+        .test-question {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 30px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        
+        .test-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .test-option {
+            padding: 20px;
+            background: var(--gray-100);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .test-option:hover {
+            background: var(--gray-200);
+            border-color: var(--primary);
+        }
+        
+        .test-option.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: scale(1.02);
+        }
+        
+        .test-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .test-results {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .test-results.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .result-icon.beginner { color: #10B981; }
+        .result-icon.basic { color: #3B82F6; }
+        .result-icon.intermediate { color: #8B5CF6; }
+        .result-icon.advanced { color: #EF4444; }
+        
+        .test-results h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+        
+        .result-description {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.125rem;
+            line-height: 1.6;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .levels-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .test-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-hero {
+                padding: 100px 0 40px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .test-container {
+                padding: 30px 20px;
+            }
+        }
+        
+        .level-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0 50px;
+            flex-wrap: wrap;
+        }
+        
+        .level-nav a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .level-nav a:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body data-page="niveles">
+    <div data-include="partials/header.html"></div>
+    
+    <section class="page-hero" id="niveles">
+        <div class="container">
+            <h1>📈 Niveles de Programación</h1>
+            <p class="lead">
+                Descubrí tu nivel actual y recibí una ruta personalizada para avanzar 
+                en tu camino como programador.
+            </p>
+            
+            <div class="level-nav">
+                <a href="#principiante">
+                    <i class="fas fa-seedling"></i> Principiante
+                </a>
+                <a href="#basico">
+                    <i class="fas fa-leaf"></i> Básico
+                </a>
+                <a href="#intermedio">
+                    <i class="fas fa-tree"></i> Intermedio
+                </a>
+                <a href="#avanzado">
+                    <i class="fas fa-mountain"></i> Avanzado
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <div class="test-cta">
+        <div class="container">
+            <div class="test-cta-content">
+                <h2>🧠 ¿No sabés tu nivel?</h2>
+                <p>
+                    Realizá nuestro test interactivo de 5 preguntas y descubrí exactamente 
+                    en qué nivel estás, con recomendaciones personalizadas para avanzar.
+                </p>
+                <button class="btn btn-light btn-lg" id="startTest">
+                    <i class="fas fa-play-circle"></i> Realizar test de nivel
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <section class="section">
+        <div class="container">
+            <div class="test-container" id="testContainer">
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="principiante">
+        <div class="container">
+            <div class="section-header">
+                <h2>🌱 Nivel Principiante</h2>
+                <p class="section-subtitle">
+                    Para quienes comienzan desde cero o tienen conocimientos muy básicos
+                </p>
+            </div>
+            
+            <div class="levels-grid">
+                <div class="level-card animate-fade-in" data-level="principiante">
+                    <div class="level-badge-large beginner">1</div>
+                    <h3>Principiante Absoluto</h3>
+                    <p>
+                        Si nunca has programado o has intentado pero te sientes perdido. 
+                        Te guío desde los conceptos más básicos.
+                    </p>
+                    
+                    <ul class="level-features">
+                        <li><i class="fas fa-check-circle"></i> Introducción a la lógica computacional</li>
+                        <li><i class="fas fa-check-circle"></i> Variables, tipos de datos y operadores</li>
+                        <li><i class="fas fa-check-circle"></i> Estructuras de control (if/else)</li>
+                        <li><i class="fas fa-check-circle"></i> Bucles (for/while)</li>
+                        <li><i class="fas fa-check-circle"></i> Funciones básicas</li>
+                        <li><i class="fas fa-check-circle"></i> Primeros mini-proyectos guiados</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLevelModal('principiante', 'Principiante Absoluto')">
+                            <i class="fas fa-graduation-cap"></i> Empezar desde cero
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="basico" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>🌿 Nivel Básico</h2>
+                <p class="section-subtitle">
+                    Para quienes ya comprenden fundamentos y quieren construir bases sólidas
+                </p>
+            </div>
+            
+            <div class="levels-grid">
+                <div class="level-card animate-fade-in" data-level="basico">
+                    <div class="level-badge-large basic">2</div>
+                    <h3>Desarrollador Básico</h3>
+                    <p>
+                        Ya entiendes lo básico pero necesitas estructurar mejor tu conocimiento 
+                        y comenzar proyectos más complejos.
+                    </p>
+                    
+                    <ul class="level-features">
+                        <li><i class="fas fa-check-circle"></i> Programación Orientada a Objetos (POO)</li>
+                        <li><i class="fas fa-check-circle"></i> Estructuras de datos (arrays, listas, diccionarios)</li>
+                        <li><i class="fas fa-check-circle"></i> Manejo de errores y excepciones</li>
+                        <li><i class="fas fa-check-circle"></i> Introducción a algoritmos básicos</li>
+                        <li><i class="fas fa-check-circle"></i> Archivos y entrada/salida básica</li>
+                        <li><i class="fas fa-check-circle"></i> Proyectos integradores pequeños</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLevelModal('basico', 'Nivel Básico')">
+                            <i class="fas fa-layer-group"></i> Fortalecer fundamentos
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="intermedio">
+        <div class="container">
+            <div class="section-header">
+                <h2>🌳 Nivel Intermedio</h2>
+                <p class="section-subtitle">
+                    Para programadores que quieren construir aplicaciones reales y trabajar en equipo
+                </p>
+            </div>
+            
+            <div class="levels-grid">
+                <div class="level-card animate-fade-in" data-level="intermedio">
+                    <div class="level-badge-large intermediate">3</div>
+                    <h3>Desarrollador Intermedio</h3>
+                    <p>
+                        Puedes crear aplicaciones funcionales pero quieres aprender 
+                        mejores prácticas y patrones de diseño.
+                    </p>
+                    
+                    <ul class="level-features">
+                        <li><i class="fas fa-check-circle"></i> Patrones de diseño básicos</li>
+                        <li><i class="fas fa-check-circle"></i> Bases de datos y SQL</li>
+                        <li><i class="fas fa-check-circle"></i> Desarrollo de APIs REST</li>
+                        <li><i class="fas fa-check-circle"></i> Testing (unit tests, integration tests)</li>
+                        <li><i class="fas fa-check-circle"></i> Control de versiones (Git avanzado)</li>
+                        <li><i class="fas fa-check-circle"></i> Proyectos completos de principio a fin</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLevelModal('intermedio', 'Nivel Intermedio')">
+                            <i class="fas fa-project-diagram"></i> Proyectos profesionales
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="avanzado" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>🏔️ Nivel Avanzado</h2>
+                <p class="section-subtitle">
+                    Para desarrolladores que buscan especialización, optimización y arquitectura
+                </p>
+            </div>
+            
+            <div class="levels-grid">
+                <div class="level-card animate-fade-in" data-level="avanzado">
+                    <div class="level-badge-large advanced">4</div>
+                    <h3>Desarrollador Avanzado</h3>
+                    <p>
+                        Eres un programador experimentado que busca dominar arquitecturas complejas, 
+                        optimización y liderazgo técnico.
+                    </p>
+                    
+                    <ul class="level-features">
+                        <li><i class="fas fa-check-circle"></i> Arquitecturas de software (microservicios, clean architecture)</li>
+                        <li><i class="fas fa-check-circle"></i> Performance y optimización avanzada</li>
+                        <li><i class="fas fa-check-circle"></i> Seguridad informática y buenas prácticas</li>
+                        <li><i class="fas fa-check-circle"></i> DevOps básico (CI/CD, Docker, despliegue)</li>
+                        <li><i class="fas fa-check-circle"></i> Code review y mentoring</li>
+                        <li><i class="fas fa-check-circle"></i> Sistemas distribuidos y escalabilidad</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLevelModal('avanzado', 'Nivel Avanzado')">
+                            <i class="fas fa-user-tie"></i> Especialización avanzada
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>🗺️ Ruta de Aprendizaje</h2>
+                <p class="section-subtitle">
+                    Un camino claro para avanzar de principiante a desarrollador profesional
+                </p>
+            </div>
+            
+            <div class="levels-grid">
+                <div class="level-card" style="background: linear-gradient(135deg, var(--gray-50), var(--card-bg));">
+                    <h3 style="color: var(--primary);">📅 Plan Personalizado</h3>
+                    <p>
+                        Sin importar tu nivel actual, te ayudo a crear un plan específico con:
+                    </p>
+                    
+                    <ul class="level-features">
+                        <li><i class="fas fa-calendar-check"></i> Objetivos claros y medibles</li>
+                        <li><i class="fas fa-chart-line"></i> Progreso semana a semana</li>
+                        <li><i class="fas fa-project-diagram"></i> Proyectos reales para tu portafolio</li>
+                        <li><i class="fas fa-code-review"></i> Revisión de código y feedback constante</li>
+                        <li><i class="fas fa-graduation-cap"></i> Preparación para entrevistas técnicas</li>
+                        <li><i class="fas fa-briefcase"></i> Orientación laboral y profesional</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-secondary btn-block" onclick="openRouteModal()">
+                            <i class="fas fa-map-marked-alt"></i> Crear mi ruta personalizada
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div data-include="partials/footer.html"></div>
+    
+    <div class="modal" id="levelModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="levelModalTitle"><i class="fas fa-graduation-cap"></i> Tutoría Personalizada</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p id="levelModalDescription" style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Completa el formulario para coordinar sesiones adaptadas a tu nivel.
+                </p>
+                
+                <form id="levelForm">
+                    <input type="hidden" id="selectedLevel" name="level_type" value="">
+                    <input type="hidden" id="selectedLevelName" name="level_name" value="">
+                    
+                    <input type="hidden" name="_subject" value="Solicitud de Tutoría - Tutorías JR">
+                    <input type="hidden" name="_format" value="plain">
+                    <input type="text" name="_gotcha" style="display:none">
+                    
+                    <div class="form-group">
+                        <label for="levelName">
+                            <i class="fas fa-user"></i> Nombre completo
+                        </label>
+                        <input type="text" id="levelName" name="name" placeholder="Tu nombre completo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="levelEmail">
+                            <i class="fas fa-envelope"></i> Correo electrónico
+                        </label>
+                        <input type="email" id="levelEmail" name="email" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="levelPhone">
+                            <i class="fas fa-phone"></i> Teléfono / WhatsApp
+                        </label>
+                        <input type="tel" id="levelPhone" name="phone" placeholder="+506 0000 0000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="levelCurrent">
+                            <i class="fas fa-chart-line"></i> Nivel actual (según test o autoevaluación)
+                        </label>
+                        <select id="levelCurrent" name="current_level" required>
+                            <option value="" disabled selected>Selecciona tu nivel</option>
+                            <option value="principiante">Principiante (nivel 1)</option>
+                            <option value="basico">Básico (nivel 2)</option>
+                            <option value="intermedio">Intermedio (nivel 3)</option>
+                            <option value="avanzado">Avanzado (nivel 4)</option>
+                            <option value="no-se">No sé, necesito evaluación</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="levelLanguage">
+                            <i class="fas fa-code"></i> Lenguaje/tecnología de interés
+                        </label>
+                        <select id="levelLanguage" name="language" required>
+                            <option value="" disabled selected>Selecciona un lenguaje</option>
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="java">Java</option>
+                            <option value="csharp">C# .NET</option>
+                            <option value="htmlcss">HTML/CSS</option>
+                            <option value="sql">SQL / Bases de datos</option>
+                            <option value="react">React</option>
+                            <option value="node">Node.js</option>
+                            <option value="otros">Otro (especificar en mensaje)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="levelMessage">
+                            <i class="fas fa-comment"></i> ¿Qué querés lograr con las tutorías?
+                        </label>
+                        <textarea id="levelMessage" name="message" rows="4" placeholder="Describí tus objetivos de aprendizaje, proyectos que tenés en mente, etc..."></textarea>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Solicitar plan personalizado
+                        </button>
+                        <small style="color: var(--text-secondary); text-align: center; display: block; margin-top: 10px;">
+                            <i class="fas fa-lock"></i> Tus datos están seguros y nunca serán compartidos
+                        </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="routeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-map-marked-alt"></i> Ruta de Aprendizaje Personalizada</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Diseñemos juntos un plan específico para alcanzar tus metas de programación. 
+                    Contame sobre tus objetivos y creo una ruta paso a paso.
+                </p>
+                
+                <form id="routeForm">
+                    <input type="hidden" name="form_type" value="ruta_aprendizaje">
+                    <input type="hidden" name="level_name" value="Ruta Personalizada">
+                    
+                    <input type="hidden" name="_subject" value="Ruta de Aprendizaje - Tutorías JR">
+                    <input type="hidden" name="_format" value="plain">
+                    <input type="text" name="_gotcha" style="display:none">
+                    
+                    <div class="form-group">
+                        <label for="routeName">
+                            <i class="fas fa-user"></i> Nombre completo
+                        </label>
+                        <input type="text" id="routeName" name="name" placeholder="Tu nombre completo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="routeEmail">
+                            <i class="fas fa-envelope"></i> Correo electrónico
+                        </label>
+                        <input type="email" id="routeEmail" name="email" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="routePhone">
+                            <i class="fas fa-phone"></i> Teléfono / WhatsApp
+                        </label>
+                        <input type="tel" id="routePhone" name="phone" placeholder="+506 0000 0000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="routeExperience">
+                            <i class="fas fa-history"></i> ¿Cuánta experiencia tenés programando?
+                        </label>
+                        <select id="routeExperience" name="experience" required>
+                            <option value="" disabled selected>Selecciona tu experiencia</option>
+                            <option value="ninguna">Ninguna (quiero empezar de cero)</option>
+                            <option value="menos-6">Menos de 6 meses</option>
+                            <option value="6-12">6 meses a 1 año</option>
+                            <option value="1-2">1 a 2 años</option>
+                            <option value="mas-2">Más de 2 años</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="routeGoal">
+                            <i class="fas fa-bullseye"></i> Tu objetivo principal
+                        </label>
+                        <select id="routeGoal" name="goal" required>
+                            <option value="" disabled selected>¿Qué querés lograr?</option>
+                            <option value="empleo">Conseguir trabajo como programador</option>
+                            <option value="freelance">Trabajar como freelancer</option>
+                            <option value="emprendimiento">Desarrollar mi propio emprendimiento</option>
+                            <option value="carrera">Avanzar en mi carrera profesional</option>
+                            <option value="hobby">Programar como hobby/proyectos personales</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="routeTime">
+                            <i class="fas fa-clock"></i> ¿Cuántas horas semanales podés dedicar?
+                        </label>
+                        <select id="routeTime" name="weekly_hours" required>
+                            <option value="" disabled selected>Selecciona disponibilidad</option>
+                            <option value="1-5">1-5 horas por semana</option>
+                            <option value="5-10">5-10 horas por semana</option>
+                            <option value="10-20">10-20 horas por semana</option>
+                            <option value="mas-20">Más de 20 horas por semana</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="routeMessage">
+                            <i class="fas fa-comment-dots"></i> Contame más sobre tus metas
+                        </label>
+                        <textarea id="routeMessage" name="message" rows="4" placeholder="¿Hay algún área específica que te interese? ¿Proyectos que querés desarrollar? ¿Algún plazo que tengas en mente?"></textarea>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Diseñar mi ruta personalizada
+                        </button>
+                        <small style="color: var(--text-secondary); text-align: center; display: block; margin-top: 10px;">
+                            <i class="fas fa-clock"></i> Te enviaré un plan detallado en menos de 24 horas
+                        </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="whatsapp-float">
+        <a href="https://wa.me/50687138971" class="whatsapp-button" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span>¿Necesitás ayuda?</span>
+        </a>
+    </div>
+    
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <div class="toast-container"></div>
+    
+    <script src="assets/js/app.js"></script>
+    
+    <script src="assets/js/formspree-service.js"></script>
+    
+    <script>
+        const LEVELS_CONFIG = {
+            principiante: {
+                title: "🌱 Tutoría para Principiantes",
+                description: "¡Perfecto para empezar! Te guiaré desde cero con paciencia y ejercicios prácticos. Construiremos una base sólida paso a paso."
+            },
+            basico: {
+                title: "🌿 Fortalecimiento de Fundamentos",
+                description: "Profundicemos en los conceptos esenciales y construyamos proyectos más complejos para consolidar tu aprendizaje."
+            },
+            intermedio: {
+                title: "🌳 Desarrollo de Proyectos Reales",
+                description: "Trabajaremos en aplicaciones completas, aprenderemos buenas prácticas y prepararemos tu portafolio profesional."
+            },
+            avanzado: {
+                title: "🏔️ Especialización Avanzada",
+                description: "Enfocaremos en arquitectura, optimización y problemas complejos. Para programadores que buscan excelencia técnica."
+            }
+        };
+        
+        let testResultLevel = null;
+        
+        function showMessage(message, type = 'info') {
+            console.log(`📢 ${type.toUpperCase()}: ${message}`);
+            
+            if (window.TutoriasJR && typeof window.TutoriasJR.showToast === 'function') {
+                window.TutoriasJR.showToast(message, type);
+                return;
+            }
+            
+            const toastContainer = document.querySelector('.toast-container');
+            if (toastContainer && type !== 'loading') {
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                        <span>${message}</span>
+                    </div>
+                    <button class="toast-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                toastContainer.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.remove();
+                }, 5000);
+                
+                toast.querySelector('.toast-close').addEventListener('click', () => {
+                    toast.remove();
+                });
+                
+                return;
+            }
+            
+            if (type === 'error') {
+                alert('❌ ' + message);
+            } else if (type === 'success') {
+                alert('✅ ' + message);
+            } else {
+                alert('ℹ️ ' + message);
+            }
+        }
+        
+        function openModalSafe(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }, 10);
+            }
+        }
+        
+        function openLevelModal(levelType, levelName) {
+            const levelConfig = LEVELS_CONFIG[levelType] || LEVELS_CONFIG.principiante;
+            
+            document.getElementById('levelModalTitle').innerHTML = 
+                `<i class="fas fa-graduation-cap"></i> ${levelConfig.title}`;
+            document.getElementById('levelModalDescription').textContent = levelConfig.description;
+            
+            document.getElementById('selectedLevel').value = levelType;
+            document.getElementById('selectedLevelName').value = levelName;
+            
+            document.querySelector('#levelForm input[name="_subject"]').value = 
+                `Nivel ${levelName} - Tutorías JR`;
+            
+            openModalSafe('levelModal');
+        }
+        
+        function openRouteModal() {
+            openModalSafe('routeModal');
+        }
+        
+        const levelTest = {
+            questions: [
+                {
+                    id: 1,
+                    question: "¿Cómo describirías tu experiencia con programación?",
+                    options: [
+                        { text: "Nunca he programado o solo he visto videos", value: "principiante", points: 1 },
+                        { text: "He hecho ejercicios básicos y entiendo variables", value: "basico", points: 2 },
+                        { text: "Puedo crear programas pequeños funcionales", value: "intermedio", points: 3 },
+                        { text: "He desarrollado proyectos completos", value: "avanzado", points: 4 }
+                    ]
+                },
+                {
+                    id: 2,
+                    question: "¿Cómo manejas los errores en tu código?",
+                    options: [
+                        { text: "No sé cómo depurar, me frustro y empiezo de nuevo", value: "principiante", points: 1 },
+                        { text: "Uso console.log() para ver qué pasa", value: "basico", points: 2 },
+                        { text: "Utilizo herramientas de depuración y leo mensajes de error", value: "intermedio", points: 3 },
+                        { text: "Implemento manejo de excepciones y logging profesional", value: "avanzado", points: 4 }
+                    ]
+                },
+                {
+                    id: 3,
+                    question: "¿Qué experiencia tienes con bases de datos?",
+                    options: [
+                        { text: "No sé qué es una base de datos", value: "principiante", points: 1 },
+                        { text: "He hecho consultas SELECT simples", value: "basico", points: 2 },
+                        { text: "Puedo hacer JOINs y manejar relaciones básicas", value: "intermedio", points: 3 },
+                        { text: "Diseño esquemas y optimizo consultas complejas", value: "avanzado", points: 4 }
+                    ]
+                },
+                {
+                    id: 4,
+                    question: "¿Cómo estructuras tus proyectos?",
+                    options: [
+                        { text: "Todo en un solo archivo", value: "principiante", points: 1 },
+                        { text: "Separo en funciones y algunos archivos", value: "basico", points: 2 },
+                        { text: "Uso módulos y sigo alguna estructura básica", value: "intermedio", points: 3 },
+                        { text: "Aplico patrones de diseño y arquitecturas", value: "avanzado", points: 4 }
+                    ]
+                },
+                {
+                    id: 5,
+                    question: "¿Qué experiencia tienes trabajando en equipo?",
+                    options: [
+                        { text: "Siempre he programado solo", value: "principiante", points: 1 },
+                        { text: "He compartido código por correo/chat", value: "basico", points: 2 },
+                        { text: "Uso Git para control de versiones", value: "intermedio", points: 3 },
+                        { text: "Sigo metodologías ágiles y hago code reviews", value: "avanzado", points: 4 }
+                    ]
+                }
+            ],
+            
+            results: {
+                principiante: {
+                    title: "🌱 Principiante",
+                    description: "¡Perfecto para empezar! Tenés la oportunidad de construir bases sólidas desde cero. Recomiendo comenzar con lógica de programación y un lenguaje amigable como Python.",
+                    icon: "fas fa-seedling",
+                    recommendation: "Iniciar con sesiones de fundamentos, ejercicios prácticos guiados y mini-proyectos para ganar confianza."
+                },
+                basico: {
+                    title: "🌿 Nivel Básico",
+                    description: "¡Buen trabajo! Ya tenés los fundamentos. Ahora es momento de fortalecerlos y comenzar proyectos más estructurados. Podés profundizar en POO y estructuras de datos.",
+                    icon: "fas fa-leaf",
+                    recommendation: "Enfocarse en proyectos pequeños pero completos, aprender buenas prácticas y consolidar conocimientos."
+                },
+                intermedio: {
+                    title: "🌳 Nivel Intermedio",
+                    description: "¡Excelente progreso! Estás listo para proyectos reales. Podemos trabajar en APIs, bases de datos y comenzar con patrones de diseño y testing.",
+                    icon: "fas fa-tree",
+                    recommendation: "Desarrollar proyectos completos, aprender sobre arquitectura y prepararte para trabajo en equipo."
+                },
+                avanzado: {
+                    title: "🏔️ Nivel Avanzado",
+                    description: "¡Impresionante! Eres un programador experimentado. Podemos enfocarnos en especialización, optimización, arquitecturas avanzadas y liderazgo técnico.",
+                    icon: "fas fa-mountain",
+                    recommendation: "Especialización en áreas específicas, arquitecturas complejas, performance y mentoría."
+                }
+            }
+        };
+
+        let currentQuestion = 0;
+        let userAnswers = [];
+        let totalPoints = 0;
+
+        async function loadIncludes() {
+            const includes = document.querySelectorAll('[data-include]');
+            
+            for (const element of includes) {
+                try {
+                    const file = element.getAttribute('data-include');
+                    const response = await fetch(file);
+                    
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    
+                    const html = await response.text();
+                    element.innerHTML = html;
+                    element.removeAttribute('data-include');
+                    
+                } catch (error) {
+                    console.error(`Error cargando ${element.getAttribute('data-include')}:`, error);
+                    element.innerHTML = `
+                        <div style="background: #fef2f2; border: 2px dashed #dc2626; padding: 20px; border-radius: 8px; text-align: center;">
+                            <i class="fas fa-exclamation-triangle" style="color: #dc2626; font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p style="color: #7f1d1d; margin: 0;">
+                                Error cargando componente. Por favor recarga la página.
+                            </p>
+                        </div>
+                    `;
+                }
+            }
+            
+            setTimeout(() => {
+                if (window.TutoriasJR && typeof window.TutoriasJR.init === 'function') {
+                    window.TutoriasJR.init();
+                    
+                    const levelCards = document.querySelectorAll('.level-card');
+                    levelCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('animate-fade-in');
+                        }, index * 150);
+                    });
+                    
+                    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                        anchor.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const targetId = this.getAttribute('href');
+                            if (targetId === '#') return;
+                            
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 70;
+                                window.scrollTo({
+                                    top: targetElement.offsetTop - navbarHeight,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        });
+                    });
+                    
+                    initializeTest();
+                    
+                    initializeLevelForms();
+                }
+            }, 500);
+        }
+
+        function initializeTest() {
+            const startTestBtn = document.getElementById('startTest');
+            const testContainer = document.getElementById('testContainer');
+            
+            if (startTestBtn && testContainer) {
+                startTestBtn.addEventListener('click', function() {
+                    testContainer.classList.add('active');
+                    
+                    const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 70;
+                    window.scrollTo({
+                        top: testContainer.offsetTop - navbarHeight - 20,
+                        behavior: 'smooth'
+                    });
+                    
+                    startTest();
+                });
+            }
+        }
+
+        function startTest() {
+            currentQuestion = 0;
+            userAnswers = [];
+            totalPoints = 0;
+            
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const testContainer = document.getElementById('testContainer');
+            const question = levelTest.questions[currentQuestion];
+            
+            if (!testContainer || !question) return;
+            
+            const progress = ((currentQuestion + 1) / levelTest.questions.length) * 100;
+            
+            testContainer.innerHTML = `
+                <div class="test-progress">
+                    <div class="test-progress-bar" style="width: ${progress}%"></div>
+                </div>
+                
+                <div class="test-question">
+                    Pregunta ${currentQuestion + 1} de ${levelTest.questions.length}: ${question.question}
+                </div>
+                
+                <div class="test-options">
+                    ${question.options.map((option, index) => `
+                        <div class="test-option" data-value="${option.value}" data-points="${option.points}">
+                            ${option.text}
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="test-navigation">
+                    ${currentQuestion > 0 ? `
+                        <button class="btn btn-outline" id="prevQuestion">
+                            <i class="fas fa-arrow-left"></i> Anterior
+                        </button>
+                    ` : '<div></div>'}
+                    
+                    <span style="color: var(--text-secondary); font-size: 0.9rem;">
+                        ${currentQuestion + 1} / ${levelTest.questions.length}
+                    </span>
+                    
+                    <button class="btn ${currentQuestion === levelTest.questions.length - 1 ? 'btn-primary' : 'btn-outline'}" id="nextQuestion">
+                        ${currentQuestion === levelTest.questions.length - 1 ? 'Ver resultados <i class="fas fa-chart-bar"></i>' : 'Siguiente <i class="fas fa-arrow-right"></i>'}
+                    </button>
+                </div>
+            `;
+            
+            document.querySelectorAll('.test-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.test-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    this.classList.add('selected');
+                    
+                    userAnswers[currentQuestion] = {
+                        value: this.getAttribute('data-value'),
+                        points: parseInt(this.getAttribute('data-points'))
+                    };
+                });
+            });
+            
+            const prevBtn = document.getElementById('prevQuestion');
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function() {
+                    if (currentQuestion > 0) {
+                        currentQuestion--;
+                        loadQuestion();
+                    }
+                });
+            }
+            
+            const nextBtn = document.getElementById('nextQuestion');
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function() {
+                    if (!userAnswers[currentQuestion]) {
+                        showMessage('Por favor seleccioná una respuesta', 'error');
+                        return;
+                    }
+                    
+                    if (currentQuestion < levelTest.questions.length - 1) {
+                        currentQuestion++;
+                        loadQuestion();
+                    } else {
+                        calculateResults();
+                    }
+                });
+            }
+        }
+
+        function calculateResults() {
+            totalPoints = userAnswers.reduce((sum, answer) => sum + answer.points, 0);
+            
+            testResultLevel = 'principiante';
+            if (totalPoints >= 16) testResultLevel = 'avanzado';
+            else if (totalPoints >= 12) testResultLevel = 'intermedio';
+            else if (totalPoints >= 8) testResultLevel = 'basico';
+            
+            const result = levelTest.results[testResultLevel];
+            
+            const testContainer = document.getElementById('testContainer');
+            testContainer.innerHTML = `
+                <div class="test-results active">
+                    <div class="result-icon ${testResultLevel}">
+                        <i class="${result.icon}"></i>
+                    </div>
+                    
+                    <h2>${result.title}</h2>
+                    
+                    <div style="background: var(--gray-100); padding: 20px; border-radius: var(--radius); margin: 20px 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span style="color: var(--text-secondary);">Tu puntuación:</span>
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">${totalPoints}/20</span>
+                        </div>
+                        <div class="test-progress">
+                            <div class="test-progress-bar" style="width: ${(totalPoints / 20) * 100}%"></div>
+                        </div>
+                    </div>
+                    
+                    <p class="result-description">
+                        ${result.description}
+                    </p>
+                    
+                    <p style="color: var(--text-secondary); margin-bottom: 30px;">
+                        <strong>Recomendación:</strong> ${result.recommendation}
+                    </p>
+                    
+                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="openLevelModal('${testResultLevel}', '${result.title}')">
+                            <i class="fas fa-calendar-alt"></i> Agendar plan personalizado
+                        </button>
+                        <button class="btn btn-outline" onclick="startTest()">
+                            <i class="fas fa-redo"></i> Realizar test nuevamente
+                        </button>
+                        <a href="planes.html" class="btn">
+                            <i class="fas fa-cubes"></i> Ver planes
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initializeLevelForms() {
+            console.log('🔄 Inicializando formularios de niveles...');
+            
+            if (!window.FormspreeService) {
+                console.error('❌ FormspreeService no disponible');
+                return;
+            }
+            
+            const levelForm = document.getElementById('levelForm');
+            if (levelForm) {
+                console.log('✅ Level form encontrado');
+                
+                levelForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    if (!window.FormspreeService.validateForm(this)) {
+                        showMessage('Por favor completa todos los campos correctamente.', 'error');
+                        return;
+                    }
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    window.FormspreeService.setButtonState(submitBtn, true);
+                    
+                    const formData = new FormData(this);
+                    
+                    formData.append('page', 'niveles');
+                    formData.append('test_result', testResultLevel || 'no_realizado');
+                    
+                    try {
+                        const result = await window.FormspreeService.sendForm(formData, 'nivel');
+                        
+                        if (result.success) {
+                            showMessage('¡Solicitud enviada! Te contactaré pronto.', 'success');
+                            
+                            this.reset();
+                            
+                            setTimeout(() => {
+                                const modal = this.closest('.modal');
+                                if (modal) {
+                                    modal.classList.remove('active');
+                                    setTimeout(() => {
+                                        modal.style.display = 'none';
+                                        document.body.style.overflow = 'auto';
+                                    }, 300);
+                                }
+                            }, 2000);
+                        } else {
+                            showMessage(result.message, 'error');
+                        }
+                    } catch (error) {
+                        console.error('❌ Error en el envío:', error);
+                        showMessage('Error al enviar. Intenta de nuevo.', 'error');
+                    } finally {
+                        window.FormspreeService.setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+            
+            const routeForm = document.getElementById('routeForm');
+            if (routeForm) {
+                console.log('✅ Route form encontrado');
+                
+                routeForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    if (!window.FormspreeService.validateForm(this)) {
+                        showMessage('Por favor completa todos los campos correctamente.', 'error');
+                        return;
+                    }
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    window.FormspreeService.setButtonState(submitBtn, true);
+                    
+                    const formData = new FormData(this);
+                    
+                    formData.append('page', 'niveles');
+                    formData.append('test_result', testResultLevel || 'no_realizado');
+                    
+                    try {
+                        const result = await window.FormspreeService.sendForm(formData, 'ruta');
+                        
+                        if (result.success) {
+                            showMessage('¡Solicitud enviada! Te enviaré tu ruta personalizada en menos de 24 horas.', 'success');
+                            
+                            this.reset();
+                            
+                            setTimeout(() => {
+                                const modal = this.closest('.modal');
+                                if (modal) {
+                                    modal.classList.remove('active');
+                                    setTimeout(() => {
+                                        modal.style.display = 'none';
+                                        document.body.style.overflow = 'auto';
+                                    }, 300);
+                                }
+                            }, 2000);
+                        } else {
+                            showMessage(result.message, 'error');
+                        }
+                    } catch (error) {
+                        console.error('❌ Error en el envío:', error);
+                        showMessage('Error al enviar. Intenta de nuevo.', 'error');
+                    } finally {
+                        window.FormspreeService.setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+            
+            console.log('✅ Formularios de niveles inicializados');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.modal-close')) {
+                    const modal = e.target.closest('.modal');
+                    if (modal) {
+                        modal.classList.remove('active');
+                        setTimeout(() => {
+                            modal.style.display = 'none';
+                            document.body.style.overflow = 'auto';
+                        }, 300);
+                    }
+                }
+                
+                if (e.target.classList.contains('modal')) {
+                    e.target.classList.remove('active');
+                    setTimeout(() => {
+                        e.target.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 300);
+                }
+            });
+            
+            document.querySelectorAll('.modal-content').forEach(content => {
+                content.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+        });
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadIncludes);
+        } else {
+            loadIncludes();
+        }
+    </script>
+</body>
+</html>

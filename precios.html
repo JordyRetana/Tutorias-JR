@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="es" data-mode="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Precios - Tutorías de Programación | Costa Rica</title>
+    <meta name="description" content="Precios transparentes de tutorías de programación. Calcula el costo según tu nivel, horas y descuentos por paquetes." />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.28/dist/jspdf.plugin.autotable.min.js"></script>
+
+    <style>
+        .page-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-hero .lead {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 2;
+        }
+
+        .pricing-calculator {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            margin: 50px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .calculator-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .control-group {
+            background: var(--gray-50);
+            padding: 25px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .control-group h4 {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            font-size: 1.125rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-group h4 i {
+            color: var(--primary);
+        }
+
+        .select-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .hours-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .hours-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius);
+            border: 2px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hours-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        .hours-display {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .calculator-results {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            color: white;
+            margin-top: 40px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .discount-badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .savings-highlight {
+            background: var(--secondary);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .pricing-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--primary);
+            position: relative;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .pricing-title {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .pricing-period {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: normal;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 20px 0;
+            padding: 0;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .price-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .comparison-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .price-difference {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 20px 0;
+            color: var(--primary);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            text-align: center;
+            padding: 25px;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section:nth-child(even) {
+            background: var(--gray-50);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .pricing-cards { grid-template-columns: 1fr; }
+            .calculator-controls { grid-template-columns: 1fr; }
+            .page-hero { padding: 100px 0 40px; }
+            .section { padding: 60px 0; }
+            .pricing-calculator { padding: 25px; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .modal {
+            background: rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(5px) !important;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex !important;
+        }
+
+        .modal-content {
+            background: var(--card-bg) !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-primary) !important;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--border-color) !important;
+            background: transparent !important;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            color: var(--text-primary) !important;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .modal-body {
+            color: var(--text-primary) !important;
+            background: transparent !important;
+            padding: 24px;
+        }
+
+        .modal-footer {
+            background: var(--gray-50) !important;
+            border-top: 1px solid var(--border-color) !important;
+            padding: 24px;
+        }
+
+        [data-mode="dark"] .modal-footer {
+            background: var(--gray-800) !important;
+        }
+
+        .form-group label {
+            color: var(--text-primary) !important;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: var(--card-bg) !important;
+            color: var(--text-primary) !important;
+            border: 1px solid var(--border-color) !important;
+            width: 100%;
+            padding: 12px;
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+
+        .modal-close {
+            color: var(--text-secondary) !important;
+            background: transparent !important;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--gray-100) !important;
+            color: var(--text-primary) !important;
+        }
+
+        [data-mode="dark"] .modal-close:hover {
+            background: var(--gray-800) !important;
+        }
+
+        .pdf-generator {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .pdf-button {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .pdf-button:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .pdf-button i {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body data-page="precios">
+    <div data-include="partials/header.html"></div>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>💰 Precios Transparentes</h1>
+            <p class="lead">Calculá el costo exacto según tu nivel y horas.</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+                <button class="btn btn-light btn-lg" type="button" onclick="openPriceModal('calculadora', 'Calcular Precio Personalizado')">
+                    <i class="fas fa-calculator"></i> Calcular mi precio
+                </button>
+                <a href="#planes" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-tags"></i> Ver planes completos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>📊 Calculadora de Precios</h2>
+                <p class="section-subtitle">Configurá tu tutoría ideal y ve el precio en tiempo real</p>
+            </div>
+
+            <div class="pricing-calculator">
+                <div class="calculator-controls">
+                    <div class="control-group">
+                        <h4><i class="fas fa-code"></i> Lenguaje</h4>
+                        <select class="select-control" id="languageSelect">
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="java">Java</option>
+                            <option value="csharp">C# .NET</option>
+                            <option value="web">Web Development</option>
+                            <option value="sql">SQL & Bases de Datos</option>
+                            <option value="logica">Lógica de Programación</option>
+                            <option value="cpp">C++</option>
+                            <option value="php">PHP</option>
+                            <option value="swift">Swift</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <h4><i class="fas fa-chart-line"></i> Nivel</h4>
+                        <select class="select-control" id="levelSelect">
+                            <option value="beginner">Principiante</option>
+                            <option value="intermediate" selected>Intermedio</option>
+                            <option value="advanced">Avanzado</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <h4><i class="fas fa-clock"></i> Horas</h4>
+                        <div class="hours-control">
+                            <button class="hours-btn" id="decreaseHours" type="button">−</button>
+                            <div class="hours-display" id="hoursDisplay">4</div>
+                            <button class="hours-btn" id="increaseHours" type="button">+</button>
+                            <div style="margin-left: auto;">
+                                <div id="discountInfo" class="discount-badge" style="display: none;">5% OFF</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; font-size: 0.875rem; color: var(--text-secondary);">
+                            <i class="fas fa-info-circle"></i> Más horas = mayor descuento
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calculator-results">
+                    <h3 style="color: white; margin-bottom: 30px;">Resumen del Precio</h3>
+
+                    <div class="result-row">
+                        <span>Precio Base por Hora:</span>
+                        <span id="basePrice">₡6,500</span>
+                    </div>
+
+                    <div class="result-row">
+                        <span>Subtotal (<span id="totalHours">4</span> horas):</span>
+                        <span id="subtotalPrice">₡26,000</span>
+                    </div>
+
+                    <div class="result-row">
+                        <span>Descuento por Paquete:</span>
+                        <span id="discountAmount">-₡0</span>
+                    </div>
+
+                    <div class="result-row">
+                        <span>Precio Final Total:</span>
+                        <span id="finalPrice">₡26,000</span>
+                    </div>
+
+                    <div class="result-row" style="padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
+                        <span>Precio por Hora Final:</span>
+                        <span id="finalHourPrice" style="font-weight: 600;">₡6,500/hora</span>
+                    </div>
+                </div>
+
+                <div class="savings-highlight" id="savingsMessage" style="display: none;">
+                    <h4 style="color: white; margin: 0;"><i class="fas fa-trophy"></i> ¡Estás ahorrando!</h4>
+                    <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0;" id="savingsText"></p>
+                </div>
+
+                <div class="pdf-generator">
+                    <h4><i class="fas fa-file-pdf"></i> Descargar Cotización</h4>
+                    <p style="color: var(--text-secondary); margin: 10px 0 20px 0;">
+                        Generá una cotización profesional en PDF con todos los detalles.
+                    </p>
+                    <button class="pdf-button" type="button" onclick="generatePricePDF()">
+                        <i class="fas fa-download"></i> Descargar Cotización PDF
+                    </button>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn btn-primary btn-lg" type="button" onclick="openPriceModal('agendar_calculado', 'Agendar Tutoría - Precio Calculado')" style="min-width: 250px;">
+                        <i class="fas fa-calendar-alt"></i> Agendar con este precio
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: var(--gray-50);" id="planes">
+        <div class="container">
+            <div class="section-header">
+                <h2>🎯 Planes por Nivel</h2>
+                <p class="section-subtitle">Elegí el nivel que mejor se adapte a tus necesidades y objetivos</p>
+            </div>
+
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-title">Principiante</h3>
+                        <div class="pricing-price">₡6,000<span class="pricing-period">/hora</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Lógica básica de programación</li>
+                        <li><i class="fas fa-check"></i> Fundamentos del lenguaje elegido</li>
+                        <li><i class="fas fa-check"></i> Ejercicios guiados paso a paso</li>
+                        <li><i class="fas fa-check"></i> Corrección de errores comunes</li>
+                        <li><i class="fas fa-check"></i> Material de apoyo incluido</li>
+                        <li><i class="fas fa-check"></i> Soporte por WhatsApp básico</li>
+                    </ul>
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" type="button" onclick="openPriceModal('principiante', 'Plan Principiante')">
+                            <i class="fas fa-rocket"></i> Comenzar como principiante
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pricing-card popular">
+                    <div class="popular-badge">MÁS POPULAR</div>
+                    <div class="pricing-header">
+                        <h3 class="pricing-title">Intermedio</h3>
+                        <div class="pricing-price">₡7,500<span class="pricing-period">/hora</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Todo lo del nivel Principiante</li>
+                        <li><i class="fas fa-check"></i> Programación Orientada a Objetos</li>
+                        <li><i class="fas fa-check"></i> Estructuras de datos básicas</li>
+                        <li><i class="fas fa-check"></i> Proyectos prácticos reales</li>
+                        <li><i class="fas fa-check"></i> Code review y mejores prácticas</li>
+                        <li><i class="fas fa-check"></i> Soporte prioritario por WhatsApp</li>
+                    </ul>
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" type="button" onclick="openPriceModal('intermedio', 'Plan Intermedio')">
+                            <i class="fas fa-chart-line"></i> Elegir nivel intermedio
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-title">Avanzado</h3>
+                        <div class="pricing-price">₡9,000<span class="pricing-period">/hora</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Todo lo del nivel Intermedio</li>
+                        <li><i class="fas fa-check"></i> Arquitectura de software</li>
+                        <li><i class="fas fa-check"></i> Patrones de diseño avanzados</li>
+                        <li><i class="fas fa-check"></i> Optimización y rendimiento</li>
+                        <li><i class="fas fa-check"></i> Mentoring profesional</li>
+                        <li><i class="fas fa-check"></i> Review de portfolio y CV</li>
+                    </ul>
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" type="button" onclick="openPriceModal('avanzado', 'Plan Avanzado')">
+                            <i class="fas fa-graduation-cap"></i> Nivel avanzado
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>⚖️ ¿Vale la pena invertir?</h2>
+                <p class="section-subtitle">Compará lo que podés lograr con tutorías vs. aprender por tu cuenta</p>
+            </div>
+
+            <div class="price-comparison">
+                <div class="comparison-card">
+                    <div class="pricing-header">
+                        <h3 class="pricing-title">Aprendizaje Autodidacta</h3>
+                        <div class="price-difference">3-6 meses</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-times" style="color: #ef4444;"></i> Sin guía experta</li>
+                        <li><i class="fas fa-times" style="color: #ef4444;"></i> Errores no corregidos</li>
+                        <li><i class="fas fa-times" style="color: #ef4444;"></i> Falta de estructura</li>
+                        <li><i class="fas fa-times" style="color: #ef4444;"></i> Motivación variable</li>
+                        <li><i class="fas fa-times" style="color: #ef4444;"></i> Sin proyectos reales guiados</li>
+                    </ul>
+                </div>
+
+                <div class="comparison-card" style="border-color: var(--primary); box-shadow: var(--shadow-md);">
+                    <div class="pricing-header">
+                        <h3 class="pricing-title">Tutorías Personalizadas</h3>
+                        <div class="price-difference">4-8 semanas</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check" style="color: var(--secondary);"></i> Guía experta 1 a 1</li>
+                        <li><i class="fas fa-check" style="color: var(--secondary);"></i> Corrección inmediata</li>
+                        <li><i class="fas fa-check" style="color: var(--secondary);"></i> Ruta estructurada</li>
+                        <li><i class="fas fa-check" style="color: var(--secondary);"></i> Motivación constante</li>
+                        <li><i class="fas fa-check" style="color: var(--secondary);"></i> Proyectos reales guiados</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>📋 Información Importante</h2>
+                <p class="section-subtitle">Todo lo que necesitás saber sobre pagos, cancelaciones y descuentos</p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4><i class="fas fa-credit-card"></i> Métodos de Pago</h4>
+                    <p>Sinpe Móvil, transferencia bancaria, PayPal. Pago por adelantado para reservar tu horario.</p>
+                </div>
+
+                <div class="info-card">
+                    <h4><i class="fas fa-exchange-alt"></i> Política de Cancelación</h4>
+                    <p>Cancelación gratuita con 24h de anticipación. Reagendamiento sin costo. Sin penalización por emergencias.</p>
+                </div>
+
+                <div class="info-card">
+                    <h4><i class="fas fa-percentage"></i> Descuentos Especiales</h4>
+                    <p>Estudiantes: 10% adicional. Grupos de 3+: 15% descuento. Referidos: 10% para ambos.</p>
+                </div>
+
+                <div class="info-card">
+                    <h4><i class="fas fa-calendar-check"></i> Flexibilidad de Horarios</h4>
+                    <p>Sesiones de 1 o 2 horas. Horarios de 7am a 10pm. Fines de semana disponibles.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px;">
+                <div style="background: var(--card-bg); padding: 30px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); max-width: 600px; margin: 0 auto;">
+                    <h3 style="color: var(--text-primary); margin-bottom: 15px;">
+                        <i class="fas fa-comment-dollar"></i> ¿Tenés un presupuesto limitado?
+                    </h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                        Conversemos sobre tu situación. Podemos encontrar una solución que funcione para vos.
+                    </p>
+                    <button class="btn btn-secondary" type="button" onclick="openBudgetModal()">
+                        <i class="fas fa-handshake"></i> Hablar sobre mi presupuesto
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div data-include="partials/footer.html"></div>
+
+    <div class="modal" id="priceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="priceModalTitle"><i class="fas fa-calculator"></i> Solicitar Tutoría</h3>
+                <button class="modal-close" type="button"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <p id="priceModalDescription" style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Completa el formulario para agendar tu tutoría con el plan seleccionado.
+                </p>
+
+                <form id="priceForm">
+                    <input type="hidden" id="selectedPricePlan" name="price_plan" value="" />
+                    <input type="hidden" id="selectedPriceName" name="price_name" value="" />
+                    <input type="hidden" name="_subject" value="Solicitud de Tutoría - Tutorías JR" />
+                    <input type="hidden" name="_format" value="plain" />
+                    <input type="text" name="_gotcha" style="display:none" />
+
+                    <div class="form-group">
+                        <label for="priceName"><i class="fas fa-user"></i> Nombre completo</label>
+                        <input type="text" id="priceName" name="name" placeholder="Tu nombre completo" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priceEmail"><i class="fas fa-envelope"></i> Correo electrónico</label>
+                        <input type="email" id="priceEmail" name="email" placeholder="correo@ejemplo.com" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pricePhone"><i class="fas fa-phone"></i> Teléfono / WhatsApp</label>
+                        <input type="tel" id="pricePhone" name="phone" placeholder="+506 0000 0000" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priceLevel"><i class="fas fa-chart-line"></i> Nivel de programación</label>
+                        <select id="priceLevel" name="level" required>
+                            <option value="" disabled selected>Selecciona tu nivel</option>
+                            <option value="principiante">Principiante (sin experiencia)</option>
+                            <option value="basico">Básico (conozco fundamentos)</option>
+                            <option value="intermedio">Intermedio (he hecho proyectos)</option>
+                            <option value="avanzado">Avanzado (experiencia profesional)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priceHours"><i class="fas fa-clock"></i> Horas estimadas por semana</label>
+                        <select id="priceHours" name="hours" required>
+                            <option value="" disabled selected>Selecciona horas</option>
+                            <option value="1-2">1-2 horas por semana</option>
+                            <option value="2-4">2-4 horas por semana</option>
+                            <option value="4-6">4-6 horas por semana</option>
+                            <option value="6-8">6-8 horas por semana</option>
+                            <option value="8+">Más de 8 horas por semana</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priceBudget"><i class="fas fa-money-bill-wave"></i> Presupuesto estimado</label>
+                        <select id="priceBudget" name="budget" required>
+                            <option value="" disabled selected>Rango de presupuesto</option>
+                            <option value="0-10000">₡0 - ₡10,000 por semana</option>
+                            <option value="10000-20000">₡10,000 - ₡20,000 por semana</option>
+                            <option value="20000-30000">₡20,000 - ₡30,000 por semana</option>
+                            <option value="30000+">Más de ₡30,000 por semana</option>
+                            <option value="no-se">No sé, necesito asesoría</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priceMessage"><i class="fas fa-comment"></i> ¿Qué querés lograr con las tutorías?</label>
+                        <textarea id="priceMessage" name="message" rows="4" placeholder="Describí tus objetivos, proyecto específico, plazo, etc..."></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Solicitar tutoría
+                        </button>
+                        <small style="color: var(--text-secondary); text-align: center; display: block; margin-top: 10px;">
+                            <i class="fas fa-lock"></i> Tus datos están seguros y nunca serán compartidos
+                        </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="budgetModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-handshake"></i> Opciones para Presupuesto Limitado</h3>
+                <button class="modal-close" type="button"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Creemos juntos un plan que se adapte a tu situación. Hay varias opciones disponibles:
+                </p>
+
+                <div style="background: var(--gray-50); padding: 20px; border-radius: var(--radius); margin-bottom: 20px;">
+                    <h4 style="color: var(--text-primary); margin-bottom: 10px;">
+                        <i class="fas fa-users"></i> Sesiones en Grupo
+                    </h4>
+                    <p style="color: var(--text-secondary); margin: 0;">
+                        Unite a un grupo pequeño (2-4 personas) y pagá hasta 40% menos.
+                    </p>
+                </div>
+
+                <div style="background: var(--gray-50); padding: 20px; border-radius: var(--radius); margin-bottom: 20px;">
+                    <h4 style="color: var(--text-primary); margin-bottom: 10px;">
+                        <i class="fas fa-graduation-cap"></i> Plan Estudiantil
+                    </h4>
+                    <p style="color: var(--text-secondary); margin: 0;">
+                        15% de descuento con comprobante de estudiante.
+                    </p>
+                </div>
+
+                <div style="background: var(--gray-50); padding: 20px; border-radius: var(--radius); margin-bottom: 30px;">
+                    <h4 style="color: var(--text-primary); margin-bottom: 10px;">
+                        <i class="fas fa-calendar-week"></i> Frecuencia Reducida
+                    </h4>
+                    <p style="color: var(--text-secondary); margin: 0;">
+                        Sesiones cada 2 semanas para un aprendizaje más pausado.
+                    </p>
+                </div>
+
+                <form id="budgetForm">
+                    <input type="hidden" name="form_type" value="presupuesto_limitado" />
+                    <input type="hidden" name="topic" value="Opciones para Presupuesto Limitado" />
+                    <input type="hidden" name="_subject" value="Consulta de Presupuesto - Tutorías JR" />
+                    <input type="hidden" name="_format" value="plain" />
+                    <input type="text" name="_gotcha" style="display:none" />
+
+                    <div class="form-group">
+                        <label for="budgetName"><i class="fas fa-user"></i> Nombre completo</label>
+                        <input type="text" id="budgetName" name="name" placeholder="Tu nombre completo" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budgetEmail"><i class="fas fa-envelope"></i> Correo electrónico</label>
+                        <input type="email" id="budgetEmail" name="email" placeholder="correo@ejemplo.com" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budgetPhone"><i class="fas fa-phone"></i> Teléfono / WhatsApp</label>
+                        <input type="tel" id="budgetPhone" name="phone" placeholder="+506 0000 0000" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budgetAmount"><i class="fas fa-money-bill-wave"></i> ¿Cuál es tu presupuesto mensual máximo?</label>
+                        <select id="budgetAmount" name="budget_amount" required>
+                            <option value="" disabled selected>Selecciona presupuesto</option>
+                            <option value="0-15000">₡0 - ₡15,000 por mes</option>
+                            <option value="15000-30000">₡15,000 - ₡30,000 por mes</option>
+                            <option value="30000-45000">₡30,000 - ₡45,000 por mes</option>
+                            <option value="45000+">Más de ₡45,000 por mes</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budgetOption"><i class="fas fa-clipboard-list"></i> ¿Qué opción te interesa más?</label>
+                        <select id="budgetOption" name="budget_option" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="grupo">Sesiones en grupo</option>
+                            <option value="estudiante">Plan estudiantil</option>
+                            <option value="reducida">Frecuencia reducida</option>
+                            <option value="no-se">No sé, necesito asesoría</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budgetMessage"><i class="fas fa-comment-dots"></i> Contame sobre tu situación</label>
+                        <textarea id="budgetMessage" name="message" rows="3" placeholder="¿Sos estudiante? ¿Tenés un proyecto específico? ¿Cuándo querés empezar?"></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Solicitar opciones personalizadas
+                        </button>
+                        <small style="color: var(--text-secondary); text-align: center; display: block; margin-top: 10px;">
+                            <i class="fas fa-clock"></i> Te enviaré opciones personalizadas en menos de 24 horas
+                        </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="whatsapp-float">
+        <a href="https://wa.me/50687138971" class="whatsapp-button" target="_blank" rel="noopener">
+            <i class="fab fa-whatsapp"></i>
+            <span>¿Preguntas de precios?</span>
+        </a>
+    </div>
+
+    <button class="back-to-top" id="backToTop" type="button">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <div class="toast-container"></div>
+
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/formspree-service.js"></script>
+    <script src="assets/js/pricing.js"></script>
+
+    <script>
+        const PRICING_CONFIG = {
+            principiante: { title: "Plan Principiante", description: "Perfecto para empezar desde cero." },
+            intermedio: { title: "Plan Intermedio", description: "Para quienes ya tienen bases y quieren llevar su programación al siguiente nivel." },
+            avanzado: { title: "Plan Avanzado", description: "Especialización para programadores con experiencia." },
+            calculadora: { title: "Calcular Precio Personalizado", description: "Usá nuestra calculadora para obtener un precio exacto." },
+            agendar_calculado: { title: "Agendar Tutoría - Precio Calculado", description: "Agendá tu tutoría con el precio que calculaste." }
+        };
+
+        let calculatorData = { language: 'python', level: 'intermediate', hours: 4 };
+
+        function openPriceModal(planType, planName) {
+            const planConfig = PRICING_CONFIG[planType] || PRICING_CONFIG.calculadora;
+
+            document.getElementById('priceModalTitle').innerHTML = `<i class="fas fa-calculator"></i> ${planConfig.title}`;
+            document.getElementById('priceModalDescription').textContent = planConfig.description;
+
+            document.getElementById('selectedPricePlan').value = planType;
+            document.getElementById('selectedPriceName').value = planName;
+
+            const subjectInput = document.querySelector('#priceForm input[name="_subject"]');
+            if (subjectInput) subjectInput.value = `Solicitud de Tutoría: ${planName} - Tutorías JR`;
+
+            openModalSafe('priceModal');
+        }
+
+        function openBudgetModal() { openModalSafe('budgetModal'); }
+
+        function openModalSafe(modalId) {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }, 10);
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        function initModalCloseListeners() {
+            document.querySelectorAll('.modal-close').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const modal = this.closest('.modal');
+                    if (modal) closeModal(modal.id);
+                });
+            });
+
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) closeModal(this.id);
+                });
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const activeModal = document.querySelector('.modal.active');
+                    if (activeModal) closeModal(activeModal.id);
+                }
+            });
+        }
+
+        function formatCurrency(amount) {
+            return `₡${amount.toLocaleString('es-CR')}`;
+        }
+
+        function updatePrice() {
+            const pricingSystem = window.pricingSystem;
+            if (!pricingSystem) return;
+
+            const language = document.getElementById('languageSelect').value;
+            const level = document.getElementById('levelSelect').value;
+            const hours = parseInt(document.getElementById('hoursDisplay').textContent, 10);
+
+            calculatorData = { language, level, hours };
+
+            const price = pricingSystem.calculatePrice(language, level, hours);
+
+            document.getElementById('basePrice').textContent = formatCurrency(price.basePrice);
+            document.getElementById('subtotalPrice').textContent = formatCurrency(price.subtotal);
+            document.getElementById('discountAmount').textContent = price.totalDiscount > 0 ? `-${formatCurrency(Math.round(price.totalDiscount))}` : formatCurrency(0);
+            document.getElementById('finalPrice').textContent = formatCurrency(price.total);
+            document.getElementById('finalHourPrice').textContent = `${formatCurrency(price.pricePerHour)}/hora`;
+            document.getElementById('totalHours').textContent = hours;
+
+            const discountInfo = document.getElementById('discountInfo');
+            const savingsMessage = document.getElementById('savingsMessage');
+            const savingsText = document.getElementById('savingsText');
+
+            const totalDiscountPercent = price.totalDiscount > 0 ? Math.round((price.totalDiscount / price.subtotal) * 100) : 0;
+
+            if (totalDiscountPercent > 0) {
+                discountInfo.textContent = `${totalDiscountPercent}% OFF`;
+                discountInfo.style.display = 'inline-block';
+                savingsMessage.style.display = 'block';
+                savingsText.textContent = `Estás ahorrando ${formatCurrency(Math.round(price.totalDiscount))} (${totalDiscountPercent}% de descuento) por tomar ${hours} horas de tutoría.`;
+            } else {
+                discountInfo.style.display = 'none';
+                savingsMessage.style.display = 'none';
+            }
+        }
+
+        function adjustHours(change) {
+            const currentHours = parseInt(document.getElementById('hoursDisplay').textContent, 10);
+            const newHours = Math.max(1, Math.min(20, currentHours + change));
+            document.getElementById('hoursDisplay').textContent = newHours;
+            calculatorData.hours = newHours;
+            updatePrice();
+        }
+
+        function generatePricePDF() {
+            if (window.pricingSystem && typeof window.pricingSystem.generatePDF === 'function') {
+                window.pricingSystem.generatePDF('cotizacion', calculatorData);
+            }
+        }
+
+        async function loadIncludes() {
+            const includes = document.querySelectorAll('[data-include]');
+
+            for (const el of includes) {
+                try {
+                    const file = el.getAttribute('data-include');
+                    const res = await fetch(file);
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    el.innerHTML = await res.text();
+                    el.removeAttribute('data-include');
+                } catch (e) {
+                    console.error('Error cargando include:', e);
+                }
+            }
+
+            setTimeout(() => {
+                if (window.TutoriasJR && typeof window.TutoriasJR.init === 'function') {
+                    window.TutoriasJR.init();
+                }
+
+                const cards = document.querySelectorAll('.pricing-card');
+                cards.forEach((card, idx) => {
+                    setTimeout(() => {
+                        card.classList.add('animate-fade-in');
+                    }, idx * 200);
+                });
+
+                initializePricingCalculator();
+                initModalCloseListeners();
+                initializePricingForms();
+                initSmoothAnchors();
+            }, 300);
+        }
+
+        function initializePricingCalculator() {
+            const lang = document.getElementById('languageSelect');
+            const level = document.getElementById('levelSelect');
+            const dec = document.getElementById('decreaseHours');
+            const inc = document.getElementById('increaseHours');
+
+            if (lang) lang.addEventListener('change', updatePrice);
+            if (level) level.addEventListener('change', updatePrice);
+            if (dec) dec.addEventListener('click', () => adjustHours(-1));
+            if (inc) inc.addEventListener('click', () => adjustHours(1));
+
+            updatePrice();
+        }
+
+        function initializePricingForms() {
+            if (!window.FormspreeService) return;
+
+            const priceForm = document.getElementById('priceForm');
+            if (priceForm) {
+                priceForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+
+                    if (!window.FormspreeService.validateForm(this)) {
+                        showMessage('Por favor completa todos los campos correctamente.', 'error');
+                        return;
+                    }
+
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn ? submitBtn.innerHTML : '';
+
+                    if (submitBtn) window.FormspreeService.setButtonState(submitBtn, true);
+
+                    const formData = new FormData(this);
+                    formData.append('page', 'precios');
+                    formData.append('plan_type', document.getElementById('selectedPricePlan').value);
+                    formData.append('plan_name', document.getElementById('selectedPriceName').value);
+
+                    if (calculatorData) {
+                        formData.append('calculator_language', calculatorData.language);
+                        formData.append('calculator_level', calculatorData.level);
+                        formData.append('calculator_hours', calculatorData.hours);
+                    }
+
+                    try {
+                        const result = await window.FormspreeService.sendForm(formData, 'precio');
+                        if (result.success) {
+                            showMessage('¡Solicitud enviada! Te contactaré pronto.', 'success');
+                            if (window.generateRequestPDF) window.generateRequestPDF(formData);
+                            this.reset();
+                            setTimeout(() => closeModal('priceModal'), 2000);
+                        } else {
+                            showMessage(result.message || 'Error al enviar el formulario.', 'error');
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        showMessage('Error al enviar. Intenta de nuevo.', 'error');
+                    } finally {
+                        if (submitBtn) window.FormspreeService.setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+
+            const budgetForm = document.getElementById('budgetForm');
+            if (budgetForm) {
+                budgetForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+
+                    if (!window.FormspreeService.validateForm(this)) {
+                        showMessage('Por favor completa todos los campos correctamente.', 'error');
+                        return;
+                    }
+
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn ? submitBtn.innerHTML : '';
+
+                    if (submitBtn) window.FormspreeService.setButtonState(submitBtn, true);
+
+                    const formData = new FormData(this);
+                    formData.append('page', 'precios');
+                    formData.append('form_type', 'presupuesto_limitado');
+
+                    try {
+                        const result = await window.FormspreeService.sendForm(formData, 'presupuesto');
+                        if (result.success) {
+                            showMessage('¡Solicitud enviada! Te enviaré opciones personalizadas en menos de 24 horas.', 'success');
+                            if (window.generateBudgetPDF) window.generateBudgetPDF(formData);
+                            this.reset();
+                            setTimeout(() => closeModal('budgetModal'), 2000);
+                        } else {
+                            showMessage(result.message || 'Error al enviar el formulario.', 'error');
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        showMessage('Error al enviar. Intenta de nuevo.', 'error');
+                    } finally {
+                        if (submitBtn) window.FormspreeService.setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+        }
+
+        function showMessage(message, type = 'info') {
+            if (window.TutoriasJR && typeof window.TutoriasJR.showToast === 'function') {
+                window.TutoriasJR.showToast(message, type);
+                return;
+            }
+
+            const container = document.querySelector('.toast-container');
+            if (container && type !== 'loading') {
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.innerHTML = `
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                        <span>${message}</span>
+                    </div>
+                    <button class="toast-close" type="button"><i class="fas fa-times"></i></button>
+                `;
+                container.appendChild(toast);
+                const closer = toast.querySelector('.toast-close');
+                if (closer) closer.addEventListener('click', () => toast.remove());
+                setTimeout(() => toast.remove(), 5000);
+                return;
+            }
+
+            alert((type === 'error' ? '❌ ' : type === 'success' ? '✅ ' : 'ℹ️ ') + message);
+        }
+
+        function initSmoothAnchors() {
+            document.querySelectorAll('a[href^="#"]').forEach(a => {
+                a.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (!targetId || targetId === '#') return;
+                    const target = document.querySelector(targetId);
+                    if (!target) return;
+
+                    e.preventDefault();
+
+                    const navbar = document.querySelector('.navbar') || document.querySelector('header');
+                    const navH = navbar ? (navbar.offsetHeight || 70) : 70;
+
+                    window.scrollTo({
+                        top: target.offsetTop - navH,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        }
+
+        window.openPriceModal = openPriceModal;
+        window.openBudgetModal = openBudgetModal;
+        window.generatePricePDF = generatePricePDF;
+        window.adjustHours = adjustHours;
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadIncludes);
+        } else {
+            loadIncludes();
+        }
+    </script>
+</body>
+</html>

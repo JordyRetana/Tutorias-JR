@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="es" data-mode="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - Tutorías Personalizadas de Programación</title>
+    <meta name="description" content="Servicios de tutoría personalizada en programación. Clases 1 a 1, ayuda con proyectos, preparación para exámenes y más.">
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <style>
+        .page-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+        
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-hero .lead {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .service-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+        
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+        
+        .service-card h3 {
+            margin-bottom: 16px;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+        
+        .service-card p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin: 20px 0;
+            padding: 0;
+        }
+        
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .service-features li i {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        .service-highlight {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            padding: 80px 0;
+            margin: 100px 0;
+            border-radius: var(--radius-xl);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+        }
+        
+        .highlight-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+        
+        .highlight-content h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight-content p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.125rem;
+            line-height: 1.6;
+        }
+        
+        .service-process {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .process-step {
+            text-align: center;
+            padding: 40px 30px;
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        
+        .process-step:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .process-step h4 {
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+        }
+        
+        .process-step p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section:nth-child(even) {
+            background: var(--gray-50);
+        }
+        
+        .service-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0 50px;
+            flex-wrap: wrap;
+        }
+        
+        .service-nav a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .service-nav a:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .service-nav a {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .page-hero {
+                padding: 100px 0 40px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .modal {
+            background: rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(5px) !important;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex !important;
+        }
+        
+        .modal-content {
+            background: var(--card-bg) !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-primary) !important;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid var(--border-color) !important;
+            background: transparent !important;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            color: var(--text-primary) !important;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .modal-body {
+            color: var(--text-primary) !important;
+            background: transparent !important;
+            padding: 24px;
+        }
+        
+        .modal-footer {
+            background: var(--gray-50) !important;
+            border-top: 1px solid var(--border-color) !important;
+            padding: 24px;
+        }
+        
+        [data-mode="dark"] .modal-footer {
+            background: var(--gray-800) !important;
+        }
+        
+        .form-group label {
+            color: var(--text-primary) !important;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: var(--card-bg) !important;
+            color: var(--text-primary) !important;
+            border: 1px solid var(--border-color) !important;
+            width: 100%;
+            padding: 12px;
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+            outline: none;
+        }
+        
+        [data-mode="dark"] .form-group input:focus,
+        [data-mode="dark"] .form-group select:focus,
+        [data-mode="dark"] .form-group textarea:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+        }
+        
+        .modal-close {
+            color: var(--text-secondary) !important;
+            background: transparent !important;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            background: var(--gray-100) !important;
+            color: var(--text-primary) !important;
+        }
+        
+        [data-mode="dark"] .modal-close:hover {
+            background: var(--gray-800) !important;
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--gray-500) !important;
+        }
+        
+        [data-mode="dark"] .form-group input::placeholder,
+        [data-mode="dark"] .form-group textarea::placeholder {
+            color: var(--gray-400) !important;
+        }
+        
+        .toast {
+            background: var(--card-bg) !important;
+            color: var(--text-primary) !important;
+            border: 1px solid var(--border-color) !important;
+        }
+        
+        .toast i {
+            color: var(--text-secondary) !important;
+        }
+        
+        .toast-success {
+            border-left-color: var(--secondary) !important;
+        }
+        
+        .toast-error {
+            border-left-color: #ef4444 !important;
+        }
+        
+        .toast-info {
+            border-left-color: var(--primary) !important;
+        }
+        
+        .toast button.toast-close {
+            color: var(--text-secondary) !important;
+        }
+        
+        .error-message {
+            color: #ef4444 !important;
+            font-size: 0.875rem !important;
+            margin-top: 5px !important;
+            display: block !important;
+        }
+        
+        .form-group input.error,
+        .form-group select.error,
+        .form-group textarea.error {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+        }
+        
+        [data-mode="dark"] .form-group input.error,
+        [data-mode="dark"] .form-group select.error,
+        [data-mode="dark"] .form-group textarea.error {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+        }
+    </style>
+</head>
+<body data-page="servicios">
+    <div data-include="partials/header.html"></div>
+    
+    <section class="page-hero" id="servicios">
+        <div class="container">
+            <h1>🎯 Servicios de Tutoría Personalizada</h1>
+            <p class="lead">
+                Soluciones adaptadas a tu nivel y objetivos. 
+                Desde principiantes absolutos hasta proyectos profesionales avanzados.
+            </p>
+            
+            <div class="service-nav">
+                <a href="#individuales">
+                    <i class="fas fa-user"></i> Tutorías 1 a 1
+                </a>
+                <a href="#grupo">
+                    <i class="fas fa-users"></i> Clases en Grupo
+                </a>
+                <a href="#proyectos">
+                    <i class="fas fa-project-diagram"></i> Ayuda con Proyectos
+                </a>
+                <a href="#examenes">
+                    <i class="fas fa-file-alt"></i> Preparación de Exámenes
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="individuales">
+        <div class="container">
+            <div class="section-header">
+                <h2>💻 Tutorías Personalizadas 1 a 1</h2>
+                <p class="section-subtitle">
+                    Sesiones individuales completamente adaptadas a tu ritmo de aprendizaje
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card animate-fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>Principiantes Absolutos</h3>
+                    <p>Para quienes comienzan desde cero. Te guío paso a paso en los fundamentos de la programación.</p>
+                    
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Introducción a la lógica de programación</li>
+                        <li><i class="fas fa-check"></i> Fundamentos del lenguaje elegido</li>
+                        <li><i class="fas fa-check"></i> Ejercicios prácticos guiados</li>
+                        <li><i class="fas fa-check"></i> Resolución de dudas en tiempo real</li>
+                        <li><i class="fas fa-check"></i> Primer proyecto funcional</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openServiceModal('principiante', 'Principiante Absoluto')">
+                            <i class="fas fa-calendar-alt"></i> Agendar tutoría
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card animate-fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Desarrollo Intermedio</h3>
+                    <p>Para quienes ya tienen bases y quieren profundizar en conceptos más avanzados y frameworks.</p>
+                    
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Programación orientada a objetos</li>
+                        <li><i class="fas fa-check"></i> Estructuras de datos avanzadas</li>
+                        <li><i class="fas fa-check"></i> Frameworks modernos (React, Django, etc.)</li>
+                        <li><i class="fas fa-check"></i> Conexión con bases de datos</li>
+                        <li><i class="fas fa-check"></i> Patrones de diseño</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openServiceModal('intermedio', 'Desarrollo Intermedio')">
+                            <i class="fas fa-rocket"></i> Avanzar mis conocimientos
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card animate-fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Nivel Avanzado</h3>
+                    <p>Para programadores que buscan especializarse o resolver problemas complejos específicos.</p>
+                    
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Arquitectura de software</li>
+                        <li><i class="fas fa-check"></i> Optimización de rendimiento</li>
+                        <li><i class="fas fa-check"></i> Seguridad informática</li>
+                        <li><i class="fas fa-check"></i> DevOps y despliegue</li>
+                        <li><i class="fas fa-check"></i> Técnicas avanzadas de debugging</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openServiceModal('avanzado', 'Nivel Avanzado')">
+                            <i class="fas fa-graduation-cap"></i> Especializarme
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="grupo" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>👥 Clases en Grupo Pequeño</h2>
+                <p class="section-subtitle">
+                    Aprendizaje colaborativo con amigos o compañeros de estudio
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card animate-fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3>Grupo de Amigos/Compañeros</h3>
+                    <p>Perfecto para grupos de 2-4 personas que quieren aprender juntos. Ideal para compañeros de clase o amigos.</p>
+                    
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Costo reducido por persona</li>
+                        <li><i class="fas fa-check"></i> Aprendizaje colaborativo</li>
+                        <li><i class="fas fa-check"></i> Horarios coordinados para todos</li>
+                        <li><i class="fas fa-check"></i> Proyecto grupal guiado</li>
+                        <li><i class="fas fa-check"></i> Material compartido</li>
+                    </ul>
+                    
+                    <div class="mt-4" style="background: var(--gray-100); padding: 15px; border-radius: var(--radius);">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                            <i class="fas fa-percentage" style="color: var(--primary);"></i>
+                            <strong style="color: var(--text-primary);">Descuento por grupo:</strong>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-users" style="color: var(--secondary);"></i>
+                            <span style="color: var(--text-secondary);">2 personas: 10% off c/u</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                            <i class="fas fa-users" style="color: var(--secondary);"></i>
+                            <span style="color: var(--text-secondary);">3-4 personas: 15% off c/u</span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-secondary btn-block" onclick="openGroupModal()">
+                            <i class="fas fa-user-plus"></i> Formar grupo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="proyectos">
+        <div class="container">
+            <div class="section-header">
+                <h2>🚀 Ayuda Especializada con Proyectos</h2>
+                <p class="section-subtitle">
+                    Desde tareas pequeñas hasta proyectos complejos de grado o profesionales
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card animate-fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Tareas y Trabajos Universitarios</h3>
+                    <p>Te ayudo a entender y completar tus asignaciones académicas con excelencia.</p>
+                    
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Comprensión de requisitos</li>
+                        <li><i class="fas fa-check"></i> Diseño de solución</li>
+                        <li><i class="fas fa-check"></i> Implementación guiada</li>
+                        <li><i class="fas fa-check"></i> Testing y depuración</li>
+                        <li><i class="fas fa-check"></i> Documentación apropiada</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openServiceModal('tarea', 'Ayuda con Tarea Universitaria')">
+                            <i class="fas fa-tasks"></i> Ayuda con tarea
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card animate-fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Proyectos de Grado/Tesis</h3>
+                    <p>Soporte completo para proyectos finales de carrera, tesis o trabajos de investigación.</p>
+                    
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Definición del problema</li>
+                        <li><i class="fas fa-check"></i> Revisión de literatura</li>
+                        <li><i class="fas fa-check"></i> Diseño metodológico</li>
+                        <li><i class="fas fa-check"></i> Desarrollo del sistema</li>
+                        <li><i class="fas fa-check"></i> Pruebas y validación</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openServiceModal('tesis', 'Proyecto de Grado/Tesis')">
+                            <i class="fas fa-file-contract"></i> Consultar proyecto
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card animate-fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Proyectos Profesionales</h3>
+                    <p>Asesoría para proyectos laborales, freelance o emprendimientos tecnológicos.</p>
+                    
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Análisis de requerimientos</li>
+                        <li><i class="fas fa-check"></i> Arquitectura del sistema</li>
+                        <li><i class="fas fa-check"></i> Code review profesional</li>
+                        <li><i class="fas fa-check"></i> Optimización y escalabilidad</li>
+                        <li><i class="fas fa-check"></i> Buenas prácticas empresariales</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openServiceModal('profesional', 'Proyecto Profesional')">
+                            <i class="fas fa-handshake"></i> Asesoría profesional
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="examenes" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>📚 Preparación para Exámenes y Certificaciones</h2>
+                <p class="section-subtitle">
+                    Éxito garantizado en tus evaluaciones académicas o certificaciones profesionales
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card animate-fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>Exámenes Universitarios</h3>
+                    <p>Repaso intensivo para parciales, finales o exámenes de admisión de posgrado.</p>
+                    
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Revisión de syllabus completo</li>
+                        <li><i class="fas fa-check"></i> Ejercicios tipo examen</li>
+                        <li><i class="fas fa-check"></i> Simulacros cronometrados</li>
+                        <li><i class="fas fa-check"></i> Estrategias de examen</li>
+                        <li><i class="fas fa-check"></i> Repaso de temas débiles</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openServiceModal('examen', 'Preparación para Examen')">
+                            <i class="fas fa-book"></i> Preparar examen
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card animate-fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Certificaciones Técnicas</h3>
+                    <p>Preparación para certificaciones como Microsoft, Oracle, AWS, Google, etc.</p>
+                    
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Plan de estudio personalizado</li>
+                        <li><i class="fas fa-check"></i> Práctica con exámenes reales</li>
+                        <li><i class="fas fa-check"></i> Explicación de conceptos clave</li>
+                        <li><i class="fas fa-check"></i> Tips para el día del examen</li>
+                        <li><i class="fas fa-check"></i> Seguimiento hasta la certificación</li>
+                    </ul>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openServiceModal('certificacion', 'Certificación Técnica')">
+                            <i class="fas fa-medal"></i> Obtener certificación
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>🔄 ¿Cómo funciona el proceso?</h2>
+                <p class="section-subtitle">
+                    Un camino claro hacia tu éxito en programación
+                </p>
+            </div>
+            
+            <div class="service-process">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h4>Sesión de Diagnóstico</h4>
+                    <p>30 minutos para conocerte, evaluar tu nivel y entender tus objetivos específicos.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h4>Plan Personalizado</h4>
+                    <p>Diseño una ruta de aprendizaje específica con objetivos medibles y plazos realistas.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h4>Sesiones Prácticas</h4>
+                    <p>Clases interactivas 1 a 1 con ejercicios reales y resolución de problemas en tiempo real.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h4>Seguimiento y Ajustes</h4>
+                    <p>Revisión constante de tu progreso y ajuste del plan según tus avances y nuevas necesidades.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="service-highlight">
+        <div class="container">
+            <div class="highlight-content">
+                <h2>¿Listo para transformar tu código?</h2>
+                <p>
+                    Cada programador tiene un camino único. Juntos encontremos el tuyo y llevemos tu 
+                    programación al siguiente nivel con un plan 100% personalizado.
+                </p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px;">
+                    <button class="btn btn-light btn-lg" onclick="openServiceModal('consulta', 'Consulta General')">
+                        <i class="fas fa-calendar-alt"></i> Agendar consulta
+                    </button>
+                    <a href="https://wa.me/50687138971" class="btn btn-outline-light btn-lg" target="_blank">
+                        <i class="fab fa-whatsapp"></i> WhatsApp directo
+                    </a>
+                </div>
+                
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+                    <small style="color: rgba(255, 255, 255, 0.8); display: block;">
+                        <i class="fas fa-clock"></i> Respuesta en menos de 2 horas • 
+                        <i class="fas fa-shield-alt"></i> 100% confidencial • 
+                        <i class="fas fa-star"></i> Garantía de satisfacción
+                    </small>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div data-include="partials/footer.html"></div>
+    
+    <div class="modal" id="serviceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="serviceModalTitle"><i class="fas fa-calendar-alt"></i> Agendar Tutoría</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p id="serviceModalDescription" style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Completa el formulario para coordinar las sesiones de tutoría.
+                </p>
+                
+                <form id="serviceForm">
+                    <input type="hidden" id="selectedService" name="service_type" value="">
+                    <input type="hidden" id="selectedServiceName" name="service_name" value="">
+                    
+                    <input type="hidden" name="_subject" value="Solicitud de Tutoría - Tutorías JR">
+                    <input type="hidden" name="_format" value="plain">
+                    <input type="text" name="_gotcha" style="display:none">
+                    
+                    <div class="form-group">
+                        <label for="serviceName">
+                            <i class="fas fa-user"></i> Nombre completo
+                        </label>
+                        <input type="text" id="serviceName" name="name" placeholder="Tu nombre completo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="serviceEmail">
+                            <i class="fas fa-envelope"></i> Correo electrónico
+                        </label>
+                        <input type="email" id="serviceEmail" name="email" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="servicePhone">
+                            <i class="fas fa-phone"></i> Teléfono / WhatsApp
+                        </label>
+                        <input type="tel" id="servicePhone" name="phone" placeholder="+506 0000 0000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="serviceLevel">
+                            <i class="fas fa-chart-line"></i> Nivel actual
+                        </label>
+                        <select id="serviceLevel" name="level" required>
+                            <option value="" disabled selected>Selecciona tu nivel</option>
+                            <option value="principiante">Principiante (sin experiencia)</option>
+                            <option value="basico">Básico (conocimientos iniciales)</option>
+                            <option value="intermedio">Intermedio (proyectos básicos)</option>
+                            <option value="avanzado">Avanzado (experiencia profesional)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="serviceLanguage">
+                            <i class="fas fa-code"></i> Lenguaje/tecnología de interés
+                        </label>
+                        <select id="serviceLanguage" name="language" required>
+                            <option value="" disabled selected>Selecciona un lenguaje</option>
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="java">Java</option>
+                            <option value="csharp">C# .NET</option>
+                            <option value="htmlcss">HTML/CSS</option>
+                            <option value="sql">SQL / Bases de datos</option>
+                            <option value="react">React</option>
+                            <option value="node">Node.js</option>
+                            <option value="otros">Otro (especificar en mensaje)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="serviceMessage">
+                            <i class="fas fa-comment"></i> Información adicional
+                        </label>
+                        <textarea id="serviceMessage" name="message" rows="4" placeholder="Describí brevemente tu objetivo, proyecto o cualquier información relevante..."></textarea>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Enviar solicitud
+                        </button>
+                        <small style="color: var(--text-secondary); text-align: center; display: block; margin-top: 10px;">
+                            <i class="fas fa-lock"></i> Tus datos están seguros y nunca serán compartidos
+                        </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="groupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-friends"></i> Clases en Grupo</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Perfecto para grupos de 2-4 personas. Contame sobre tu grupo y coordino horarios para todos.
+                </p>
+                
+                <form id="groupForm">
+                    <input type="hidden" name="service_type" value="grupo">
+                    <input type="hidden" name="service_name" value="Clases en Grupo">
+                    
+                    <input type="hidden" name="_subject" value="Solicitud de Grupo - Tutorías JR">
+                    <input type="hidden" name="_format" value="plain">
+                    <input type="text" name="_gotcha" style="display:none">
+                    
+                    <div class="form-group">
+                        <label for="groupName">
+                            <i class="fas fa-user"></i> Tu nombre (coordinador del grupo)
+                        </label>
+                        <input type="text" id="groupName" name="name" placeholder="Tu nombre completo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="groupEmail">
+                            <i class="fas fa-envelope"></i> Correo electrónico
+                        </label>
+                        <input type="email" id="groupEmail" name="email" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="groupPhone">
+                            <i class="fas fa-phone"></i> Teléfono / WhatsApp
+                        </label>
+                        <input type="tel" id="groupPhone" name="phone" placeholder="+506 0000 0000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="groupSize">
+                            <i class="fas fa-users"></i> Tamaño del grupo
+                        </label>
+                        <select id="groupSize" name="group_size" required>
+                            <option value="" disabled selected>¿Cuántas personas son?</option>
+                            <option value="2">2 personas</option>
+                            <option value="3">3 personas</option>
+                            <option value="4">4 personas</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="groupLevel">
+                            <i class="fas fa-chart-line"></i> Nivel promedio del grupo
+                        </label>
+                        <select id="groupLevel" name="level" required>
+                            <option value="" disabled selected>Nivel del grupo</option>
+                            <option value="principiante">Todos principiantes</option>
+                            <option value="basico">Básico</option>
+                            <option value="intermedio">Intermedio</option>
+                            <option value="mixto">Niveles mixtos</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="groupLanguage">
+                            <i class="fas fa-code"></i> Lenguaje/tecnología de interés
+                        </label>
+                        <select id="groupLanguage" name="language" required>
+                            <option value="" disabled selected>Selecciona un lenguaje</option>
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="java">Java</option>
+                            <option value="csharp">C# .NET</option>
+                            <option value="htmlcss">HTML/CSS</option>
+                            <option value="sql">SQL / Bases de datos</option>
+                            <option value="react">React</option>
+                            <option value="node">Node.js</option>
+                            <option value="otros">Otro (especificar en mensaje)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="groupMessage">
+                            <i class="fas fa-comment"></i> Información del grupo
+                        </label>
+                        <textarea id="groupMessage" name="message" rows="4" placeholder="Contame sobre tu grupo, horarios preferidos, objetivos de aprendizaje..."></textarea>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Solicitar grupo
+                        </button>
+                        <small style="color: var(--text-secondary); text-align: center; display: block; margin-top: 10px;">
+                            <i class="fas fa-lock"></i> Descuento aplicado según tamaño del grupo
+                        </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="whatsapp-float">
+        <a href="https://wa.me/50687138971" class="whatsapp-button" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span>¿Necesitás ayuda?</span>
+        </a>
+    </div>
+    
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <div class="toast-container"></div>
+    
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/formspree-service.js"></script>
+    
+    <script>
+        const SERVICES_CONFIG = {
+            principiante: {
+                title: "🚀 Tutoría para Principiantes",
+                description: "Te guiaré desde cero en los fundamentos de programación. Juntos construiremos una base sólida para tu futuro como desarrollador."
+            },
+            intermedio: {
+                title: "📈 Desarrollo Intermedio",
+                description: "Profundizaremos en conceptos avanzados, frameworks y mejores prácticas para llevar tu programación al siguiente nivel."
+            },
+            avanzado: {
+                title: "👑 Nivel Avanzado",
+                description: "Especialización en arquitectura, optimización y problemas complejos. Para programadores que buscan excelencia técnica."
+            },
+            tarea: {
+                title: "📝 Ayuda con Tarea Universitaria",
+                description: "Te ayudaré a entender y completar tu tarea con excelencia académica, asegurando que aprendas en el proceso."
+            },
+            tesis: {
+                title: "🎓 Proyecto de Grado/Tesis",
+                description: "Soporte completo desde la definición del problema hasta la implementación y validación de tu proyecto final."
+            },
+            profesional: {
+                title: "💼 Proyecto Profesional",
+                description: "Asesoría técnica para proyectos laborales, freelance o emprendimientos. Code review, arquitectura y buenas prácticas empresariales."
+            },
+            examen: {
+                title: "📚 Preparación para Examen",
+                description: "Repaso intensivo con ejercicios tipo examen, simulacros y estrategias para maximizar tu puntuación."
+            },
+            certificacion: {
+                title: "🏆 Certificación Técnica",
+                description: "Plan de estudio personalizado para certificaciones profesionales. Práctica con exámenes reales y tips específicos."
+            },
+            consulta: {
+                title: "🤔 Consulta General",
+                description: "Hablemos de tus objetivos y diseñemos juntos el mejor camino para alcanzarlos."
+            },
+            grupo: {
+                title: "👥 Clases en Grupo",
+                description: "Aprendizaje colaborativo con amigos o compañeros. Descuentos aplicados según tamaño del grupo."
+            }
+        };
+        
+        function openServiceModal(serviceType, serviceName) {
+            const serviceConfig = SERVICES_CONFIG[serviceType] || SERVICES_CONFIG.consulta;
+            
+            document.getElementById('serviceModalTitle').innerHTML = 
+                `<i class="fas fa-calendar-alt"></i> ${serviceConfig.title}`;
+            document.getElementById('serviceModalDescription').textContent = serviceConfig.description;
+            
+            document.getElementById('selectedService').value = serviceType;
+            document.getElementById('selectedServiceName').value = serviceName;
+            
+            document.querySelector('#serviceForm input[name="_subject"]').value = 
+                `Solicitud: ${serviceName} - Tutorías JR`;
+            
+            const modal = document.getElementById('serviceModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function openGroupModal() {
+            const modal = document.getElementById('groupModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        function initModalCloseListeners() {
+            document.querySelectorAll('.modal-close').forEach(closeBtn => {
+                closeBtn.addEventListener('click', function() {
+                    const modal = this.closest('.modal');
+                    if (modal) {
+                        closeModal(modal.id);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal(this.id);
+                    }
+                });
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const activeModal = document.querySelector('.modal.active');
+                    if (activeModal) {
+                        closeModal(activeModal.id);
+                    }
+                }
+            });
+        }
+        
+        async function loadIncludes() {
+            const includes = document.querySelectorAll('[data-include]');
+            
+            for (const element of includes) {
+                try {
+                    const file = element.getAttribute('data-include');
+                    const response = await fetch(file);
+                    
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    
+                    const html = await response.text();
+                    element.innerHTML = html;
+                    element.removeAttribute('data-include');
+                    
+                } catch (error) {
+                    element.innerHTML = `
+                        <div style="background: #fef2f2; border: 2px dashed #dc2626; padding: 20px; border-radius: 8px; text-align: center;">
+                            <i class="fas fa-exclamation-triangle" style="color: #dc2626; font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p style="color: #7f1d1d; margin: 0;">
+                                Error cargando componente. Por favor recarga la página.
+                            </p>
+                        </div>
+                    `;
+                }
+            }
+            
+            setTimeout(() => {
+                initializePageFunctions();
+            }, 500);
+        }
+        
+        function initializePageFunctions() {
+            if (window.TutoriasJR && typeof window.TutoriasJR.init === 'function') {
+                window.TutoriasJR.init();
+            }
+            
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('animate-fade-in');
+                }, index * 150);
+            });
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 70;
+                        window.scrollTo({
+                            top: targetElement.offsetTop - navbarHeight,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            initializeServiceForms();
+            initModalCloseListeners();
+        }
+        
+        function initializeServiceForms() {
+            if (!window.FormspreeService) {
+                return;
+            }
+            
+            const serviceForm = document.getElementById('serviceForm');
+            if (serviceForm) {
+                serviceForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    if (!window.FormspreeService.validateForm(this)) {
+                        showMessage('Por favor completa todos los campos correctamente.', 'error');
+                        return;
+                    }
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    window.FormspreeService.setButtonState(submitBtn, true);
+                    
+                    const formData = new FormData(this);
+                    
+                    formData.append('page', 'servicios');
+                    formData.append('service_type', document.getElementById('selectedService').value);
+                    formData.append('service_name', document.getElementById('selectedServiceName').value);
+                    
+                    try {
+                        const result = await window.FormspreeService.sendForm(formData, 'servicio');
+                        
+                        if (result.success) {
+                            showMessage('¡Solicitud enviada! Te contactaré pronto.', 'success');
+                            
+                            this.reset();
+                            
+                            setTimeout(() => {
+                                closeModal('serviceModal');
+                            }, 2000);
+                        } else {
+                            showMessage(result.message, 'error');
+                            
+                            if (result.message.includes('confirma')) {
+                                setTimeout(() => {
+                                    window.open('https://formspree.io', '_blank');
+                                }, 3000);
+                            }
+                        }
+                    } catch (error) {
+                        showMessage('Error al enviar. Intenta de nuevo.', 'error');
+                    } finally {
+                        window.FormspreeService.setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+            
+            const groupForm = document.getElementById('groupForm');
+            if (groupForm) {
+                groupForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    if (!window.FormspreeService.validateForm(this)) {
+                        showMessage('Por favor completa todos los campos correctamente.', 'error');
+                        return;
+                    }
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    window.FormspreeService.setButtonState(submitBtn, true);
+                    
+                    const formData = new FormData(this);
+                    
+                    formData.append('page', 'servicios');
+                    formData.append('form_type', 'grupo');
+                    
+                    try {
+                        const result = await window.FormspreeService.sendForm(formData, 'grupo');
+                        
+                        if (result.success) {
+                            showMessage('¡Solicitud de grupo enviada! Te contactaré pronto.', 'success');
+                            
+                            this.reset();
+                            
+                            setTimeout(() => {
+                                closeModal('groupModal');
+                            }, 2000);
+                        } else {
+                            showMessage(result.message, 'error');
+                            
+                            if (result.message.includes('confirma')) {
+                                setTimeout(() => {
+                                    window.open('https://formspree.io', '_blank');
+                                }, 3000);
+                            }
+                        }
+                    } catch (error) {
+                        showMessage('Error al enviar. Intenta de nuevo.', 'error');
+                    } finally {
+                        window.FormspreeService.setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+        }
+        
+        function showMessage(message, type = 'info') {
+            if (window.TutoriasJR && typeof window.TutoriasJR.showToast === 'function') {
+                window.TutoriasJR.showToast(message, type);
+                return;
+            }
+            
+            if (type === 'error') {
+                alert('❌ ' + message);
+            } else if (type === 'success') {
+                alert('✅ ' + message);
+            } else {
+                alert('ℹ️ ' + message);
+            }
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadIncludes);
+        } else {
+            loadIncludes();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="es" data-mode="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenguajes de Programación - Tutorías JR</title>
+    <meta name="description" content="Aprende Python, JavaScript, Java, C#, SQL, React, Node.js y más con tutorías personalizadas. Rutas de aprendizaje por lenguaje.">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <style>
+        /* =========================
+           ESTILOS ESPECÍFICOS PARA LENGUAJES
+        ========================= */
+        
+        /* Hero específico para página */
+        .page-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+        
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-hero .lead {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Filtros y búsqueda */
+        .filter-container {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin: 40px 0;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+        
+        .filter-tab {
+            padding: 10px 20px;
+            background: var(--gray-100);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .filter-tab:hover {
+            background: var(--gray-200);
+            color: var(--text-primary);
+        }
+        
+        .filter-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: transparent;
+        }
+        
+        .search-box {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        
+        /* Grid de lenguajes */
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .language-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 35px 30px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .language-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .language-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+        
+        .language-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .language-card:hover .language-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+        
+        .language-card h3 {
+            margin-bottom: 12px;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+        
+        .language-card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .language-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        
+        .language-tag {
+            padding: 5px 12px;
+            background: var(--gray-100);
+            color: var(--text-secondary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* Secciones por categoría */
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section:nth-child(even) {
+            background: var(--gray-50);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Destacado especial */
+        .language-highlight {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            padding: 80px 0;
+            margin: 100px 0;
+            border-radius: var(--radius-xl);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .language-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+        }
+        
+        .highlight-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+        
+        .highlight-content h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight-content p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.125rem;
+            line-height: 1.6;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .languages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-tab {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+            
+            .page-hero {
+                padding: 100px 0 40px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+        
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        /* Anclas de navegación */
+        .language-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 0 50px;
+            flex-wrap: wrap;
+        }
+        
+        .language-nav a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .language-nav a:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        /* =========================
+           FIXES PARA MODALES EN ESTA PÁGINA
+        ========================= */
+        
+        /* Estilos para modales en esta página */
+        .modal {
+            background: rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(5px) !important;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex !important;
+        }
+        
+        .modal-content {
+            background: var(--card-bg) !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-primary) !important;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid var(--border-color) !important;
+            background: transparent !important;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            color: var(--text-primary) !important;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .modal-body {
+            color: var(--text-primary) !important;
+            background: transparent !important;
+            padding: 24px;
+        }
+        
+        .modal-footer {
+            background: var(--gray-50) !important;
+            border-top: 1px solid var(--border-color) !important;
+            padding: 24px;
+        }
+        
+        [data-mode="dark"] .modal-footer {
+            background: var(--gray-800) !important;
+        }
+        
+        /* Formularios en modales */
+        .form-group label {
+            color: var(--text-primary) !important;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: var(--card-bg) !important;
+            color: var(--text-primary) !important;
+            border: 1px solid var(--border-color) !important;
+            width: 100%;
+            padding: 12px;
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+            outline: none;
+        }
+        
+        [data-mode="dark"] .form-group input:focus,
+        [data-mode="dark"] .form-group select:focus,
+        [data-mode="dark"] .form-group textarea:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+        }
+        
+        /* Botón close del modal */
+        .modal-close {
+            color: var(--text-secondary) !important;
+            background: transparent !important;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            background: var(--gray-100) !important;
+            color: var(--text-primary) !important;
+        }
+        
+        [data-mode="dark"] .modal-close:hover {
+            background: var(--gray-800) !important;
+        }
+        
+        /* Corrección específica para inputs placeholders */
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--gray-500) !important;
+        }
+        
+        [data-mode="dark"] .form-group input::placeholder,
+        [data-mode="dark"] .form-group textarea::placeholder {
+            color: var(--gray-400) !important;
+        }
+    </style>
+</head>
+<body data-page="lenguajes">
+    <!-- Header -->
+    <div data-include="partials/header.html"></div>
+    
+    <!-- Hero de Página -->
+    <section class="page-hero" id="lenguajes">
+        <div class="container">
+            <h1>🌍 Lenguajes de Programación</h1>
+            <p class="lead">
+                Aprendé el lenguaje que necesitás con una ruta personalizada. 
+                Desde fundamentos hasta proyectos reales con cada tecnología.
+            </p>
+            
+            <div class="language-nav">
+                <a href="#principales">
+                    <i class="fas fa-star"></i> Principales
+                </a>
+                <a href="#web">
+                    <i class="fas fa-globe"></i> Web & Frontend
+                </a>
+                <a href="#backend">
+                    <i class="fas fa-server"></i> Backend
+                </a>
+                <a href="#bases-datos">
+                    <i class="fas fa-database"></i> Bases de Datos
+                </a>
+                <a href="#otros">
+                    <i class="fas fa-ellipsis-h"></i> Otros
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Filtros y Búsqueda -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>🔍 Encontrá tu lenguaje ideal</h2>
+                <p class="section-subtitle">
+                    Filtrá por categoría o buscá específicamente lo que necesitás aprender
+                </p>
+            </div>
+            
+            <div class="filter-container">
+                <div class="filter-tabs" id="filterTabs">
+                    <div class="filter-tab active" data-filter="all">Todos</div>
+                    <div class="filter-tab" data-filter="frontend">Frontend</div>
+                    <div class="filter-tab" data-filter="backend">Backend</div>
+                    <div class="filter-tab" data-filter="data">Datos</div>
+                    <div class="filter-tab" data-filter="mobile">Mobile</div>
+                    <div class="filter-tab" data-filter="sistemas">Sistemas</div>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="languageSearch" placeholder="Buscar: Python, JavaScript, React, SQL, C#, Java...">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Lenguajes Principales -->
+    <section class="section" id="principales" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>⭐ Lenguajes Principales</h2>
+                <p class="section-subtitle">
+                    Los lenguajes más demandados y versátiles del mercado
+                </p>
+            </div>
+            
+            <div class="languages-grid">
+                <div class="language-card animate-fade-in" data-category="backend" data-search="python programacion datos backend">
+                    <div class="language-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3>Python</h3>
+                    <p>Perfecto para principiantes y profesionales. Desde scripts simples hasta IA y ciencia de datos.</p>
+                    
+                    <div class="language-tags">
+                        <span class="language-tag">Backend</span>
+                        <span class="language-tag">Datos</span>
+                        <span class="language-tag">IA</span>
+                        <span class="language-tag">Automation</span>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLanguageModal('python', 'Python')">
+                            <i class="fas fa-graduation-cap"></i> Aprender Python
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="language-card animate-fade-in" data-category="frontend backend" data-search="javascript js web frontend backend node">
+                    <div class="language-icon">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <h3>JavaScript</h3>
+                    <p>El lenguaje de la web. Desde interactividad en navegadores hasta servidores con Node.js.</p>
+                    
+                    <div class="language-tags">
+                        <span class="language-tag">Frontend</span>
+                        <span class="language-tag">Backend</span>
+                        <span class="language-tag">Web</span>
+                        <span class="language-tag">React</span>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLanguageModal('javascript', 'JavaScript')">
+                            <i class="fas fa-code"></i> Dominar JavaScript
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="language-card animate-fade-in" data-category="backend" data-search="java programacion backend android">
+                    <div class="language-icon">
+                        <i class="fab fa-java"></i>
+                    </div>
+                    <h3>Java</h3>
+                    <p>Robusto y escalable. Ideal para aplicaciones empresariales, Android y sistemas grandes.</p>
+                    
+                    <div class="language-tags">
+                        <span class="language-tag">Backend</span>
+                        <span class="language-tag">Android</span>
+                        <span class="language-tag">Empresarial</span>
+                        <span class="language-tag">Spring</span>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLanguageModal('java', 'Java')">
+                            <i class="fas fa-coffee"></i> Programar en Java
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Web y Frontend -->
+    <section class="section" id="web">
+        <div class="container">
+            <div class="section-header">
+                <h2>🌐 Desarrollo Web & Frontend</h2>
+                <p class="section-subtitle">
+                    Todo lo que necesitás para crear interfaces modernas y responsivas
+                </p>
+            </div>
+            
+            <div class="languages-grid">
+                <div class="language-card animate-fade-in" data-category="frontend" data-search="html css web frontend responsive">
+                    <div class="language-icon">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <h3>HTML5 & CSS3</h3>
+                    <p>Fundamentos de la web. Estructura semántica y estilos modernos con Flexbox y Grid.</p>
+                    
+                    <div class="language-tags">
+                        <span class="language-tag">Fundamentos</span>
+                        <span class="language-tag">Web</span>
+                        <span class="language-tag">Responsive</span>
+                        <span class="language-tag">UI/UX</span>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLanguageModal('htmlcss', 'HTML & CSS')">
+                            <i class="fas fa-paint-brush"></i> Crear webs modernas
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="language-card animate-fade-in" data-category="frontend" data-search="react frontend components hooks">
+                    <div class="language-icon">
+                        <i class="fab fa-react"></i>
+                    </div>
+                    <h3>React</h3>
+                    <p>La biblioteca más popular para interfaces de usuario. Componentes reutilizables y estado.</p>
+                    
+                    <div class="language-tags">
+                        <span class="language-tag">Frontend</span>
+                        <span class="language-tag">Components</span>
+                        <span class="language-tag">Hooks</span>
+                        <span class="language-tag">SPA</span>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLanguageModal('react', 'React')">
+                            <i class="fas fa-atom"></i> Aprender React
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="language-card animate-fade-in" data-category="frontend" data-search="typescript ts typing javascript">
+                    <div class="language-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>TypeScript</h3>
+                    <p>JavaScript con tipos. Menos errores, mejor autocompletado y proyectos más mantenibles.</p>
+                    
+                    <div class="language-tags">
+                        <span class="language-tag">Tipado</span>
+                        <span class="language-tag">JavaScript</span>
+                        <span class="language-tag">Profesional</span>
+                        <span class="language-tag">Angular</span>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLanguageModal('typescript', 'TypeScript')">
+                            <i class="fas fa-shield-alt"></i> TypeScript seguro
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Backend -->
+    <section class="section" id="backend" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>⚙️ Desarrollo Backend</h2>
+                <p class="section-subtitle">
+                    Servidores, APIs, bases de datos y lógica de negocio
+                </p>
+            </div>
+            
+            <div class="languages-grid">
+                <div class="language-card animate-fade-in" data-category="backend" data-search="csharp dotnet aspnet microsoft">
+                    <div class="language-icon">
+                        <i class="fas fa-hashtag"></i>
+                    </div>
+                    <h3>C# .NET</h3>
+                    <p>Potente y elegante. Ideal para aplicaciones Windows, web APIs y desarrollo empresarial.</p>
+                    
+                    <div class="language-tags">
+                        <span class="language-tag">Microsoft</span>
+                        <span class="language-tag">Backend</span>
+                        <span class="language-tag">APIs</span>
+                        <span class="language-tag">.NET</span>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLanguageModal('csharp', 'C# .NET')">
+                            <i class="fas fa-cogs"></i> Programar en C#
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="language-card animate-fade-in" data-category="backend" data-search="node js backend server api">
+                    <div class="language-icon">
+                        <i class="fab fa-node-js"></i>
+                    </div>
+                    <h3>Node.js</h3>
+                    <p>JavaScript en el servidor. Perfecto para APIs rápidas y aplicaciones en tiempo real.</p>
+                    
+                    <div class="language-tags">
+                        <span class="language-tag">JavaScript</span>
+                        <span class="language-tag">Backend</span>
+                        <span class="language-tag">APIs</span>
+                        <span class="language-tag">Express</span>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLanguageModal('nodejs', 'Node.js')">
+                            <i class="fas fa-bolt"></i> Node.js rápido
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="language-card animate-fade-in" data-category="backend" data-search="php laravel backend web">
+                    <div class="language-icon">
+                        <i class="fab fa-php"></i>
+                    </div>
+                    <h3>PHP & Laravel</h3>
+                    <p>El clásico de la web modernizado. Perfecto para aplicaciones web y sistemas de gestión.</p>
+                    
+                    <div class="language-tags">
+                        <span class="language-tag">Web</span>
+                        <span class="language-tag">Backend</span>
+                        <span class="language-tag">Laravel</span>
+                        <span class="language-tag">WordPress</span>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLanguageModal('php', 'PHP & Laravel')">
+                            <i class="fas fa-server"></i> PHP moderno
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Bases de Datos -->
+    <section class="section" id="bases-datos">
+        <div class="container">
+            <div class="section-header">
+                <h2>🗄️ Bases de Datos</h2>
+                <p class="section-subtitle">
+                    Almacena, consulta y gestiona datos eficientemente
+                </p>
+            </div>
+            
+            <div class="languages-grid">
+                <div class="language-card animate-fade-in" data-category="data" data-search="sql database query mysql postgresql">
+                    <div class="language-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>SQL</h3>
+                    <p>El lenguaje universal para bases de datos relacionales. Consultas, joins y optimización.</p>
+                    
+                    <div class="language-tags">
+                        <span class="language-tag">Database</span>
+                        <span class="language-tag">MySQL</span>
+                        <span class="language-tag">PostgreSQL</span>
+                        <span class="language-tag">Queries</span>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLanguageModal('sql', 'SQL')">
+                            <i class="fas fa-search"></i> Dominar SQL
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="language-card animate-fade-in" data-category="data" data-search="mongodb nosql database document">
+                    <div class="language-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>MongoDB</h3>
+                    <p>Base de datos NoSQL documental. Flexible y escalable para aplicaciones modernas.</p>
+                    
+                    <div class="language-tags">
+                        <span class="language-tag">NoSQL</span>
+                        <span class="language-tag">Document</span>
+                        <span class="language-tag">JSON</span>
+                        <span class="language-tag">Node.js</span>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLanguageModal('mongodb', 'MongoDB')">
+                            <i class="fas fa-file-alt"></i> MongoDB práctico
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Otros Lenguajes -->
+    <section class="section" id="otros" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>🔧 Otros Lenguajes Especializados</h2>
+                <p class="section-subtitle">
+                    Para necesidades específicas y nichos especializados
+                </p>
+            </div>
+            
+            <div class="languages-grid">
+                <div class="language-card animate-fade-in" data-category="sistemas" data-search="c c++ memory pointers system">
+                    <div class="language-icon">
+                        <i class="fas fa-c"></i>
+                    </div>
+                    <h3>C / C++</h3>
+                    <p>Control total sobre memoria y hardware. Sistemas operativos, juegos y aplicaciones críticas.</p>
+                    
+                    <div class="language-tags">
+                        <span class="language-tag">Sistemas</span>
+                        <span class="language-tag">Memoria</span>
+                        <span class="language-tag">Performance</span>
+                        <span class="language-tag">Gaming</span>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLanguageModal('cpp', 'C / C++')">
+                            <i class="fas fa-microchip"></i> Programar en C/C++
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="language-card animate-fade-in" data-category="mobile" data-search="kotlin android mobile app">
+                    <div class="language-icon">
+                        <i class="fab fa-android"></i>
+                    </div>
+                    <h3>Kotlin (Android)</h3>
+                    <p>El lenguaje moderno para desarrollo Android. Más seguro y conciso que Java.</p>
+                    
+                    <div class="language-tags">
+                        <span class="language-tag">Mobile</span>
+                        <span class="language-tag">Android</span>
+                        <span class="language-tag">App</span>
+                        <span class="language-tag">Kotlin</span>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLanguageModal('kotlin', 'Kotlin para Android')">
+                            <i class="fas fa-mobile-alt"></i> Apps Android
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="language-card animate-fade-in" data-category="sistemas" data-search="go golang concurrency backend">
+                    <div class="language-icon">
+                        <i class="fab fa-golang"></i>
+                    </div>
+                    <h3>Go (Golang)</h3>
+                    <p>Simple, eficiente y concurrente. Perfecto para microservicios y sistemas distribuidos.</p>
+                    
+                    <div class="language-tags">
+                        <span class="language-tag">Concurrencia</span>
+                        <span class="language-tag">Microservicios</span>
+                        <span class="language-tag">Performance</span>
+                        <span class="language-tag">Backend</span>
+                    </div>
+                    
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <button class="btn btn-primary btn-block" onclick="openLanguageModal('go', 'Go (Golang)')">
+                            <i class="fas fa-rocket"></i> Go rápido
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Destacado Final -->
+    <section class="language-highlight">
+        <div class="container">
+            <div class="highlight-content">
+                <h2>¿No encontrás tu lenguaje?</h2>
+                <p>
+                    Cada programador tiene necesidades únicas. Contame qué querés construir 
+                    y te recomiendo la mejor tecnología para tu proyecto.
+                </p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px;">
+                    <button class="btn btn-light btn-lg" onclick="openLanguageModal('recomendacion', 'Recomendación Personalizada')">
+                        <i class="fas fa-calendar-alt"></i> Recomendación personalizada
+                    </button>
+                    <a href="https://wa.me/50687138971" class="btn btn-outline-light btn-lg" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+                    </a>
+                </div>
+                
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+                    <small style="color: rgba(255, 255, 255, 0.8); display: block;">
+                        <i class="fas fa-clock"></i> Respuesta en menos de 2 horas • 
+                        <i class="fas fa-shield-alt"></i> 100% confidencial • 
+                        <i class="fas fa-star"></i> Garantía de aprendizaje
+                    </small>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <div data-include="partials/footer.html"></div>
+    
+    <!-- =========================
+         MODALES ESPECÍFICOS PARA LENGUAJES
+    ========================= -->
+    
+    <!-- Modal genérico para lenguajes (se rellena dinámicamente) -->
+    <div class="modal" id="languageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="languageModalTitle"><i class="fas fa-code"></i> Tutoría de Lenguaje</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p id="languageModalDescription" style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Completa el formulario para agendar tu tutoría personalizada en este lenguaje.
+                </p>
+                
+                <form id="languageForm">
+                    <!-- Campos ocultos para identificar el lenguaje -->
+                    <input type="hidden" id="selectedLanguageCode" name="language_code" value="">
+                    <input type="hidden" id="selectedLanguageName" name="language_name" value="">
+                    
+                    <!-- Campos ocultos para Formspree -->
+                    <input type="hidden" name="_subject" value="Solicitud de Tutoría de Lenguaje - Tutorías JR">
+                    <input type="hidden" name="_format" value="plain">
+                    <input type="text" name="_gotcha" style="display:none">
+                    
+                    <div class="form-group">
+                        <label for="languageName">
+                            <i class="fas fa-user"></i> Nombre completo
+                        </label>
+                        <input type="text" id="languageName" name="name" placeholder="Tu nombre completo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="languageEmail">
+                            <i class="fas fa-envelope"></i> Correo electrónico
+                        </label>
+                        <input type="email" id="languageEmail" name="email" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="languagePhone">
+                            <i class="fas fa-phone"></i> Teléfono / WhatsApp
+                        </label>
+                        <input type="tel" id="languagePhone" name="phone" placeholder="+506 0000 0000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="languageLevel">
+                            <i class="fas fa-chart-line"></i> Nivel actual en este lenguaje
+                        </label>
+                        <select id="languageLevel" name="level" required>
+                            <option value="" disabled selected>Selecciona tu nivel</option>
+                            <option value="principiante">Principiante (sin experiencia)</option>
+                            <option value="basico">Básico (conozco sintaxis básica)</option>
+                            <option value="intermedio">Intermedio (he hecho pequeños proyectos)</option>
+                            <option value="avanzado">Avanzado (busco especialización)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="languageFocus">
+                            <i class="fas fa-bullseye"></i> ¿En qué querés enfocarte?
+                        </label>
+                        <select id="languageFocus" name="focus" required>
+                            <option value="" disabled selected>Selecciona un enfoque</option>
+                            <option value="fundamentos">Fundamentos y sintaxis</option>
+                            <option value="proyectos">Proyectos prácticos</option>
+                            <option value="frameworks">Frameworks y librerías</option>
+                            <option value="debugging">Debugging y buenas prácticas</option>
+                            <option value="algoritmos">Algoritmos y estructuras de datos</option>
+                            <option value="entrevista">Preparación para entrevistas</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="languageGoal">
+                            <i class="fas fa-flag-checkered"></i> ¿Cuál es tu objetivo principal?
+                        </label>
+                        <textarea id="languageGoal" name="goal" rows="3" placeholder="Ej: Crear una aplicación web, conseguir trabajo como desarrollador, aprobar un curso..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="languageMessage">
+                            <i class="fas fa-comment"></i> Información adicional
+                        </label>
+                        <textarea id="languageMessage" name="message" rows="4" placeholder="Describí qué temas específicos te interesan, qué has intentado antes, etc..."></textarea>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Solicitar tutoría del lenguaje
+                        </button>
+                        <small style="color: var(--text-secondary); text-align: center; display: block; margin-top: 10px;">
+                            <i class="fas fa-lock"></i> Tus datos están seguros y nunca serán compartidos
+                        </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal específico para recomendación personalizada -->
+    <div class="modal" id="recommendationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-magic"></i> Recomendación de Tecnología</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Contame sobre tu proyecto y te recomiendo la mejor tecnología para lograrlo. 
+                    Basado en tu experiencia, objetivos y tiempo disponible.
+                </p>
+                
+                <form id="recommendationForm">
+                    <!-- Campos ocultos para identificar -->
+                    <input type="hidden" name="form_type" value="recomendacion_tecnologia">
+                    <input type="hidden" name="topic" value="Recomendación de Tecnología">
+                    
+                    <!-- Campos ocultos para Formspree -->
+                    <input type="hidden" name="_subject" value="Recomendación de Tecnología - Tutorías JR">
+                    <input type="hidden" name="_format" value="plain">
+                    <input type="text" name="_gotcha" style="display:none">
+                    
+                    <div class="form-group">
+                        <label for="recommendationName">
+                            <i class="fas fa-user"></i> Nombre completo
+                        </label>
+                        <input type="text" id="recommendationName" name="name" placeholder="Tu nombre completo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recommendationEmail">
+                            <i class="fas fa-envelope"></i> Correo electrónico
+                        </label>
+                        <input type="email" id="recommendationEmail" name="email" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recommendationPhone">
+                            <i class="fas fa-phone"></i> Teléfono / WhatsApp
+                        </label>
+                        <input type="tel" id="recommendationPhone" name="phone" placeholder="+506 0000 0000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recommendationExperience">
+                            <i class="fas fa-history"></i> ¿Cuál es tu experiencia en programación?
+                        </label>
+                        <select id="recommendationExperience" name="experience" required>
+                            <option value="" disabled selected>Selecciona tu experiencia</option>
+                            <option value="ninguna">Ninguna (quiero empezar de cero)</option>
+                            <option value="principiante">Principiante (conozco conceptos básicos)</option>
+                            <option value="intermedio">Intermedio (he hecho varios proyectos)</option>
+                            <option value="avanzado">Avanzado (tengo experiencia profesional)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recommendationProject">
+                            <i class="fas fa-project-diagram"></i> ¿Qué tipo de proyecto querés crear?
+                        </label>
+                        <select id="recommendationProject" name="project_type" required>
+                            <option value="" disabled selected>Selecciona el tipo de proyecto</option>
+                            <option value="web">Aplicación Web</option>
+                            <option value="mobile">Aplicación Móvil</option>
+                            <option value="desktop">Aplicación de Escritorio</option>
+                            <option value="data">Análisis de Datos / IA</option>
+                            <option value="automation">Automatización / Scripts</option>
+                            <option value="game">Videojuego</option>
+                            <option value="iot">IoT / Embebidos</option>
+                            <option value="otro">Otro tipo de proyecto</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recommendationTime">
+                            <i class="fas fa-clock"></i> ¿Cuánto tiempo podés dedicar semanalmente?
+                        </label>
+                        <select id="recommendationTime" name="weekly_time" required>
+                            <option value="" disabled selected>Selecciona disponibilidad</option>
+                            <option value="1-5">1-5 horas por semana</option>
+                            <option value="5-10">5-10 horas por semana</option>
+                            <option value="10-20">10-20 horas por semana</option>
+                            <option value="20+">Más de 20 horas por semana</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recommendationDetails">
+                            <i class="fas fa-comment-dots"></i> Contame más sobre tu proyecto
+                        </label>
+                        <textarea id="recommendationDetails" name="project_details" rows="4" placeholder="Describí tu idea, funcionalidades principales, público objetivo, etc..."></textarea>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Solicitar recomendación
+                        </button>
+                        <small style="color: var(--text-secondary); text-align: center; display: block; margin-top: 10px;">
+                            <i class="fas fa-clock"></i> Te enviaré una recomendación personalizada en menos de 24 horas
+                        </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Botón flotante WhatsApp -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/50687138971" class="whatsapp-button" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span>¿Dudas de lenguajes?</span>
+        </a>
+    </div>
+    
+    <!-- Botón para subir -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <!-- Contenedor de toasts -->
+    <div class="toast-container"></div>
+    
+    <!-- JavaScript -->
+    <script src="assets/js/app.js"></script>
+    
+    <!-- Servicio de Formspree -->
+    <script src="assets/js/formspree-service.js"></script>
+    
+    <!-- Script para cargar componentes y funcionalidades -->
+    <script>
+        // Configuración de lenguajes con mensajes personalizados
+        const LANGUAGES_CONFIG = {
+            python: {
+                title: "🐍 Tutoría de Python",
+                description: "Desde scripts simples hasta aplicaciones complejas con IA y ciencia de datos. Te guío en el camino para dominar este lenguaje versátil y poderoso."
+            },
+            javascript: {
+                title: "⚡ Tutoría de JavaScript",
+                description: "El lenguaje de la web moderno. Aprendé desde fundamentos hasta frameworks avanzados como React y Node.js para crear aplicaciones completas."
+            },
+            java: {
+                title: "☕ Tutoría de Java",
+                description: "Desarrollo robusto y escalable. Perfecto para aplicaciones empresariales, Android y sistemas distribuidos. Te enseño desde POO hasta Spring Boot."
+            },
+            htmlcss: {
+                title: "🎨 Tutoría de HTML & CSS",
+                description: "Los fundamentos de la web. Creá interfaces modernas, responsivas y accesibles. Domina Flexbox, Grid, animaciones y mejores prácticas de UI/UX."
+            },
+            react: {
+                title: "⚛️ Tutoría de React",
+                description: "La biblioteca más popular para interfaces de usuario. Aprendé componentes, hooks, estado, context y cómo construir SPAs profesionales."
+            },
+            typescript: {
+                title: "🛡️ Tutoría de TypeScript",
+                description: "JavaScript con superpoderes. Escribí código más seguro y mantenible con tipado estático. Perfecto para proyectos profesionales y equipos grandes."
+            },
+            csharp: {
+                title: "🔷 Tutoría de C# .NET",
+                description: "Lenguaje poderoso para desarrollo Windows, web APIs y aplicaciones empresariales. Te enseño desde sintaxis hasta ASP.NET Core y Entity Framework."
+            },
+            nodejs: {
+                title: "🚀 Tutoría de Node.js",
+                description: "JavaScript en el servidor. Creá APIs rápidas, aplicaciones en tiempo real y servidores escalables con Express, MongoDB y más."
+            },
+            php: {
+                title: "🐘 Tutoría de PHP & Laravel",
+                description: "El clásico modernizado. Aprendé PHP moderno con Laravel para crear aplicaciones web robustas, seguras y mantenibles."
+            },
+            sql: {
+                title: "🗃️ Tutoría de SQL",
+                description: "Domina las bases de datos relacionales. Aprendé desde consultas básicas hasta optimización avanzada, joins complejos y diseño de esquemas."
+            },
+            mongodb: {
+                title: "🍃 Tutoría de MongoDB",
+                description: "Base de datos NoSQL moderna. Trabajá con datos JSON, consultas flexibles y escalabilidad horizontal para aplicaciones contemporáneas."
+            },
+            cpp: {
+                title: "⚙️ Tutoría de C / C++",
+                description: "Control total sobre el hardware. Perfecto para sistemas operativos, juegos, aplicaciones críticas y donde el rendimiento es fundamental."
+            },
+            kotlin: {
+                title: "🤖 Tutoría de Kotlin para Android",
+                description: "El futuro del desarrollo Android. Lenguaje moderno, seguro y conciso. Creá aplicaciones móviles nativas con las mejores prácticas."
+            },
+            go: {
+                title: "🐹 Tutoría de Go (Golang)",
+                description: "Simple, eficiente y concurrente. Perfecto para microservicios, sistemas distribuidos y donde la performance y concurrencia son clave."
+            },
+            recomendacion: {
+                title: "🎯 Recomendación Personalizada",
+                description: "Contame sobre tu proyecto y te ayudo a elegir la mejor tecnología stack. Basado en tus objetivos, experiencia y tiempo disponible."
+            }
+        };
+        
+        // Función auxiliar para mostrar mensajes (CONSOLIDADA)
+        function showMessage(message, type = 'info') {
+            console.log(`📢 ${type.toUpperCase()}: ${message}`);
+            
+            // Usar TutoriasJR.showToast si está disponible
+            if (window.TutoriasJR && typeof window.TutoriasJR.showToast === 'function') {
+                window.TutoriasJR.showToast(message, type);
+                return;
+            }
+            
+            // Si TutoriasJR no está disponible, intentar con toast container
+            const toastContainer = document.querySelector('.toast-container');
+            if (toastContainer && type !== 'loading') {
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                        <span>${message}</span>
+                    </div>
+                    <button class="toast-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                toastContainer.appendChild(toast);
+                
+                // Auto-remove after 5 seconds
+                setTimeout(() => {
+                    toast.remove();
+                }, 5000);
+                
+                // Close button
+                toast.querySelector('.toast-close').addEventListener('click', () => {
+                    toast.remove();
+                });
+                
+                return;
+            }
+            
+            // Último recurso: alert simple
+            if (type === 'error') {
+                alert('❌ ' + message);
+            } else if (type === 'success') {
+                alert('✅ ' + message);
+            } else {
+                alert('ℹ️ ' + message);
+            }
+        }
+        
+        // Función para abrir modal de lenguaje específico
+        function openLanguageModal(languageCode, languageName) {
+            if (languageCode === 'recomendacion') {
+                openModalSafe('recommendationModal');
+                return;
+            }
+            
+            const languageConfig = LANGUAGES_CONFIG[languageCode] || LANGUAGES_CONFIG.python;
+            
+            // Actualizar el modal con la información del lenguaje
+            document.getElementById('languageModalTitle').innerHTML = 
+                `<i class="fas fa-code"></i> ${languageConfig.title}`;
+            document.getElementById('languageModalDescription').textContent = languageConfig.description;
+            
+            // Setear valores ocultos
+            document.getElementById('selectedLanguageCode').value = languageCode;
+            document.getElementById('selectedLanguageName').value = languageName;
+            
+            // Setear asunto específico para Formspree
+            document.querySelector('#languageForm input[name="_subject"]').value = 
+                `Tutoría de ${languageName} - Tutorías JR`;
+            
+            // Abrir el modal
+            openModalSafe('languageModal');
+        }
+        
+        // Función específica para recomendación
+        function openRecommendationModal() {
+            openModalSafe('recommendationModal');
+        }
+        
+        // Función segura para abrir modales
+        function openModalSafe(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }, 10);
+            }
+        }
+        
+        // Función para cerrar modales
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+        }
+        
+        // Inicializar event listeners para cerrar modales
+        function initModalCloseListeners() {
+            // Agregar event listeners a todos los botones de cerrar
+            document.querySelectorAll('.modal-close').forEach(closeBtn => {
+                closeBtn.addEventListener('click', function() {
+                    const modal = this.closest('.modal');
+                    if (modal) {
+                        closeModal(modal.id);
+                    }
+                });
+            });
+            
+            // Cerrar modal al hacer click fuera del contenido
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal(this.id);
+                    }
+                });
+            });
+            
+            // Cerrar modal con tecla Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const activeModal = document.querySelector('.modal.active');
+                    if (activeModal) {
+                        closeModal(activeModal.id);
+                    }
+                }
+            });
+            
+            // Prevenir que el clic dentro del modal lo cierre
+            document.querySelectorAll('.modal-content').forEach(content => {
+                content.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+        }
+        
+        // Función para cargar componentes con data-include
+        async function loadIncludes() {
+            const includes = document.querySelectorAll('[data-include]');
+            
+            for (const element of includes) {
+                try {
+                    const file = element.getAttribute('data-include');
+                    const response = await fetch(file);
+                    
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    
+                    const html = await response.text();
+                    element.innerHTML = html;
+                    element.removeAttribute('data-include');
+                    
+                } catch (error) {
+                    console.error(`Error cargando ${element.getAttribute('data-include')}:`, error);
+                    element.innerHTML = `
+                        <div style="background: #fef2f2; border: 2px dashed #dc2626; padding: 20px; border-radius: 8px; text-align: center;">
+                            <i class="fas fa-exclamation-triangle" style="color: #dc2626; font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p style="color: #7f1d1d; margin: 0;">
+                                Error cargando componente. Por favor recarga la página.
+                            </p>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Inicializar la aplicación
+            setTimeout(() => {
+                if (window.TutoriasJR && typeof window.TutoriasJR.init === 'function') {
+                    window.TutoriasJR.init();
+                    
+                    // Animación de aparición escalonada
+                    const languageCards = document.querySelectorAll('.language-card');
+                    languageCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('animate-fade-in');
+                        }, index * 150);
+                    });
+                    
+                    // Navegación suave para anclas
+                    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                        anchor.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const targetId = this.getAttribute('href');
+                            if (targetId === '#') return;
+                            
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 70;
+                                window.scrollTo({
+                                    top: targetElement.offsetTop - navbarHeight,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        });
+                    });
+                    
+                    // Funcionalidad de filtros
+                    initializeFilters();
+                    
+                    // Inicializar listeners de modales
+                    initModalCloseListeners();
+                    
+                    // Inicializar formularios
+                    initializeLanguageForms();
+                }
+            }, 500);
+        }
+        
+        // Inicializar filtros y búsqueda
+        function initializeFilters() {
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            const languageCards = document.querySelectorAll('.language-card');
+            const searchInput = document.getElementById('languageSearch');
+            
+            // Filtro por categoría
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remover active de todos
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Agregar active al clickeado
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Filtrar cards
+                    languageCards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        
+                        if (filter === 'all' || category === filter || category.includes(filter)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Búsqueda en tiempo real
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                languageCards.forEach(card => {
+                    const searchData = card.getAttribute('data-search') || '';
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    
+                    if (searchTerm === '' || 
+                        searchData.includes(searchTerm) || 
+                        title.includes(searchTerm) || 
+                        description.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+        
+        // Inicializar formularios de lenguajes usando FormspreeService
+        function initializeLanguageForms() {
+            console.log('🔄 Inicializando formularios de lenguajes...');
+            
+            // Verificar que FormspreeService esté disponible
+            if (!window.FormspreeService) {
+                console.error('❌ FormspreeService no disponible');
+                return;
+            }
+            
+            // Formulario de lenguaje genérico
+            const languageForm = document.getElementById('languageForm');
+            if (languageForm) {
+                console.log('✅ Language form encontrado');
+                
+                languageForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    // Validar formulario
+                    if (!window.FormspreeService.validateForm(this)) {
+                        showMessage('Por favor completa todos los campos correctamente.', 'error');
+                        return;
+                    }
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    // Cambiar estado del botón
+                    window.FormspreeService.setButtonState(submitBtn, true);
+                    
+                    // Obtener datos del formulario
+                    const formData = new FormData(this);
+                    
+                    // Agregar información de página
+                    formData.append('page', 'lenguajes');
+                    formData.append('language_code', document.getElementById('selectedLanguageCode').value);
+                    formData.append('language_name', document.getElementById('selectedLanguageName').value);
+                    
+                    try {
+                        // Enviar a Formspree
+                        console.log('📤 Enviando formulario de lenguaje...');
+                        const result = await window.FormspreeService.sendForm(formData, 'lenguaje');
+                        
+                        // Mostrar resultado
+                        if (result.success) {
+                            showMessage('¡Solicitud enviada! Te contactaré pronto para coordinar tu tutoría.', 'success');
+                            
+                            // Resetear formulario
+                            this.reset();
+                            
+                            // Cerrar modal después de 2 segundos
+                            setTimeout(() => {
+                                closeModal('languageModal');
+                            }, 2000);
+                        } else {
+                            showMessage(result.message, 'error');
+                        }
+                    } catch (error) {
+                        console.error('❌ Error en el envío:', error);
+                        showMessage('Error al enviar. Intenta de nuevo.', 'error');
+                    } finally {
+                        // Restaurar botón
+                        window.FormspreeService.setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+            
+            // Formulario de recomendación
+            const recommendationForm = document.getElementById('recommendationForm');
+            if (recommendationForm) {
+                console.log('✅ Recommendation form encontrado');
+                
+                recommendationForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    // Validar formulario
+                    if (!window.FormspreeService.validateForm(this)) {
+                        showMessage('Por favor completa todos los campos correctamente.', 'error');
+                        return;
+                    }
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    // Cambiar estado del botón
+                    window.FormspreeService.setButtonState(submitBtn, true);
+                    
+                    // Obtener datos del formulario
+                    const formData = new FormData(this);
+                    
+                    // Agregar información de página
+                    formData.append('page', 'lenguajes');
+                    formData.append('form_type', 'recomendacion_tecnologia');
+                    
+                    try {
+                        // Enviar a Formspree
+                        console.log('📤 Enviando formulario de recomendación...');
+                        const result = await window.FormspreeService.sendForm(formData, 'recomendacion');
+                        
+                        // Mostrar resultado
+                        if (result.success) {
+                            showMessage('¡Solicitud enviada! Te enviaré una recomendación personalizada en menos de 24 horas.', 'success');
+                            
+                            // Resetear formulario
+                            this.reset();
+                            
+                            // Cerrar modal después de 2 segundos
+                            setTimeout(() => {
+                                closeModal('recommendationModal');
+                            }, 2000);
+                        } else {
+                            showMessage(result.message, 'error');
+                        }
+                    } catch (error) {
+                        console.error('❌ Error en el envío:', error);
+                        showMessage('Error al enviar. Intenta de nuevo.', 'error');
+                    } finally {
+                        // Restaurar botón
+                        window.FormspreeService.setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+            
+            console.log('✅ Formularios de lenguajes inicializados');
+        }
+        
+        // Exponer funciones globales
+        window.openLanguageModal = openLanguageModal;
+        window.openRecommendationModal = openRecommendationModal;
+        window.showMessage = showMessage;
+        
+        // Ejecutar cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadIncludes);
+        } else {
+            loadIncludes();
+        }
+    </script>
+</body>
+</html>

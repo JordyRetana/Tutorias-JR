@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="es" data-mode="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas Frecuentes - Tutorías JR</title>
+    <meta name="description" content="Preguntas frecuentes sobre tutorías de programación. Encuentra respuestas sobre precios, niveles, lenguajes y más.">
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <style>
+        .page-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+        
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-hero .lead {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-categories {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 40px 0 30px;
+            flex-wrap: wrap;
+        }
+        
+        .faq-category {
+            padding: 12px 24px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .faq-category:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .faq-item:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .faq-question {
+            padding: 25px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .faq-question:hover {
+            background: var(--gray-50);
+        }
+        
+        [data-mode="dark"] .faq-question:hover {
+            background: var(--gray-800);
+        }
+        
+        .faq-question i {
+            color: var(--primary);
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .faq-question span {
+            flex: 1;
+        }
+        
+        .faq-toggle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 30px;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 30px 25px 30px;
+        }
+        
+        .faq-answer p {
+            margin-bottom: 15px;
+        }
+        
+        .faq-answer p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section:nth-child(even) {
+            background: var(--gray-50);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+        }
+        
+        .search-box {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        
+        .faq-highlight {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            padding: 80px 0;
+            margin: 100px 0;
+            border-radius: var(--radius-xl);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .faq-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+        }
+        
+        .highlight-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+        
+        .highlight-content h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight-content p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.125rem;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .page-hero {
+                padding: 100px 0 40px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .faq-question {
+                padding: 20px;
+                font-size: 1rem;
+            }
+            
+            .faq-answer {
+                padding: 0 20px;
+            }
+            
+            .faq-item.active .faq-answer {
+                padding: 0 20px 20px 20px;
+            }
+            
+            .faq-categories {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .faq-category {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body data-page="faq">
+    <div data-include="partials/header.html"></div>
+    
+    <section class="page-hero" id="faq">
+        <div class="container">
+            <h1>❓ Preguntas Frecuentes</h1>
+            <p class="lead">
+                Encontrá respuestas rápidas a las preguntas más comunes sobre tutorías, 
+                precios, horarios y metodología de aprendizaje.
+            </p>
+            
+            <div class="faq-categories">
+                <a href="#general" class="faq-category">
+                    <i class="fas fa-info-circle"></i> General
+                </a>
+                <a href="#precios" class="faq-category">
+                    <i class="fas fa-dollar-sign"></i> Precios & Planes
+                </a>
+                <a href="#metodologia" class="faq-category">
+                    <i class="fas fa-graduation-cap"></i> Metodología
+                </a>
+                <a href="#tecnicas" class="faq-category">
+                    <i class="fas fa-code"></i> Técnicas
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>🔍 Buscá tu pregunta</h2>
+                <p class="section-subtitle">
+                    Escribí palabras clave como "precio", "horario", "nivel", "lenguaje", etc.
+                </p>
+            </div>
+            
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="faqSearch" placeholder="Ej: ¿Cuánto cuesta una clase? ¿Qué necesito para empezar?">
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="general">
+        <div class="container">
+            <div class="section-header">
+                <h2>📋 Preguntas Generales</h2>
+                <p class="section-subtitle">
+                    Información básica sobre cómo funcionan las tutorías
+                </p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <i class="fas fa-question-circle"></i>
+                        <span>¿Qué son las tutorías de programación?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Son sesiones personalizadas 1 a 1 donde te enseño programación desde cero o ayudo a mejorar tus habilidades existentes. Cada clase se adapta a tu nivel, ritmo y objetivos específicos.</p>
+                        <p>Trabajamos con ejercicios prácticos, proyectos reales y resolución de problemas. No es una clase tradicional, sino un acompañamiento personalizado.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <i class="fas fa-user"></i>
+                        <span>¿Las clases son para principiantes absolutos?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>¡Sí, completamente!</strong> Muchos de mis estudiantes comienzan desde cero sin ningún conocimiento previo de programación.</p>
+                        <p>Empezamos con los conceptos más básicos: lógica de programación, pensamiento computacional y fundamentos del lenguaje que elijas. Te guío paso a paso con ejercicios simples que van aumentando en complejidad.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <i class="fas fa-clock"></i>
+                        <span>¿Cómo se agendan las clases?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Es muy sencillo:</p>
+                        <ol>
+                            <li><strong>Contacto inicial:</strong> Me escribís por WhatsApp o agendás una sesión de diagnóstico gratuita.</li>
+                            <li><strong>Sesión de diagnóstico:</strong> 30 minutos gratis para conocerte, evaluar tu nivel y definir objetivos.</li>
+                            <li><strong>Plan personalizado:</strong> Creo una ruta de aprendizaje específica para vos.</li>
+                            <li><strong>Horarios flexibles:</strong> Coordinamos días y horarios que te funcionen (mañana, tarde, noche, fines de semana).</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <i class="fas fa-video"></i>
+                        <span>¿Las clases son presenciales o virtuales?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>Principalmente virtuales</strong> a través de videollamada (Zoom, Google Meet, etc.) con pantalla compartida. Esto me permite:</p>
+                        <ul>
+                            <li>Mostrarte código en tiempo real</li>
+                            <li>Ver tu pantalla mientras programás</li>
+                            <li>Compartir archivos y recursos instantáneamente</li>
+                            <li>Trabajar desde cualquier lugar de Costa Rica</li>
+                        </ul>
+                        <p>También hay opción <strong>presencial</strong> en el área metropolitana (consultar disponibilidad).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="precios" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>💰 Precios & Planes</h2>
+                <p class="section-subtitle">
+                    Información sobre costos, métodos de pago y descuentos
+                </p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <i class="fas fa-dollar-sign"></i>
+                        <span>¿Cuánto cuesta una clase?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Los precios varían según:</p>
+                        <ul>
+                            <li><strong>Duración de la clase:</strong> 1 hora, 1.5 horas o 2 horas</li>
+                            <li><strong>Frecuencia:</strong> Clases sueltas o paquetes</li>
+                            <li><strong>Plan:</strong> Básico, Intermedio o Premium</li>
+                        </ul>
+                        <p>💡 <strong>Primera sesión de diagnóstico es 100% gratuita</strong> (30 minutos) sin compromiso.</p>
+                        <p>Para precios específicos, visitá la página de <a href="precios.html" style="color: var(--primary);">Precios</a> o contactame directamente.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <i class="fas fa-percentage"></i>
+                        <span>¿Hay descuentos o promociones?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>¡Sí! Varias opciones:</strong></p>
+                        <ul>
+                            <li><strong>Paquetes de horas:</strong> Comprar 5, 10 o 20 horas con descuento (hasta 15% off)</li>
+                            <li><strong>Grupos pequeños:</strong> 2-4 personas (10-15% off por persona)</li>
+                            <li><strong>Estudiantes universitarios:</strong> Descuento especial con carnet</li>
+                            <li><strong>Pago adelantado:</strong> Descuento por pago mensual</li>
+                        </ul>
+                        <p>También hay <strong>planes especiales</strong> para proyectos largos o preparación de exámenes.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <i class="fas fa-credit-card"></i>
+                        <span>¿Qué métodos de pago aceptan?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Acepto varios métodos para tu comodidad:</p>
+                        <ul>
+                            <li><strong>Transferencia bancaria:</strong> BAC, BCR, BN</li>
+                            <li><strong>SINPE Móvil:</strong> Rápido y seguro</li>
+                            <li><strong>PayPal:</strong> Para pagos internacionales</li>
+                            <li><strong>Efectivo:</strong> En clases presenciales</li>
+                        </ul>
+                        <p>💡 <strong>Factura electrónica disponible</strong> para personas físicas y jurídicas.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <i class="fas fa-calendar-times"></i>
+                        <span>¿Qué pasa si cancelo o reprogramo una clase?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Entiendo que pueden surgir imprevistos. Mi política es flexible:</p>
+                        <ul>
+                            <li><strong>Cancelación con 24+ horas:</strong> 100% reembolsable o reprogramable</li>
+                            <li><strong>Cancelación con 12-24 horas:</strong> 50% reembolsable o reprogramable</li>
+                            <li><strong>Cancelación con menos de 12 horas:</strong> Se cobra el 50% de la clase</li>
+                            <li><strong>Emergencias:</strong> Casos especiales se evalúan individualmente</li>
+                        </ul>
+                        <p>Lo importante es <strong>avisar con la mayor anticipación posible</strong> para poder reprogramar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="metodologia">
+        <div class="container">
+            <div class="section-header">
+                <h2>🎓 Metodología de Aprendizaje</h2>
+                <p class="section-subtitle">
+                    Cómo trabajamos y qué podés esperar de las clases
+                </p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <i class="fas fa-tasks"></i>
+                        <span>¿Me hacés la tarea o proyecto de la U?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>No hago tareas por vos, pero te enseño a resolverlas.</strong> Mi enfoque es pedagógico:</p>
+                        <ul>
+                            <li><strong>Te explico los conceptos</strong> que necesitás entender</li>
+                            <li><strong>Te guío paso a paso</strong> en la resolución</li>
+                            <li><strong>Reviso tu código</strong> y te doy feedback</li>
+                            <li><strong>Te enseño a debuggear</strong> y encontrar errores</li>
+                        </ul>
+                        <p>El objetivo es que <strong>aprendás a pensar como programador</strong> y puedas resolver problemas similares en el futuro.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <i class="fas fa-chart-line"></i>
+                        <span>¿Cómo es el seguimiento del progreso?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Tengo un sistema estructurado de seguimiento:</p>
+                        <ol>
+                            <li><strong>Evaluación inicial:</strong> Diagnosticamos tu nivel exacto</li>
+                            <li><strong>Objetivos SMART:</strong> Definimos metas específicas y medibles</li>
+                            <li><strong>Checkpoints semanales:</strong> Revisamos lo aprendido</li>
+                            <li><strong>Proyectos incrementales:</strong> Aplicás conocimientos en proyectos reales</li>
+                            <li><strong>Feedback continuo:</strong> Correcciones y sugerencias en cada clase</li>
+                            <li><strong>Ajustes del plan:</strong> Modificamos la ruta según tu progreso</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>¿Necesito equipo especial para las clases?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>No, con equipamiento básico es suficiente:</strong></p>
+                        <ul>
+                            <li><strong>Computadora:</strong> Windows, Mac o Linux (no importa el sistema)</li>
+                            <li><strong>Internet estable:</strong> Para videollamada y compartir pantalla</li>
+                            <li><strong>Micrófono y cámara:</strong> Integrados o externos</li>
+                            <li><strong>Software gratuito:</strong> Todo el software que usamos es free/open source</li>
+                        </ul>
+                        <p>Te ayudo a instalar y configurar todo lo necesario en la primera sesión.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="tecnicas" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>⚙️ Aspectos Técnicos</h2>
+                <p class="section-subtitle">
+                    Preguntas sobre lenguajes, niveles y herramientas
+                </p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <i class="fas fa-code"></i>
+                        <span>¿Qué lenguajes de programación enseñás?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>Los principales lenguajes del mercado:</strong></p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 15px 0;">
+                            <div>
+                                <strong>Principales:</strong>
+                                <ul>
+                                    <li>Python</li>
+                                    <li>JavaScript</li>
+                                    <li>Java</li>
+                                    <li>C# .NET</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>Web:</strong>
+                                <ul>
+                                    <li>HTML5/CSS3</li>
+                                    <li>React</li>
+                                    <li>Node.js</li>
+                                    <li>TypeScript</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>Otros:</strong>
+                                <ul>
+                                    <li>SQL (MySQL, PostgreSQL)</li>
+                                    <li>PHP & Laravel</li>
+                                    <li>C/C++</li>
+                                    <li>Kotlin (Android)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p>💡 <strong>¿No encontrás tu lenguaje?</strong> Contactame, probablemente pueda ayudarte igual.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>¿Trabajás con todos los niveles?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>¡Sí! Desde cero hasta avanzado:</strong></p>
+                        <ul>
+                            <li><strong>Nivel 1 - Principiante:</strong> Cero experiencia, empezamos desde lógica básica</li>
+                            <li><strong>Nivel 2 - Básico:</strong> Conocimientos iniciales, reforzamos fundamentos</li>
+                            <li><strong>Nivel 3 - Intermedio:</strong> Puede hacer programas simples, trabajamos en proyectos</li>
+                            <li><strong>Nivel 4 - Avanzado:</strong> Experiencia previa, enfoque en especialización y mejores prácticas</li>
+                        </ul>
+                        <p>En la sesión de diagnóstico determinamos tu nivel exacto y diseñamos el plan adecuado.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <i class="fas fa-project-diagram"></i>
+                        <span>¿Trabajamos con proyectos reales?</span>
+                        <i class="fas fa-chevron-down faq-toggle"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>¡Absolutamente! Los proyectos son clave para aprender:</strong></p>
+                        <ul>
+                            <li><strong>Mini-proyectos:</strong> Desde las primeras semanas para aplicar conceptos</li>
+                            <li><strong>Proyectos personales:</strong> Te ayudo con tus ideas personales</li>
+                            <li><strong>Trabajos universitarios:</strong> Guía completa para tareas y proyectos de curso</li>
+                            <li><strong>Proyectos de grado/tesis:</strong> Soporte desde diseño hasta implementación</li>
+                            <li><strong>Portafolio profesional:</strong> Proyectos que podés mostrar a empleadores</li>
+                        </ul>
+                        <p>Creemos en <strong>"aprender haciendo"</strong> - la teoría se consolida con práctica real.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="faq-highlight">
+        <div class="container">
+            <div class="highlight-content">
+                <h2>¿Tu pregunta no está aquí?</h2>
+                <p>
+                    No dudes en contactarme directamente. Estoy aquí para resolver todas tus dudas 
+                    sobre programación y ayudarte a comenzar tu viaje de aprendizaje.
+                </p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px;">
+                    <button class="btn btn-light btn-lg" onclick="TutoriasJR.openBookingModal()">
+                        <i class="fas fa-calendar-alt"></i> Agendar consulta
+                    </button>
+                    <a href="https://wa.me/50687138971" class="btn btn-outline-light btn-lg" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Preguntar por WhatsApp
+                    </a>
+                </div>
+                
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+                    <small style="color: rgba(255, 255, 255, 0.8); display: block;">
+                        <i class="fas fa-clock"></i> Respuesta en menos de 2 horas • 
+                        <i class="fas fa-shield-alt"></i> 100% confidencial • 
+                        <i class="fas fa-star"></i> Sin compromiso
+                    </small>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div data-include="partials/footer.html"></div>
+    
+    <div class="whatsapp-float">
+        <a href="https://wa.me/50687138971" class="whatsapp-button" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span>¿Tenés dudas?</span>
+        </a>
+    </div>
+    
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <div class="toast-container"></div>
+    
+    <script src="assets/js/app.js"></script>
+    
+    <script>
+        async function loadIncludes() {
+            const includes = document.querySelectorAll('[data-include]');
+            
+            for (const element of includes) {
+                try {
+                    const file = element.getAttribute('data-include');
+                    const response = await fetch(file);
+                    
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    
+                    const html = await response.text();
+                    element.innerHTML = html;
+                    element.removeAttribute('data-include');
+                    
+                } catch (error) {
+                    console.error(`Error cargando ${element.getAttribute('data-include')}:`, error);
+                    element.innerHTML = `
+                        <div style="background: #fef2f2; border: 2px dashed #dc2626; padding: 20px; border-radius: 8px; text-align: center;">
+                            <i class="fas fa-exclamation-triangle" style="color: #dc2626; font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p style="color: #7f1d1d; margin: 0;">
+                                Error cargando componente. Por favor recarga la página.
+                            </p>
+                        </div>
+                    `;
+                }
+            }
+            
+            setTimeout(() => {
+                if (window.TutoriasJR && typeof window.TutoriasJR.init === 'function') {
+                    window.TutoriasJR.init();
+                    
+                    initializeFAQ();
+                    
+                    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                        anchor.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const targetId = this.getAttribute('href');
+                            if (targetId === '#') return;
+                            
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 70;
+                                window.scrollTo({
+                                    top: targetElement.offsetTop - navbarHeight,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        });
+                    });
+                }
+            }, 500);
+        }
+        
+        function initializeFAQ() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const faqItem = this.parentElement;
+                    const isActive = faqItem.classList.contains('active');
+                    
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    if (!isActive) {
+                        faqItem.classList.add('active');
+                    }
+                });
+            });
+            
+            const searchInput = document.getElementById('faqSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    
+                    if (searchTerm === '') {
+                        document.querySelectorAll('.faq-item').forEach(item => {
+                            item.style.display = 'block';
+                        });
+                        return;
+                    }
+                    
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                        const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                        
+                        if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                            item.style.display = 'block';
+                            
+                            if (!item.classList.contains('active')) {
+                                item.classList.add('active');
+                            }
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            }
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadIncludes);
+        } else {
+            loadIncludes();
+        }
+    </script>
+</body>
+</html>

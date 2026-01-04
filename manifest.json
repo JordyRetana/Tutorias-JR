@@ -1,0 +1,21 @@
+{
+    "name": "Tutorías Jordy Retana",
+    "short_name": "Tutorías JR",
+    "description": "Tutorías personalizadas de programación 1 a 1 en Costa Rica",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#4361ee",
+    "icons": [
+        {
+            "src": "/assets/img/favicon/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/img/favicon/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

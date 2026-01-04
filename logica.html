@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="es" data-mode="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lógica de Programación - Tutorías JR</title>
+    <meta name="description" content="Aprende lógica de programación desde cero. Fundamentos, algoritmos, estructuras de datos y resolución de problemas. Base para cualquier lenguaje.">
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <style>
+        .page-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+        
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-hero .lead {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .learning-path {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .path-step {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 35px 30px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .path-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .path-step:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .path-step h3 {
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+            color: var(--text-primary);
+        }
+        
+        .path-step p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .exercise-generator {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            border: 1px solid var(--border-color);
+            margin: 50px 0;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .generator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .generator-header h2 {
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .level-selector {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .level-btn {
+            padding: 10px 20px;
+            background: var(--gray-100);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .level-btn:hover {
+            background: var(--gray-200);
+            color: var(--text-primary);
+        }
+        
+        .level-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: transparent;
+        }
+        
+        .exercise-card {
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid var(--border-color);
+        }
+        
+        .exercise-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .exercise-content.active {
+            display: block;
+        }
+        
+        .exercise-content h3 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .exercise-content p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .exercise-hint {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 15px;
+            border-radius: var(--radius);
+            margin: 15px 0;
+            border-left: 4px solid var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        [data-mode="dark"] .exercise-hint {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-light);
+            border-left-color: var(--primary);
+        }
+        
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section:nth-child(even) {
+            background: var(--gray-50);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+        }
+        
+        .logic-highlight {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            padding: 80px 0;
+            margin: 100px 0;
+            border-radius: var(--radius-xl);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logic-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+        }
+        
+        .highlight-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+        
+        .highlight-content h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight-content p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.125rem;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .learning-path {
+                grid-template-columns: 1fr;
+            }
+            
+            .generator-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .level-selector {
+                width: 100%;
+            }
+            
+            .level-btn {
+                flex: 1;
+                text-align: center;
+                min-width: 100px;
+            }
+            
+            .page-hero {
+                padding: 100px 0 40px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .exercise-generator {
+                padding: 25px;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .modal {
+            background: rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(5px) !important;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex !important;
+        }
+        
+        .modal-content {
+            background: var(--card-bg) !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-primary) !important;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid var(--border-color) !important;
+            background: transparent !important;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            color: var(--text-primary) !important;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        .modal-body {
+            color: var(--text-primary) !important;
+            background: transparent !important;
+            padding: 24px;
+        }
+        
+        .modal-footer {
+            background: var(--gray-50) !important;
+            border-top: 1px solid var(--border-color) !important;
+            padding: 24px;
+        }
+        
+        [data-mode="dark"] .modal-footer {
+            background: var(--gray-800) !important;
+        }
+        
+        .form-group label {
+            color: var(--text-primary) !important;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: var(--card-bg) !important;
+            color: var(--text-primary) !important;
+            border: 1px solid var(--border-color) !important;
+            width: 100%;
+            padding: 12px;
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+            outline: none;
+        }
+        
+        [data-mode="dark"] .form-group input:focus,
+        [data-mode="dark"] .form-group select:focus,
+        [data-mode="dark"] .form-group textarea:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+        }
+        
+        .modal-close {
+            color: var(--text-secondary) !important;
+            background: transparent !important;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            background: var(--gray-100) !important;
+            color: var(--text-primary) !important;
+        }
+        
+        [data-mode="dark"] .modal-close:hover {
+            background: var(--gray-800) !important;
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--gray-500) !important;
+        }
+        
+        [data-mode="dark"] .form-group input::placeholder,
+        [data-mode="dark"] .form-group textarea::placeholder {
+            color: var(--gray-400) !important;
+        }
+    </style>
+</head>
+<body data-page="logica">
+    <div data-include="partials/header.html"></div>
+    
+    <section class="page-hero" id="logica">
+        <div class="container">
+            <h1>🧠 Lógica de Programación</h1>
+            <p class="lead">
+                La base de todo programador. Si dominás la lógica, cualquier lenguaje se te hace fácil. 
+                Te enseño a pensar como programador desde cero.
+            </p>
+            
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+                <button class="btn btn-light btn-lg" onclick="openLogicModal('general', 'Lógica de Programación - Desde Cero')">
+                    <i class="fas fa-graduation-cap"></i> Aprender lógica desde cero
+                </button>
+                <a href="#generador" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-bolt"></i> Probar ejercicios
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>📚 Ruta de Aprendizaje de Lógica</h2>
+                <p class="section-subtitle">
+                    Sigue este orden y construirás una base sólida para cualquier lenguaje
+                </p>
+            </div>
+            
+            <div class="learning-path">
+                <div class="path-step animate-fade-in">
+                    <div class="step-number">1</div>
+                    <h3>Fundamentos</h3>
+                    <p>Variables, constantes, tipos de datos, entrada/salida. La base de todo código.</p>
+                    <div style="margin-top: 15px;">
+                        <button class="btn btn-sm btn-outline" onclick="openLogicModal('fundamentos', 'Fundamentos de Lógica')">
+                            <i class="fas fa-play"></i> Empezar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="path-step animate-fade-in">
+                    <div class="step-number">2</div>
+                    <h3>Condicionales</h3>
+                    <p>if/else, switch, operadores lógicos. Tomar decisiones en tu código.</p>
+                    <div style="margin-top: 15px;">
+                        <button class="btn btn-sm btn-outline" onclick="openLogicModal('condicionales', 'Condicionales y Decisiones')">
+                            <i class="fas fa-play"></i> Empezar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="path-step animate-fade-in">
+                    <div class="step-number">3</div>
+                    <h3>Ciclos</h3>
+                    <p>for, while, do-while. Automatizar tareas repetitivas eficientemente.</p>
+                    <div style="margin-top: 15px;">
+                        <button class="btn btn-sm btn-outline" onclick="openLogicModal('ciclos', 'Ciclos y Repeticiones')">
+                            <i class="fas fa-play"></i> Empezar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="path-step animate-fade-in">
+                    <div class="step-number">4</div>
+                    <h3>Funciones</h3>
+                    <p>Parámetros, retorno, reutilización de código. Organizar y modularizar.</p>
+                    <div style="margin-top: 15px;">
+                        <button class="btn btn-sm btn-outline" onclick="openLogicModal('funciones', 'Funciones y Modularización')">
+                            <i class="fas fa-play"></i> Empezar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="path-step animate-fade-in">
+                    <div class="step-number">5</div>
+                    <h3>Estructuras de Datos</h3>
+                    <p>Arreglos, listas, diccionarios. Manejar colecciones de información.</p>
+                    <div style="margin-top: 15px;">
+                        <button class="btn btn-sm btn-outline" onclick="openLogicModal('estructuras', 'Estructuras de Datos')">
+                            <i class="fas fa-play"></i> Empezar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="path-step animate-fade-in">
+                    <div class="step-number">6</div>
+                    <h3>Debugging</h3>
+                    <p>Errores comunes, técnicas de depuración, pensamiento crítico.</p>
+                    <div style="margin-top: 15px;">
+                        <button class="btn btn-sm btn-outline" onclick="openLogicModal('debugging', 'Debugging y Resolución de Problemas')">
+                            <i class="fas fa-play"></i> Empezar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn btn-primary btn-lg" onclick="openLogicModal('ruta_completa', 'Ruta Completa de Lógica')">
+                    <i class="fas fa-play-circle"></i> Comenzar mi ruta de lógica
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="generador" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>🎯 Generador de Ejercicios de Lógica</h2>
+                <p class="section-subtitle">
+                    Practicá con ejercicios reales adaptados a tu nivel
+                </p>
+            </div>
+            
+            <div class="exercise-generator">
+                <div class="generator-header">
+                    <h2>Elegí tu nivel:</h2>
+                    <div class="level-selector" id="levelSelector">
+                        <button class="level-btn active" data-level="beginner">
+                            <i class="fas fa-seedling"></i> Principiante
+                        </button>
+                        <button class="level-btn" data-level="intermediate">
+                            <i class="fas fa-chart-line"></i> Intermedio
+                        </button>
+                        <button class="level-btn" data-level="advanced">
+                            <i class="fas fa-rocket"></i> Avanzado
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="exercise-card">
+                    <div class="exercise-content active" id="exercise-beginner">
+                        <h3><i class="fas fa-seedling"></i> Ejercicio - Nivel Principiante</h3>
+                        <p><strong>Problema:</strong> Crea un programa que pida al usuario dos números y muestre cuál es el mayor de los dos.</p>
+                        
+                        <div class="exercise-hint">
+                            <i class="fas fa-lightbulb"></i> <strong>Pista:</strong> Usá condicionales (if/else) para comparar los números.
+                        </div>
+                        
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 25px;">
+                            <button class="btn btn-primary" onclick="openLogicModal('ejercicio_principiante', 'Ejercicio de Lógica - Principiante')">
+                                <i class="fas fa-graduation-cap"></i> Resolver en tutoría
+                            </button>
+                            <button class="btn btn-outline" onclick="generateNewExercise('beginner')">
+                                <i class="fas fa-redo"></i> Otro ejercicio similar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-content" id="exercise-intermediate">
+                        <h3><i class="fas fa-chart-line"></i> Ejercicio - Nivel Intermedio</h3>
+                        <p><strong>Problema:</strong> Escribe un programa que genere los primeros 20 números de la serie de Fibonacci y los almacene en un arreglo.</p>
+                        
+                        <div class="exercise-hint">
+                            <i class="fas fa-lightbulb"></i> <strong>Pista:</strong> Recordá que cada número es la suma de los dos anteriores. Empezá con [0, 1].
+                        </div>
+                        
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 25px;">
+                            <button class="btn btn-primary" onclick="openLogicModal('ejercicio_intermedio', 'Ejercicio de Lógica - Intermedio')">
+                                <i class="fas fa-graduation-cap"></i> Resolver en tutoría
+                            </button>
+                            <button class="btn btn-outline" onclick="generateNewExercise('intermediate')">
+                                <i class="fas fa-redo"></i> Otro ejercicio similar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-content" id="exercise-advanced">
+                        <h3><i class="fas fa-rocket"></i> Ejercicio - Nivel Avanzado</h3>
+                        <p><strong>Problema:</strong> Implementa una función que determine si una palabra o frase es un palíndromo (se lee igual al derecho y al revés).</p>
+                        
+                        <div class="exercise-hint">
+                            <i class="fas fa-lightbulb"></i> <strong>Pista:</strong> Considerá eliminar espacios y convertir a minúsculas antes de comparar.
+                        </div>
+                        
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 25px;">
+                            <button class="btn btn-primary" onclick="openLogicModal('ejercicio_avanzado', 'Ejercicio de Lógica - Avanzado')">
+                                <i class="fas fa-graduation-cap"></i> Resolver en tutoría
+                            </button>
+                            <button class="btn btn-outline" onclick="generateNewExercise('advanced')">
+                                <i class="fas fa-redo"></i> Otro ejercicio similar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <p style="color: var(--text-secondary);">
+                        <i class="fas fa-info-circle"></i> ¿Te gustaría más ejercicios personalizados para tu nivel exacto?
+                    </p>
+                    <button class="btn btn-secondary" onclick="openLogicModal('ejercicios_personalizados', 'Ejercicios Personalizados de Lógica')">
+                        <i class="fas fa-user-cog"></i> Ejercicios personalizados
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>💡 ¿Por qué aprender lógica primero?</h2>
+                <p class="section-subtitle">
+                    La lógica es la habilidad más transferible en programación
+                </p>
+            </div>
+            
+            <div class="learning-path">
+                <div class="path-step">
+                    <i class="fas fa-exchange-alt" style="font-size: 2rem; color: var(--primary); margin-bottom: 15px;"></i>
+                    <h3>Aplicable a cualquier lenguaje</h3>
+                    <p>La lógica que aprendés en Python sirve igual para JavaScript, Java, C# o cualquier otro lenguaje.</p>
+                </div>
+                
+                <div class="path-step">
+                    <i class="fas fa-brain" style="font-size: 2rem; color: var(--secondary); margin-bottom: 15px;"></i>
+                    <h3>Desarrollás pensamiento algorítmico</h3>
+                    <p>Aprendés a descomponer problemas complejos en pasos simples y resolubles.</p>
+                </div>
+                
+                <div class="path-step">
+                    <i class="fas fa-bolt" style="font-size: 2rem; color: var(--accent); margin-bottom: 15px;"></i>
+                    <h3>Aprendés más rápido</h3>
+                    <p>Con buena base de lógica, aprender nuevos lenguajes te toma la mitad del tiempo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="logic-highlight">
+        <div class="container">
+            <div class="highlight-content">
+                <h2>¿Listo para pensar como programador?</h2>
+                <p>
+                    La lógica es la habilidad más valiosa que podés desarrollar como programador. 
+                    No es sobre memorizar sintaxis, es sobre aprender a resolver problemas.
+                </p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px;">
+                    <button class="btn btn-light btn-lg" onclick="openLogicModal('consulta_logica', 'Consulta sobre Lógica')">
+                        <i class="fas fa-calendar-alt"></i> Comenzar con lógica
+                    </button>
+                    <a href="https://wa.me/50687138971" class="btn btn-outline-light btn-lg" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Consultar dudas
+                    </a>
+                </div>
+                
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+                    <small style="color: rgba(255, 255, 255, 0.8); display: block;">
+                        <i class="fas fa-clock"></i> Primera sesión de diagnóstico gratuita • 
+                        <i class="fas fa-shield-alt"></i> Ejercicios prácticos reales • 
+                        <i class="fas fa-chart-line"></i> Progreso medible
+                    </small>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div data-include="partials/footer.html"></div>
+    
+    <div class="modal" id="logicModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="logicModalTitle"><i class="fas fa-brain"></i> Tutoría de Lógica</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p id="logicModalDescription" style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Completa el formulario para agendar tu tutoría de lógica de programación.
+                </p>
+                
+                <form id="logicForm">
+                    <input type="hidden" id="selectedLogicTopic" name="logic_topic" value="">
+                    <input type="hidden" id="selectedLogicName" name="logic_name" value="">
+                    
+                    <input type="hidden" name="_subject" value="Solicitud de Tutoría de Lógica - Tutorías JR">
+                    <input type="hidden" name="_format" value="plain">
+                    <input type="text" name="_gotcha" style="display:none">
+                    
+                    <div class="form-group">
+                        <label for="logicName">
+                            <i class="fas fa-user"></i> Nombre completo
+                        </label>
+                        <input type="text" id="logicName" name="name" placeholder="Tu nombre completo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="logicEmail">
+                            <i class="fas fa-envelope"></i> Correo electrónico
+                        </label>
+                        <input type="email" id="logicEmail" name="email" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="logicPhone">
+                            <i class="fas fa-phone"></i> Teléfono / WhatsApp
+                        </label>
+                        <input type="tel" id="logicPhone" name="phone" placeholder="+506 0000 0000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="logicLevel">
+                            <i class="fas fa-chart-line"></i> Nivel actual de lógica
+                        </label>
+                        <select id="logicLevel" name="level" required>
+                            <option value="" disabled selected>Selecciona tu nivel</option>
+                            <option value="principiante">Principiante (sin experiencia)</option>
+                            <option value="basico">Básico (entiendo conceptos simples)</option>
+                            <option value="intermedio">Intermedio (resuelvo problemas básicos)</option>
+                            <option value="avanzado">Avanzado (busco optimizar mi lógica)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="logicLanguage">
+                            <i class="fas fa-code"></i> ¿Con qué lenguaje querés practicar?
+                        </label>
+                        <select id="logicLanguage" name="language" required>
+                            <option value="" disabled selected>Selecciona un lenguaje</option>
+                            <option value="cualquiera">No importa, quiero aprender lógica pura</option>
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="java">Java</option>
+                            <option value="csharp">C# .NET</option>
+                            <option value="pseudocodigo">Pseudocódigo / Diagramas de flujo</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="logicGoal">
+                            <i class="fas fa-bullseye"></i> ¿Cuál es tu objetivo principal?
+                        </label>
+                        <textarea id="logicGoal" name="goal" rows="3" placeholder="Ej: Aprender a resolver problemas, prepararme para la universidad, mejorar en entrevistas técnicas..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="logicMessage">
+                            <i class="fas fa-comment"></i> Información adicional
+                        </label>
+                        <textarea id="logicMessage" name="message" rows="4" placeholder="Describí qué ejercicios te cuestan, qué temas específicos querés aprender, etc..."></textarea>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Solicitar tutoría de lógica
+                        </button>
+                        <small style="color: var(--text-secondary); text-align: center; display: block; margin-top: 10px;">
+                            <i class="fas fa-lock"></i> Tus datos están seguros y nunca serán compartidos
+                        </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="exercisesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-cog"></i> Ejercicios Personalizados de Lógica</h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Contame sobre tus dificultades específicas y te preparo ejercicios personalizados 
+                    para superar exactamente esos obstáculos.
+                </p>
+                
+                <form id="exercisesForm">
+                    <input type="hidden" name="form_type" value="ejercicios_personalizados_logica">
+                    <input type="hidden" name="topic" value="Ejercicios Personalizados de Lógica">
+                    
+                    <input type="hidden" name="_subject" value="Ejercicios Personalizados de Lógica - Tutorías JR">
+                    <input type="hidden" name="_format" value="plain">
+                    <input type="text" name="_gotcha" style="display:none">
+                    
+                    <div class="form-group">
+                        <label for="exercisesName">
+                            <i class="fas fa-user"></i> Nombre completo
+                        </label>
+                        <input type="text" id="exercisesName" name="name" placeholder="Tu nombre completo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exercisesEmail">
+                            <i class="fas fa-envelope"></i> Correo electrónico
+                        </label>
+                        <input type="email" id="exercisesEmail" name="email" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exercisesPhone">
+                            <i class="fas fa-phone"></i> Teléfono / WhatsApp
+                        </label>
+                        <input type="tel" id="exercisesPhone" name="phone" placeholder="+506 0000 0000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exercisesDifficulty">
+                            <i class="fas fa-exclamation-triangle"></i> ¿Qué tipo de ejercicios se te dificultan?
+                        </label>
+                        <select id="exercisesDifficulty" name="difficulty" required>
+                            <option value="" disabled selected>Selecciona el área de dificultad</option>
+                            <option value="condicionales">Problemas con condicionales (if/else)</option>
+                            <option value="ciclos">Ejercicios con ciclos (for/while)</option>
+                            <option value="funciones">Organización con funciones</option>
+                            <option value="arreglos">Trabajo con arreglos y listas</option>
+                            <option value="algoritmos">Diseño de algoritmos complejos</option>
+                            <option value="debugging">Depuración y resolución de errores</option>
+                            <option value="todos">Todos los tipos de ejercicios</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exercisesExamples">
+                            <i class="fas fa-file-code"></i> ¿Podés darme ejemplos de ejercicios que no podés resolver?
+                        </label>
+                        <textarea id="exercisesExamples" name="examples" rows="3" placeholder="Si tenés ejemplos específicos, describilos brevemente..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exercisesGoal">
+                            <i class="fas fa-bullseye"></i> ¿Qué querés lograr con los ejercicios personalizados?
+                        </label>
+                        <textarea id="exercisesGoal" name="goal" rows="3" placeholder="Ej: Aprobar un examen, prepararme para una entrevista, mejorar mis habilidades..."></textarea>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Solicitar ejercicios personalizados
+                        </button>
+                        <small style="color: var(--text-secondary); text-align: center; display: block; margin-top: 10px;">
+                            <i class="fas fa-clock"></i> Te enviaré los ejercicios en menos de 24 horas
+                        </small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="whatsapp-float">
+        <a href="https://wa.me/50687138971" class="whatsapp-button" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span>¿Dudas de lógica?</span>
+        </a>
+    </div>
+    
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <div class="toast-container"></div>
+    
+    <script src="assets/js/app.js"></script>
+    
+    <script src="assets/js/formspree-service.js"></script>
+    
+    <script>
+        const LOGIC_CONFIG = {
+            fundamentos: {
+                title: "📚 Fundamentos de Lógica",
+                description: "Te guiaré desde cero en los conceptos básicos: variables, tipos de datos, operadores y entrada/salida. La base sólida que todo programador necesita."
+            },
+            condicionales: {
+                title: "🎯 Condicionales y Decisiones",
+                description: "Aprendé a tomar decisiones en tu código con if/else, switch y operadores lógicos. Ejercicios prácticos para dominar este concepto esencial."
+            },
+            ciclos: {
+                title: "🔄 Ciclos y Repeticiones",
+                description: "Domina los ciclos for, while y do-while para automatizar tareas repetitivas. Te muestro patrones comunes y cómo evitar errores típicos."
+            },
+            funciones: {
+                title: "⚙️ Funciones y Modularización",
+                description: "Organizá tu código de forma profesional con funciones. Parámetros, retorno, alcance y reutilización de código para proyectos más limpios."
+            },
+            estructuras: {
+                title: "📊 Estructuras de Datos",
+                description: "Aprendé a manejar colecciones de información con arreglos, listas y diccionarios. Ejercicios prácticos con estructuras de datos reales."
+            },
+            debugging: {
+                title: "🐛 Debugging y Resolución de Problemas",
+                description: "Convertite en experto encontrando y solucionando errores. Técnicas de depuración y pensamiento crítico para resolver cualquier problema."
+            },
+            ruta_completa: {
+                title: "🗺️ Ruta Completa de Lógica",
+                description: "Seguí un camino estructurado desde cero hasta dominar la lógica de programación. Sesiones personalizadas con progreso medible."
+            },
+            ejercicio_principiante: {
+                title: "🌱 Ejercicio de Lógica - Principiante",
+                description: "Resolvamos juntos este ejercicio de nivel principiante. Te guiaré paso a paso para que comprendas la solución y aprendas la lógica detrás."
+            },
+            ejercicio_intermedio: {
+                title: "📈 Ejercicio de Lógica - Intermedio",
+                description: "Trabajemos en este problema intermedio. Te ayudaré a descomponerlo y desarrollar un algoritmo eficiente para resolverlo."
+            },
+            ejercicio_avanzado: {
+                title: "🚀 Ejercicio de Lógica - Avanzado",
+                description: "Abordemos este desafío avanzado juntos. Analizaremos diferentes enfoques y optimizaremos la solución."
+            },
+            ejercicios_personalizados: {
+                title: "🎯 Ejercicios Personalizados de Lógica",
+                description: "Te preparo ejercicios específicos para tus necesidades exactas. Enfocamos en tus puntos débiles para convertirte en experto."
+            },
+            consulta_logica: {
+                title: "🤔 Consulta sobre Lógica",
+                description: "¿Tenés dudas específicas sobre algún concepto de lógica? Hablemos y resolvámoslas juntos con ejemplos prácticos."
+            },
+            general: {
+                title: "🧠 Lógica de Programación - Desde Cero",
+                description: "Aprendé a pensar como programador. Te guío desde los conceptos más básicos hasta resolver problemas complejos con lógica clara."
+            }
+        };
+        
+        function showMessage(message, type = 'info') {
+            console.log(`📢 ${type.toUpperCase()}: ${message}`);
+            
+            if (window.TutoriasJR && typeof window.TutoriasJR.showToast === 'function') {
+                window.TutoriasJR.showToast(message, type);
+                return;
+            }
+            
+            const toastContainer = document.querySelector('.toast-container');
+            if (toastContainer && type !== 'loading') {
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                        <span>${message}</span>
+                    </div>
+                    <button class="toast-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                toastContainer.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.remove();
+                }, 5000);
+                
+                toast.querySelector('.toast-close').addEventListener('click', () => {
+                    toast.remove();
+                });
+                
+                return;
+            }
+            
+            if (type === 'error') {
+                alert('❌ ' + message);
+            } else if (type === 'success') {
+                alert('✅ ' + message);
+            } else {
+                alert('ℹ️ ' + message);
+            }
+        }
+        
+        function openLogicModal(topicType, topicName) {
+            const topicConfig = LOGIC_CONFIG[topicType] || LOGIC_CONFIG.general;
+            
+            document.getElementById('logicModalTitle').innerHTML = 
+                `<i class="fas fa-brain"></i> ${topicConfig.title}`;
+            document.getElementById('logicModalDescription').textContent = topicConfig.description;
+            
+            document.getElementById('selectedLogicTopic').value = topicType;
+            document.getElementById('selectedLogicName').value = topicName;
+            
+            document.querySelector('#logicForm input[name="_subject"]').value = 
+                `Tutoría de Lógica: ${topicName} - Tutorías JR`;
+            
+            openModalSafe('logicModal');
+        }
+        
+        function openExercisesModal() {
+            openModalSafe('exercisesModal');
+        }
+        
+        function openModalSafe(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }, 10);
+            }
+        }
+        
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+        }
+        
+        function initModalCloseListeners() {
+            document.querySelectorAll('.modal-close').forEach(closeBtn => {
+                closeBtn.addEventListener('click', function() {
+                    const modal = this.closest('.modal');
+                    if (modal) {
+                        closeModal(modal.id);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal(this.id);
+                    }
+                });
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const activeModal = document.querySelector('.modal.active');
+                    if (activeModal) {
+                        closeModal(activeModal.id);
+                    }
+                }
+            });
+            
+            document.querySelectorAll('.modal-content').forEach(content => {
+                content.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+        }
+        
+        const exercisesDatabase = {
+            beginner: [
+                {
+                    problem: "Crea un programa que pida un número y determine si es par o impar.",
+                    hint: "Recordá usar el operador módulo (%) para verificar si un número es divisible por 2."
+                },
+                {
+                    problem: "Escribe un programa que convierta grados Celsius a Fahrenheit.",
+                    hint: "La fórmula es: F = (C × 9/5) + 32. Cuidado con la precedencia de operadores."
+                },
+                {
+                    problem: "Crea un programa que calcule el área de un rectángulo pidiendo base y altura.",
+                    hint: "Área = base × altura. Verificá que los valores sean positivos."
+                },
+                {
+                    problem: "Escribe un programa que determine si un año es bisiesto o no.",
+                    hint: "Un año es bisiesto si es divisible por 4, pero no por 100, a menos que también sea divisible por 400."
+                },
+                {
+                    problem: "Crea una calculadora simple que sume, reste, multiplique y divida dos números.",
+                    hint: "Podés usar un menú con opciones para que el usuario elija la operación."
+                }
+            ],
+            intermediate: [
+                {
+                    problem: "Implementa una función que invierta una cadena de texto sin usar métodos built-in.",
+                    hint: "Podés recorrer la cadena desde el final hasta el principio y construir una nueva cadena."
+                },
+                {
+                    problem: "Crea un programa que encuentre todos los números primos hasta un límite dado.",
+                    hint: "Usá el algoritmo de la criba de Eratóstenes para una solución eficiente."
+                },
+                {
+                    problem: "Escribe una función que ordene un arreglo de números usando el método de burbuja.",
+                    hint: "Compará elementos adyacentes e intercambiálos si están en el orden incorrecto."
+                },
+                {
+                    problem: "Implementa un programa que simule el juego de Piedra, Papel o Tijeras.",
+                    hint: "Usá números aleatorios para la computadora y compará las elecciones con condicionales."
+                },
+                {
+                    problem: "Crea una función que cuente la frecuencia de cada carácter en una cadena.",
+                    hint: "Usá un diccionario para almacenar los caracteres como claves y las frecuencias como valores."
+                }
+            ],
+            advanced: [
+                {
+                    problem: "Implementa el algoritmo de búsqueda binaria para encontrar un elemento en un arreglo ordenado.",
+                    hint: "Dividí el arreglo a la mitad en cada iteración hasta encontrar el elemento o agotar las opciones."
+                },
+                {
+                    problem: "Crea una función que resuelva el problema de las Torres de Hanoi recursivamente.",
+                    hint: "El caso base es mover un solo disco. Para más discos, mové n-1 discos, luego el disco grande, luego los n-1."
+                },
+                {
+                    problem: "Implementa una función que valide si una expresión matemática tiene paréntesis balanceados.",
+                    hint: "Usá una pila (stack) para rastrear los paréntesis abiertos."
+                },
+                {
+                    problem: "Escribe un programa que encuentre el camino más corto en un laberinto simple.",
+                    hint: "Podés usar el algoritmo de búsqueda en amplitud (BFS) para encontrar el camino más corto."
+                },
+                {
+                    problem: "Implementa una función que realice la compresión RLE (Run-Length Encoding) de una cadena.",
+                    hint: "Recorré la cadena y contá secuencias de caracteres iguales consecutivos."
+                }
+            ]
+        };
+        
+        async function loadIncludes() {
+            const includes = document.querySelectorAll('[data-include]');
+            
+            for (const element of includes) {
+                try {
+                    const file = element.getAttribute('data-include');
+                    const response = await fetch(file);
+                    
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    
+                    const html = await response.text();
+                    element.innerHTML = html;
+                    element.removeAttribute('data-include');
+                    
+                } catch (error) {
+                    console.error(`Error cargando ${element.getAttribute('data-include')}:`, error);
+                    element.innerHTML = `
+                        <div style="background: #fef2f2; border: 2px dashed #dc2626; padding: 20px; border-radius: 8px; text-align: center;">
+                            <i class="fas fa-exclamation-triangle" style="color: #dc2626; font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p style="color: #7f1d1d; margin: 0;">
+                                Error cargando componente. Por favor recarga la página.
+                            </p>
+                        </div>
+                    `;
+                }
+            }
+            
+            setTimeout(() => {
+                if (window.TutoriasJR && typeof window.TutoriasJR.init === 'function') {
+                    window.TutoriasJR.init();
+                    
+                    const pathSteps = document.querySelectorAll('.path-step');
+                    pathSteps.forEach((step, index) => {
+                        setTimeout(() => {
+                            step.classList.add('animate-fade-in');
+                        }, index * 150);
+                    });
+                    
+                    initializeExerciseGenerator();
+                    
+                    initModalCloseListeners();
+                    
+                    initializeLogicForms();
+                }
+            }, 500);
+        }
+        
+        function initializeExerciseGenerator() {
+            const levelBtns = document.querySelectorAll('.level-btn');
+            const exerciseContents = document.querySelectorAll('.exercise-content');
+            
+            levelBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    levelBtns.forEach(b => b.classList.remove('active'));
+                    exerciseContents.forEach(c => c.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    
+                    const level = this.getAttribute('data-level');
+                    const exerciseElement = document.getElementById(`exercise-${level}`);
+                    if (exerciseElement) {
+                        exerciseElement.classList.add('active');
+                    }
+                });
+            });
+        }
+        
+        function generateNewExercise(level) {
+            const exercises = exercisesDatabase[level];
+            if (!exercises || exercises.length === 0) return;
+            
+            const randomIndex = Math.floor(Math.random() * exercises.length);
+            const exercise = exercises[randomIndex];
+            const exerciseElement = document.getElementById(`exercise-${level}`);
+            
+            if (exerciseElement) {
+                const problemElement = exerciseElement.querySelector('p');
+                if (problemElement) {
+                    problemElement.innerHTML = `<strong>Problema:</strong> ${exercise.problem}`;
+                }
+                
+                const hintElement = exerciseElement.querySelector('.exercise-hint');
+                if (hintElement) {
+                    hintElement.innerHTML = `<i class="fas fa-lightbulb"></i> <strong>Pista:</strong> ${exercise.hint}`;
+                }
+                
+                showMessage('¡Nuevo ejercicio generado!', 'success');
+            }
+        }
+        
+        function initializeLogicForms() {
+            console.log('🔄 Inicializando formularios de lógica...');
+            
+            if (!window.FormspreeService) {
+                console.error('❌ FormspreeService no disponible');
+                return;
+            }
+            
+            const logicForm = document.getElementById('logicForm');
+            if (logicForm) {
+                console.log('✅ Logic form encontrado');
+                
+                logicForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    if (!window.FormspreeService.validateForm(this)) {
+                        showMessage('Por favor completa todos los campos correctamente.', 'error');
+                        return;
+                    }
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    window.FormspreeService.setButtonState(submitBtn, true);
+                    
+                    const formData = new FormData(this);
+                    
+                    formData.append('page', 'logica');
+                    formData.append('topic_type', document.getElementById('selectedLogicTopic').value);
+                    formData.append('topic_name', document.getElementById('selectedLogicName').value);
+                    
+                    try {
+                        console.log('📤 Enviando formulario de lógica...');
+                        const result = await window.FormspreeService.sendForm(formData, 'logica');
+                        
+                        if (result.success) {
+                            showMessage('¡Solicitud enviada! Te contactaré pronto con ejercicios personalizados.', 'success');
+                            
+                            this.reset();
+                            
+                            setTimeout(() => {
+                                closeModal('logicModal');
+                            }, 2000);
+                        } else {
+                            showMessage(result.message, 'error');
+                        }
+                    } catch (error) {
+                        console.error('❌ Error en el envío:', error);
+                        showMessage('Error al enviar. Intenta de nuevo.', 'error');
+                    } finally {
+                        window.FormspreeService.setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+            
+            const exercisesForm = document.getElementById('exercisesForm');
+            if (exercisesForm) {
+                console.log('✅ Exercises form encontrado');
+                
+                exercisesForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    if (!window.FormspreeService.validateForm(this)) {
+                        showMessage('Por favor completa todos los campos correctamente.', 'error');
+                        return;
+                    }
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    window.FormspreeService.setButtonState(submitBtn, true);
+                    
+                    const formData = new FormData(this);
+                    
+                    formData.append('page', 'logica');
+                    formData.append('form_type', 'ejercicios_personalizados');
+                    
+                    try {
+                        console.log('📤 Enviando formulario de ejercicios personalizados...');
+                        const result = await window.FormspreeService.sendForm(formData, 'ejercicios_logica');
+                        
+                        if (result.success) {
+                            showMessage('¡Solicitud enviada! Te enviaré ejercicios personalizados en menos de 24 horas.', 'success');
+                            
+                            this.reset();
+                            
+                            setTimeout(() => {
+                                closeModal('exercisesModal');
+                            }, 2000);
+                        } else {
+                            showMessage(result.message, 'error');
+                        }
+                    } catch (error) {
+                        console.error('❌ Error en el envío:', error);
+                        showMessage('Error al enviar. Intenta de nuevo.', 'error');
+                    } finally {
+                        window.FormspreeService.setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+            
+            console.log('✅ Formularios de lógica inicializados');
+        }
+        
+        window.openLogicModal = openLogicModal;
+        window.openExercisesModal = openExercisesModal;
+        window.generateNewExercise = generateNewExercise;
+        window.showMessage = showMessage;
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadIncludes);
+        } else {
+            loadIncludes();
+        }
+    </script>
+</body>
+</html>
